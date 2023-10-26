@@ -1,0 +1,63 @@
+/* Footer container styles */
+.footer {
+    background-color: #333;
+    color: #fff;
+    padding: 40px 0;
+  }
+  
+  /* Contact information styles */
+  .footer h5 {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+  }
+  
+  .footer p {
+    font-size: 1rem;
+  }
+  
+  .footer a {
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  /* Quick Links styles */
+  .list-unstyled li {
+    margin-bottom: 10px;
+  }
+  
+  /* Social icons styles */
+  .social-icons {
+    margin-top: 20px;
+  }
+  
+  .icon {
+    display: inline-block;
+    margin-right: 10px;
+    font-size: 1.5rem;
+    color: #fff;
+  }
+  
+  /* Footer bottom styles */
+  .footer-bottom {
+    background-color: #222;
+    padding: 10px 0;
+  }
+  
+  .footer-bottom p {
+    margin: 0;
+  }
+  
+  /* List of Terms and Sitemap */
+  .list-inline-item a {
+    color: #fff;
+    text-decoration: none;
+    margin-right: 10px;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 767px) {
+    .footer h5 {
+      font-size: 1rem;
+    }
+  }
+  

@@ -1,0 +1,118 @@
+/* UniqueRestaurantMenuManagement.css */
+.unique-restaurant-menu-container {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  width: 1500px; /* Make it full width */
+  box-sizing: border-box; /* Include padding in the full width */
+  display: block; /* Ensure it's a block-level element */
+  margin: 0; /* Remove any margin */
+}
+
+.unique-restaurant-menu-container h1 {
+  font-size: 24px;
+  margin: 20px 0;
+}
+
+.unique-form-container {
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #f4f4f4;
+  border-radius: 5px;
+}
+
+.unique-form-container h2 {
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+.unique-file-input-label {
+  display: block;
+  margin-top: 10px;
+}
+
+.unique-file-input {
+  display: none;
+}
+
+.unique-file-input-label::before {
+  content: 'Upload File';
+  display: inline-block;
+  background-color: #007bff;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.unique-action-button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+  margin-top: 10px;
+}
+
+.unique-action-button:hover {
+  background-color: #0056b3;
+}
+
+.unique-form-container select,
+.unique-form-container input {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+}
+
+.unique-category-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.unique-category {
+  background-color: #ffffff;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.unique-category img {
+  max-width: 100%;
+  height: auto;
+}
+
+.unique-category-header {
+  font-size: 1.25rem;
+  padding: 15px;
+}
+
+.unique-category-content {
+  padding: 15px;
+}
+
+.unique-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.unique-item img {
+  max-width: 100px;
+  max-height: 100px;
+  margin-right: 10px;
+  border-radius: 5px;
+}
+
+.unique-item-content {
+  flex: 1;
+}
+
+.unique-item-content p {
+  font-size: 1rem;
+  margin: 5px 0;
+}

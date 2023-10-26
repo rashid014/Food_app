@@ -1,0 +1,99 @@
+/* Navbar styles */
+.Unique4-navbar {
+  background-color: #333;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Navbar brand styles */
+.Unique4-navbar-brand {
+  display: flex;
+  align-items: center;
+}
+
+.Unique4-brand-logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.Unique4-brand-name {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* Navigation list styles */
+.Unique4-nav-list {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  color: #890909;
+}
+
+/* Navigation link styles */
+.Unique4-nav-link {
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+  padding: 10px 15px;
+  border-radius: 4px;
+  background-color: #333;
+  transition: background-color 0.3s;
+  width: 120px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Logout button styles */
+.Unique4-nav-button-container {
+  display: flex;
+  gap: 10px;
+}
+
+.Unique4-nav-button {
+  background-color: #f00b0b;
+  color: #890909;
+  border: none;
+  flex: 1;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.Unique4-nav-button:hover {
+  background-color: #fdf3f3;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .Unique4-navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
+  }
+
+  .Unique4-nav-list {
+    margin-top: 10px;
+    gap: 10px;
+  }
+
+  .Unique4-nav-link,
+  .Unique4-nav-button {
+    padding: 8px 12px;
+  }
+
+  .Unique4-brand-name {
+    font-size: 20px;
+  }
+
+  .Unique4-brand-id {
+    font-size: 14px;
+  }
+}

@@ -1,0 +1,71 @@
+/* Apply styles to the main container */
+.order-container {
+  margin: 20px auto;
+  max-width: 900px; /* Limit the maximum width of the container */
+  padding: 20px;
+}
+
+/* Style for the card */
+.card {
+  margin: 10px;
+}
+
+/* Style for the card header */
+.card-header {
+  background-color: #f8f9fa; /* Light gray background for card header */
+}
+
+/* Style for the card body */
+.card-body {
+  background-color: #ffffff; /* White background for card body */
+  padding: 20px;
+  border: 1px solid #e1e1e1; /* Light gray border */
+  border-radius: 5px;
+}
+
+/* Center align text */
+.text-center {
+  text-align: center;
+}
+
+/* Margin for buttons */
+.back-button {
+  margin-right: 10px;
+}
+
+.cancel-order-button {
+  text-align: right;
+  margin-top: 10px;
+  margin-right: 10px;
+}
+
+/* Style for the card top */
+.card-top {
+  background-color: #f8f9fa;
+  padding: 20px; /* Increase the padding to make it taller */
+  border-radius: 5px;
+  width: 500px;
+}
+
+/* Style for the card header */
+.card-header {
+  font-size: 20px; /* Increase the font size */
+  font-weight: bold; /* Make the header text bold */
+}
+
+/* Text color for canceled orders */
+.text-danger {
+  color: red;
+}
+/* Style for the small "Cancel Order" button */
+/* Style for the small "Cancel Order" button container */
+.small-cancel-order-button-container {
+  text-align: right;
+  margin-top: 10px;
+  margin-right: 10px;
+}
+
+/* Style for the small "Cancel Order" button */
+.small-cancel-order-button {
+  font-size: 12px;
+}

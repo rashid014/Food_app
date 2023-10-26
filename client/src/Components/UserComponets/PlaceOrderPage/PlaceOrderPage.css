@@ -1,0 +1,137 @@
+/* Style for CheckoutPage Container */
+.unique3-container {
+  margin-top: 0;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  width: 1500px;
+  overflow-y: hidden;
+}
+.card-header{
+  font-size: 24px;
+}
+.h1{
+  font-size: 10px;
+}
+/* Style for Cart Header */
+.unique3-cart-header {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+/* Style for Empty Cart Message */
+.unique3-empty-cart {
+  font-size: 18px;
+  color: #888;
+}
+
+/* Style for Restaurant Name */
+.unique3-restaurant-name {
+  font-size: 18px;
+  margin-top: 20px;
+}
+
+/* Style for User Details Form */
+.unique3-form {
+  margin-top: 20px;
+}
+
+/* Style for Form Labels */
+.unique3-form-label {
+  font-weight: bold;
+}
+
+/* Style for Order Details Section */
+.unique3-order-details {
+  margin-top: 20px;
+  border-top: 1px solid #ddd;
+  padding-top: 10px;
+}
+
+/* Style for Order Detail Items */
+.unique3-order-detail {
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+  margin-bottom: 10px;
+  overflow-y: hidden;
+}
+
+/* Style for Total Order Amount */
+.unique3-order-detail.total {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+/* Style for Payment Method Selection */
+.unique3-form-select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-top: 20px;
+}
+
+/* Style for Place Order Button */
+.unique3-place-order-button {
+  background-color: #007bff;
+  color: #fff;
+  font-size: 18px;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+.unique3-place-order-button:hover {
+  background-color: #0056b3;
+}
+
+/* Add these styles for the checkout labels */
+.unique3-checkout-label {
+  font-weight: bold;
+  font-size: 24px; /* Adjust the font size as needed */
+  color: #333; /* Text color */
+}
+
+.unique3-checkout-value {
+  font-size: 20px; /* Adjust the font size as needed */
+  color: #007bff; /* Value color (e.g., blue) */
+}
+
+/* Add margin to space out the labels and values */
+.unique3-checkout-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px; /* Adjust the margin as needed */
+  border-bottom: 1px solid #ddd; /* Add a separator line */
+  padding-bottom: 10px; /* Add space between items and the separator */
+}
+
+/* Style the Total label differently */
+.unique3-checkout-item.total {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+/* Media Query for Responsive Design */
+@media (max-width: 768px) {
+  /* Adjust styling for smaller screens if needed */
+  .unique3-container {
+    padding: 10px;
+  }
+  .unique3-cart-header {
+    font-size: 20px;
+  }
+  .unique3-order-detail {
+    font-size: 14px;
+  }
+  .unique3-order-detail.total {
+    font-size: 16px;
+  }
+}

@@ -1,0 +1,67 @@
+/* Header Container Styles */
+.custom-header-container1 {
+  background-color: #000000; /* Background color for the header container */
+  padding: 0px 0; /* Adjust the padding as needed */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Add a subtle shadow if desired */
+}
+
+/* Navbar Styles */
+.navbar {
+  background-color: transparent; /* Transparent background for the navbar */
+}
+
+.navbar-brand {
+  color: rgb(231, 12, 12); /* Text color for the brand/logo */
+}
+
+/* User Logo Styles */
+.userLogo {
+  width: 30px; /* Adjust the width of the user logo as needed */
+}
+
+/* Navbar Links Styles */
+.navbar-nav .nav-link {
+  color: rgb(227, 17, 17); /* Text color for the navbar links */
+  text-decoration: none; /* Remove underline from links */
+  margin-right: 20px; /* Spacing between links */
+  font-size: 16px; /* Font size for links */
+}
+
+/* Navbar Username Styles */
+.navUserName {
+  color: white; /* Text color for the username */
+  margin-left: 10px; /* Spacing from the user logo */
+  margin-top: 10px; /* Spacing from the top */
+}
+
+/* Logout Button Styles */
+.userLogoutButton {
+  background-color: #dc3545; /* Red color for the logout button */
+  color: white; /* Text color for the button */
+  border: none; /* Remove button border */
+  margin-left: 20px; /* Spacing from the username */
+  font-size: 16px; /* Font size for the button */
+  cursor: pointer; /* Add pointer cursor on hover */
+}
+
+/* Logout Button Hover Styles */
+.userLogoutButton:hover {
+  background-color: #c82333; /* Darker red color on hover */
+}
+
+/* User Image Container Styles */
+.user-image-container {
+  display: flex; /* Display user image and username in a row */
+  align-items: center; /* Vertically center content */
+}
+
+/* Adjustments for Smaller Screens (Optional) */
+@media (max-width: 768px) {
+  .navbar-nav .nav-link {
+    margin-right: 10px; /* Reduce spacing for smaller screens */
+  }
+
+  .userLogoutButton {
+    margin-left: 10px; /* Reduce spacing for smaller screens */
+  }
+}

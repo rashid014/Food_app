@@ -1,0 +1,109 @@
+/* Cart.css */
+
+/* CartPage container */
+.container {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  max-width: 1500px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Align the entire container and its content to the top */
+  height: 600px; /* Set a fixed height for the container */
+  overflow-y: auto; /* Add a vertical scrollbar if the content overflows */
+}
+
+
+/* Cart header */
+.cart-header {
+  font-size: 1.5rem;
+  align-self: flex-start; 
+ 
+  padding-top: 10px;
+}
+
+/* Loading message */
+.empty-cart {
+  font-size: 1.2rem;
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* Cart items */
+.cart-item {
+  padding: 10px;
+  background-color: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  margin-top:10px; 
+  margin-bottom: 10px;
+  width: 100%; /* Ensure items take full width */
+}
+
+.cart-item .col {
+  
+  display: flex;
+  align-items: center;
+  
+  
+}
+
+.cart-item .col:nth-child(1) {
+ 
+  flex: 2;
+  font-size: 1.2rem;
+}
+
+.cart-item .col:nth-child(2) {
+
+  flex: 1;
+  font-size: 1.2rem;
+}
+
+.cart-item .col:nth-child(3) {
+  flex: 2;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.2rem;
+}
+
+.cart-item .col:nth-child(4) {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Quantity buttons */
+.btn-outline-primary {
+  background-color: transparent;
+  border-color: #007bff;
+  color: #007bff;
+}
+
+.btn-outline-primary:hover {
+  background-color: #007bff;
+  color: #fff;
+}
+
+/* Remove button */
+.btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+  color: #fff;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+  border-color: #bd2130;
+}
+
+/* Cart total */
+.cart-total {
+  font-size: 1.5rem;
+  text-align: end;
+  margin-top: 20px;
+  font-weight: bold;
+}

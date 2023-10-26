@@ -1,0 +1,196 @@
+/* Unique1RestaurantOwnerHomePage.css */
+
+/* Reset some default styles */
+
+/* Define styles for the main container */
+.unique1-restaurant-owner-homepage {
+  font-family: Arial, sans-serif;
+  background-color: #f7f7f7;
+  color: #333;
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* Styling for the hero section */
+.unique1-hero {
+  background-image: url('https://wallpapercave.com/wp/wp4289147.jpg'); /* Add your background image */
+  background-size: cover;
+  color: #fff;
+  width: 100%;
+}
+
+.unique1-hero h1 {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+/* Styling for the category sidebar */
+.unique1-category-sidebar {
+  background-color: #f2f2f2;
+  padding: 10px;
+  width: 200px;
+}
+
+.unique1-category-sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.unique1-category-sidebar li {
+  margin-bottom: 10px;
+}
+
+/* Styling for the category container */
+.unique1-category-container {
+  width: calc(100% - 220px); /* Adjust this value based on the width of your sidebar */
+  padding-left: 20px;
+}
+
+/* Styling for the category */
+.unique1-category {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+.unique1-category-header {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+/* Styling for the category content */
+.unique1-category-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+/* Styling for the item */
+.unique1-item {
+  width: calc(33.33% - 20px);
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  transition: transform 0.2s ease-in-out;
+}
+
+
+
+.unique1-item img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.unique1-item-content p {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+/* Styling for the delete item button */
+.unique1-delete-item-button {
+  background-color: #ff4545;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+  margin-top: 10px;
+}
+
+.unique1-delete-item-button:hover {
+  background-color: #ff0000;
+}
+
+/* Styling for the commission plans section */
+.unique1-commission-plans {
+  background-color: #fff;
+  padding: 40px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+.unique1-commission-plans h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+/* Styling for the facilities and features section */
+.unique1-facilities-and-features {
+  background-color: #f7f7f7;
+  padding: 40px;
+  margin-top: 20px;
+}
+
+.unique1-facilities-features-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+/* Styling for the feature */
+.unique1-feature {
+  width: calc(33.33% - 20px);
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  transition: transform 0.2s ease-in-out;
+}
+
+.unique1-feature:hover {
+  transform: translateY(-5px);
+}
+
+.unique1-feature-icon {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.unique1-feature-text h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  
+}
+
+/* Styling for the get started section */
+.unique1-get-started {
+  background-color: #fff;
+  padding: 40px;
+  margin-top: 20px;
+}
+
+.unique1-get-started-content {
+  text-align: center;
+}
+
+.unique1-get-started h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.unique1-get-started-button {
+  background-color: #ff5722; /* Customize the button color */
+  color: #fff;
+  font-size: 16px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+ 
+}
+
+.unique1-get-started-button:hover {
+  background-color: #e64a19; /* Customize the button hover color */
+ 
+}

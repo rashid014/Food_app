@@ -1,0 +1,76 @@
+.admin-login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-image: linear-gradient(to bottom, #ffffff, #f2f5f8);
+}
+
+.admin-login-card {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 350px;
+  text-align: center;
+}
+
+.admin-login-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333333;
+  margin-bottom: 20px;
+}
+
+.admin-input-fields {
+  margin-bottom: 20px;
+}
+
+.admin-input-box {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: #f8f8f8;
+}
+
+.admin-input-box::placeholder {
+  color: #999999;
+}
+
+.admin-login-btn {
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  padding: 12px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.admin-login-btn:hover {
+  background-color: #0056b3;
+}
+
+.admin-login-card p {
+  margin: 0;
+  font-size: 14px;
+  color: #555555;
+}
+
+.social-links {
+  margin-top: 20px;
+}
+
+.social-link {
+  color: #333333;
+  text-decoration: none;
+  font-size: 18px;
+  margin-right: 10px;
+}
+
+.social-link:hover {
+  color: #007bff;
+}

@@ -1,0 +1,85 @@
+/* KycAuthentication.module.css */
+
+/* Container Styles */
+.kyc-container {
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+}
+
+/* Heading Styles */
+.kyc-heading {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Table Styles */
+.kyc-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.kyc-table th,
+.kyc-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+.kyc-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+/* Validation Status Styles */
+.validation-status {
+  font-weight: bold;
+  color: green;
+}
+
+/* Validate Button Styles */
+.validate-btn {
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.validate-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Approve and Reject Button Styles */
+.approve-btn,
+.reject-btn {
+  padding: 5px 10px;
+  margin-right: 5px;
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.reject-btn {
+  background-color: #dc3545;
+}
+
+.approve-btn:hover,
+.reject-btn:hover {
+  background-color: #1e7e34;
+}
+
+.approved-status {
+  color: green; /* Color for approved status */
+}
+
+.rejected-status {
+  color: red; /* Color for rejected status */
+}

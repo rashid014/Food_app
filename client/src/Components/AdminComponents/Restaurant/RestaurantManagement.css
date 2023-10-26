@@ -1,0 +1,54 @@
+/* RestaurantManagement.css */
+
+/* Container styling */
+.restaurant-management-container {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Table styling */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  th, td {
+    padding: 8px 12px;
+    text-align: left;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+  
+  /* Table rows alternating background color */
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  /* Button styling */
+  button {
+    padding: 5px 10px;
+    cursor: pointer;
+    border: none;
+    border-radius: 3px;
+  }
+  
+  /* Block button style */
+  .block-button {
+    background-color: #e74c3c;
+    color: #fff;
+  }
+  
+  /* Unblock button style */
+  .unblock-button {
+    background-color: #2ecc71;
+    color: #fff;
+  }
+  
