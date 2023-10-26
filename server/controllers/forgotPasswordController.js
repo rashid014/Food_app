@@ -7,7 +7,6 @@ const bcrypt = require('bcrypt');
 
 
 
-
 // Create a nodemailer transporter with your email service credentials
 const transporter = nodemailer.createTransport({
   service: 'gmail', // e.g., 'Gmail', 'Outlook'
