@@ -5,12 +5,14 @@ import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import Header from '../Home/Header';
-import CustomMarker from './CustomMarker';
+import RestaurantMarker from './RestaurantMarker';
+import HomeMarker from './HomeMarker'
 import Geocoder from 'react-map-gl-geocoder';
-import MapGL, { Marker, FlyToInterpolator, NavigationControl } from 'react-map-gl'; // Include FlyToInterpolator and NavigationControl
+import MapGL, { Marker, FlyToInterpolator, NavigationControl,Source, Layer , Feature} from 'react-map-gl'; // Include FlyToInterpolator and NavigationControl
 import MapboxDirections from '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import mapboxgl from 'mapbox-gl';
+import turf from '@turf/turf';
 
 
 mapboxgl.accessToken="pk.eyJ1IjoicmFzaGlkMDAxNCIsImEiOiJjbG80OWd6dnowYjdjMmpwMDVmM3FwcHltIn0.QbxE40btQ7RKkBDqdANVDw"
@@ -155,8 +157,8 @@ const OrderSuccessPage = () => {
   };
 
   const DestinationLocation = {
-    latitude:  9.3193, 
-    longitude:  76.7889, 
+    latitude: 8.4676, 
+    longitude:  76.9386 ,
   };
   useEffect(() => {
     const map = new mapboxgl.Map({
@@ -172,7 +174,7 @@ const OrderSuccessPage = () => {
     });
 
     map.addControl(directions, 'top-left');
-
+  
     // Set the origin and destination for routing
     directions.setOrigin([currentLocation.longitude, currentLocation.latitude]);
     directions.setDestination([DestinationLocation.longitude, DestinationLocation.latitude]);
@@ -427,20 +429,65 @@ return (
                               longitude={currentLocation.longitude}
                             >
                            
-                              <CustomMarker />
+                              <RestaurantMarker />
                             </Marker>
                             <Marker
                               latitude={DestinationLocation.latitude}
                               longitude={DestinationLocation.longitude}
                            
-                            >    <CustomMarker />
+                            >   
+                               <HomeMarker /> 
                             </Marker>
+                            <div className="route-line">
+                            <svg
+                              width="100%"
+                              height="100%"
+                              style={{ position: 'absolute', pointerEvents: 'none' }}
+                            >
+                              <path
+                                d={`M${currentLocation.longitude},${currentLocation.latitude} L${DestinationLocation.longitude},${DestinationLocation.latitude}`}
+                                fill="none"
+                                stroke="#FF0000"
+                                strokeWidth={2}
+                                strokeDasharray="4,4" // Use strokeDasharray to create a dotted line (4 pixels on, 4 pixels off)
+                              />
+                            </svg>
+                          </div>
+
                             
                             <p style={{ fontWeight: 'bold', color: '#000',fontSize: '24px' ,color: '#8B0000' }}>
                             Distance from Restaurant to Your Location: {distance}
                           </p>
                           <p style={{ fontWeight: 'bold', color: '#000',fontSize: '20px' ,color: '#8B0000' }}>
                             Your order will be delivered in {estimatedTimeMinutes.toFixed(0)} minutes</p>
+                            <Source id="route" type="geojson" data={{
+                              type: 'Feature',
+                              properties: {},
+                              geometry: {
+                                type: 'LineString',
+                                coordinates: [
+                                  [currentLocation.longitude, currentLocation.latitude],
+                                  [DestinationLocation.longitude, DestinationLocation.latitude],
+                                ],
+                              },
+                            }}>
+                              <Layer
+                                id="route"
+                                type="line"
+                                source="route"
+                                layout={{
+                                  'line-join': 'round',
+                                  'line-cap': 'round',
+                                }}
+                                paint={{
+                                  'line-color': '#FF0000',
+                                  'line-width': 2,
+                                  'line-dasharray': [2, 2], // Adjust this for your desired dash pattern
+                                }}
+                              />
+                            </Source>
+
+
                        </MapGL>
                         
                       </div>

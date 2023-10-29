@@ -30,6 +30,6 @@ router.get('/api/orders/:orderId', getOrderDetails);
 router.put('/update/name', updateName);
 router.put('/update/email', updateEmail);
 router.post('/api/placeOrder', placeOrder);
-router.post('/api/razor',createRazorpayOrder)
+
 
 module.exports = router;

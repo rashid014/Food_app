@@ -346,6 +346,37 @@ exports.deleteItem = async (req, res) => {
   }
 };
 
+exports.updateItem = async (req, res) => {
+  try {
+    const { restaurantId, categoryId, itemId } = req.params;
+    const editedItemData = req.body; // This should contain the edited data
+
+    // Check if an image was uploaded
+    if (req.file) {
+      const imagePath = `/uploads/${req.file.filename}`;
+      editedItemData.image = imagePath; // Set the image path from the uploaded file
+    }
+
+    // Find the item by its IDs and update it
+    const updatedItem = await Item.findOneAndUpdate(
+      { restaurantId, categoryId, _id: itemId },
+      editedItemData,
+      { new: true } // To get the updated item as a response
+    );
+
+    if (!updatedItem) {
+      return res.status(404).json({ message: 'Item not found' });
+    }
+
+    // Return the updated item as a response
+    res.status(200).json(updatedItem);
+  } catch (error) {
+    console.error('Error updating item:', error);
+    res.status(500).json({ message: 'An error occurred while updating the item' });
+  }
+};
+
+
  
 
 

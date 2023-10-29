@@ -6,7 +6,7 @@ const Order=require('../model/Order')
 
 
 
-// Get all items
+
 
 exports.getAllCartItems = async (req, res) => {
   try {
@@ -297,4 +297,36 @@ exports.cancelOrder = async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 };
+
+
+exports.removeEntireItems = async (req, res) => {
+  try {
+    const token = req.headers.authorization; // Extract the token from the Authorization header
+
+    if (!token) {
+      return res.status(401).json({ message: 'Unauthorized' });
+    }
+
+    // Verify and decode the token to get the user's information
+    const decodedToken = jwt.verify(token, 'secret123');
+    const userId = decodedToken.id;
+
+    // Use Mongoose to remove all cart items for the user
+    await User.updateOne({ _id: userId }, { $set: { cart: [] }});
+
+    // Fetch the updated user data
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.json({ message: 'All items removed from cart', updatedCart: user.cart });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+
 

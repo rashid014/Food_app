@@ -10,6 +10,6 @@ router.post('/cart/removeall', cartControllers.removeItem);
 router.post('/cart/update', cartControllers.updateCartItemQuantity);
 router.get('/orders/:orderId', cartControllers.getOrderDetails);
 router.delete('/orders/:orderId', cartControllers.cancelOrder);
-
+router.post('/orders/deletemany',cartControllers.removeEntireItems)
 
 module.exports = router;

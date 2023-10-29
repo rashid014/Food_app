@@ -10,6 +10,18 @@
   margin: 10px;
 }
 
+.mapbox-directions-route {
+  fill: none;
+  stroke: #000;
+  stroke-width: 2;
+  stroke-dasharray: 4;
+}
+
+/* Optional: Customize the line's color when selected */
+.mapbox-directions-route.mapbox-directions-selected {
+  stroke: #00f;
+}
+
 /* Style for the card header */
 .card-header {
   background-color: #f8f9fa; /* Light gray background for card header */

@@ -5,7 +5,7 @@ import RestaurantHeader from '../RestaurantHeader/RestaurantHeader';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { setCategoryId } from '../../../Redux/categoryIdSlice';
-import { setItemId } from '../../../Redux/itemsSlice';
+import { setItemId ,updateItemDetails} from '../../../Redux/itemsSlice';
 
 const UniqueRestaurantMenu = () => {
   const { restaurantId } = useParams();
@@ -137,6 +137,8 @@ const UniqueRestaurantMenu = () => {
       alert('Item name, price, image, type of meal, and time available are required.');
     }
   };
+
+  
 
   return (
     <div className="unique-restaurant-menu-container">

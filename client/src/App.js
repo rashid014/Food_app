@@ -20,6 +20,7 @@ import RestaurantMenuManagement from './Components/RestaurantComponents/Restaura
 import RestaurantMenuEdit from './Components/RestaurantComponents/RestaurantMenuEdit/RestaurantMenuEdit'
 import RestaurantManagement from './Components/AdminComponents/Restaurant/RestaurantManagement'
 import DeliveryPartner from './Components/DeliveryPartner/DeliveryPartner'
+import ItemEdit from './Components/RestaurantComponents/ItemEdit/ItemEdit'
 import RestaurantList from './Components/RestaurantComponents/List/RestaurantList'
 import ItemList from './Components/RestaurantComponents/List/ItemList'
 import CategoryList from './Components/RestaurantComponents/List/CategoryList'
@@ -34,6 +35,7 @@ import RazorPay from './Components/UserComponets/RazorPay/RazorPay'
 import OrderSuccessPage from './Components/UserComponets/PlaceOrderPage/PlaceOrderSucessPage'
 import OrderManagement from './Components/RestaurantComponents/OrderManagement/OrderManagement'
 import PartnerOrderManagement from './Components/DeliveryPartner/PartnerOrderManagement/PartnerOrderManagement'
+import OrderView from './Components/UserComponets/OrderView/OrderView'
 import './App.css'
 
 function App() {
@@ -86,7 +88,8 @@ function App() {
     <Route path="/online" element={<RazorPay/>} />
     <Route path="/ordermanagement/:restaurantId" element={<OrderManagement/>} />
     <Route path="/partnerordermanagement/:partnerId" element={<PartnerOrderManagement/>} />
-    
+    <Route path="/userorderview" element={<OrderView />} />
+    <Route path="/itemedit" element={<ItemEdit />} />
     //
     admin pages 
     <Route path="/admin-approval" element ={<KycAuthentication />} />

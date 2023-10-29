@@ -26,6 +26,10 @@ const Unique1RestaurantOwnerHomePage = () => {
     timeAvailable: '',
   });
 
+  // State for controlling the edit modal
+  const [isEditModalOpen, setEditModalOpen] = useState(false);
+  const [editItem, setEditItem] = useState(null);
+
   useEffect(() => {
     fetchCategories();
   }, [restaurantId]);
@@ -42,6 +46,7 @@ const Unique1RestaurantOwnerHomePage = () => {
   const handleGetStartedClick = () => {
     navigate(`/kyc/${restaurantId}`);
   };
+
   const handleDeleteItem = async (categoryId, itemId) => {
     try {
       // Show a confirmation dialog using swal
@@ -55,7 +60,7 @@ const Unique1RestaurantOwnerHomePage = () => {
         confirmButtonText: 'Yes, delete it',
         cancelButtonText: 'No, cancel',
       });
-  
+
       // Check the result of the dialog
       if (result.isConfirmed) {
         // User clicked "Yes," proceed with deletion
@@ -72,20 +77,126 @@ const Unique1RestaurantOwnerHomePage = () => {
       swal.fire('Error', 'An error occurred while deleting the item.', 'error');
     }
   };
-  
+
+  // Function to open the edit modal
+  const openEditModal = (item) => {
+    setEditItem(item);
+    setEditModalOpen(true);
+  };
+
+  // Function to close the edit modal
+  const closeEditModal = () => {
+    setEditItem(null);
+    setEditModalOpen(false);
+  };
+
+  // Function to save the edited item
+  const saveEditedItem = async () => {
+    try {
+      // Implement your logic to save the edited item
+      // For example, you can make an API request to update the item
+      // After saving, close the edit modal
+      // Update the UI by refetching categories
+      await axios.put(`http://localhost:4000/api/${restaurantId}/categories/${editItem.categoryId}/items/${editItem._id}`, editItem);
+      fetchCategories();
+      swal.fire('Item Edited', 'The item has been successfully edited.', 'success');
+      closeEditModal();
+    } catch (error) {
+      console.error('Error editing item:', error);
+      swal.fire('Error', 'An error occurred while editing the item.', 'error');
+    }
+  };
+
+  const openEditModalWithSwal = (item) => {
+    const mealOptions = ['Breakfast', 'Lunch', 'Dinner'];
+    const timeRangeOptions = [
+      '12:00 AM - 5:00 AM',
+      '5:00 AM - 12:00 PM',
+      '12:00 PM - 5:00 PM',
+      '5:00 PM - 12:00 AM',
+    ];
+
+    const selectStyle = 'style="width: 100%; height: 30px;"'; // Set a fixed width for select elements
+
+    const html = `
+      <div class="unique1-edit-item-modal">
+        <div class="unique1-edit-item-modal-content">
+          <h2>Edit Item</h2>
+          <label>Name</label>
+          <input type="text" value="${item.name}" id="editItemName" />
+          <label>Price</label>
+          <input type="text" value="${item.price}" id="editItemPrice" />
+          <label>Type of Meal</label>
+          <select id="editItemTypeOfMeal" ${selectStyle}>
+            ${mealOptions.map(
+              (option) => `
+                <option value="${option}" ${
+                item.typeOfMeal === option ? 'selected' : ''
+              }>${option}</option>`
+            ).join('')}
+          </select>
+          <label>Time Available</label>
+          <select id="editItemTimeAvailable" ${selectStyle}>
+            ${timeRangeOptions.map(
+              (option) => `
+                <option value="${option}" ${
+                item.timeAvailable === option ? 'selected' : ''
+              }>${option}</option>`
+            ).join('')}
+          </select>
+          <label>Image</label>
+          <input type="file" id="editItemImage" accept="image/*" />
+        </div>
+      </div>
+    `;
+
+    swal
+      .fire({
+        title: 'Edit Item',
+        html: html,
+        showCancelButton: true,
+        confirmButtonText: 'Save',
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          const editedItem = {
+            name: document.getElementById('editItemName').value,
+            price: document.getElementById('editItemPrice').value,
+            typeOfMeal: document.getElementById('editItemTypeOfMeal').value,
+            timeAvailable: document.getElementById('editItemTimeAvailable').value,
+          };
+
+          // Check if a new image was selected
+          const imageInput = document.getElementById('editItemImage');
+          if (imageInput.files.length > 0) {
+            editedItem.image = imageInput.files[0];
+          }
+
+          axios
+            .put(`http://localhost:4000/api/${restaurantId}/categories/${item.categoryId}/items/${item._id}`, editedItem)
+            .then((response) => {
+              console.log('Item updated successfully', response.data);
+              fetchCategories();
+            })
+            .catch((error) => {
+              console.error('Error updating item:', error);
+              swal.fire('Error', 'An error occurred while updating the item.', 'error');
+            });
+        }
+      });
+  };
 
   return (
-    <div className="unique1-restaurant-owner-homepage"> {/* Updated class name */}
-      
-      <section className="unique1-hero"> {/* Updated class name */}
-      <RestaurantHeader />
-        <div className="unique1-hero-content"> {/* Updated class name */}
+    <div className="unique1-restaurant-owner-homepage">
+      <section className="unique1-hero">
+        <RestaurantHeader />
+        <div className="unique1-hero-content">
           <h1>Welcome to Your Restaurant Partner Dashboard</h1>
           <p>Unlock the full potential of your restaurant with our platform.</p>
         </div>
       </section>
 
-      <div className="unique1-category-sidebar"> {/* Updated class name */}
+      <div className="unique1-category-sidebar">
         <ul>
           {categories.map((category) => (
             <li key={category._id}>
@@ -95,26 +206,29 @@ const Unique1RestaurantOwnerHomePage = () => {
         </ul>
       </div>
 
-      <div className="unique1-category-container"> {/* Updated class name */}
+      <div className="unique1-category-container">
         {categories.map((category) => (
-          <div key={category._id} className="unique1-category" id={`category-${category._id}`}> {/* Updated class name */}
-            <div className="unique1-category-header">{category.name}</div> {/* Updated class name */}
-            {/* <img src={`http://localhost:4000/${category.image}`} alt={category.name} /> */}
-            <div className="unique1-category-content"> {/* Updated class name */}
+          <div key={category._id} className="unique1-category" id={`category-${category._id}`}>
+            <div className="unique1-category-header">{category.name}</div>
+            <div className="unique1-category-content">
               {category.items &&
                 category.items.map((item) => (
-                  <div key={item._id} className="unique1-item"> {/* Updated class name */}
+                  <div key={item._id} className="unique1-item">
                     <img src={`http://localhost:4000/${item.image}`} alt={item.name} />
-                    <div className="unique1-item-content"> {/* Updated class name */}
+                    <div className="unique1-item-content">
                       <p>{item.name}</p>
                       <p>${item.price}</p>
                       <p>Type of Meal: {item.typeOfMeal}</p>
                       <p>Time Available: {item.timeAvailable}</p>
-                      {/* Add a "Delete Item" button */}
-                      <button
-                        className="unique1-delete-item-button" 
-                        onClick={() => handleDeleteItem(category._id, item._id)}
-                      >
+                      {/* Edit Item button */}
+                      <button className="unique1-edit-item-button" onClick={() => openEditModalWithSwal(item)}>
+                        Edit Item
+                      </button>
+
+                         {/* Edit Modal */}
+   
+                      {/* Delete Item button */}
+                      <button className="unique1-delete-item-button" onClick={() => handleDeleteItem(category._id, item._id)}>
                         Delete Item
                       </button>
                     </div>
@@ -125,8 +239,8 @@ const Unique1RestaurantOwnerHomePage = () => {
         ))}
       </div>
 
-      <section className="unique1-commission-plans"> {/* Updated class name */}
-        <div className="unique1-commission-plans-content"> {/* Updated class name */}
+      <section className="unique1-commission-plans">
+        <div className="unique1-commission-plans-content">
           <h2>Flexible Commission Plans</h2>
           <p>
             We offer a variety of commission plans tailored to your restaurant's needs. Whether you're looking for a
@@ -136,15 +250,15 @@ const Unique1RestaurantOwnerHomePage = () => {
         </div>
       </section>
 
-      <section className="unique1-facilities-and-features"> {/* Updated class name */}
-        <div className="unique1-facilities-features-content"> {/* Updated class name */}
+      <section className="unique1-facilities-and-features">
+        <div className="unique1-facilities-features-content">
           <h2>Facilities and Features</h2>
           {categories.map((category) => (
-            <div key={category._id} className="unique1-feature"> {/* Updated class name */}
-              <div className="unique1-feature-icon"> {/* Updated class name */}
+            <div key={category._id} className="unique1-feature">
+              <div className="unique1-feature-icon">
                 <i className="fas fa-utensils"></i>
               </div>
-              <div className="unique1-feature-text"> {/* Updated class name */}
+              <div className="unique1-feature-text">
                 <h3>Online Ordering</h3>
                 <p>Accept orders online with ease, providing convenience to your customers.</p>
               </div>
@@ -153,15 +267,17 @@ const Unique1RestaurantOwnerHomePage = () => {
         </div>
       </section>
 
-      <section className="unique1-get-started"> {/* Updated class name */}
-        <div className="unique1-get-started-content"> {/* Updated class name */}
+      <section className="unique1-get-started">
+        <div className="unique1-get-started-content">
           <h2>Ready to Get Started?</h2>
           <p>Join our network of successful restaurant partners and take your business to the next level.</p>
-          <button className="unique1-get-started-button" onClick={handleGetStartedClick}> {/* Updated class name */}
+          <button className="unique1-get-started-button" onClick={handleGetStartedClick}>
             Get Started
           </button>
         </div>
       </section>
+
+   
     </div>
   );
 };

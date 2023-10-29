@@ -6,11 +6,14 @@ const itemSlice = createSlice({
   reducers: {
     setItemId: (state, action) => {
       return action.payload;
-
+    },
+    updateItemDetails: (state, action) => {
+      // Assuming action.payload contains the updated item details
+      return { ...state, ...action.payload };
     },
   },
 });
 
-export const { setItemId } = itemSlice.actions;
+export const { setItemId, updateItemDetails } = itemSlice.actions;
 
 export default itemSlice.reducer;

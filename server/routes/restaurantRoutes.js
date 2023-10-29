@@ -35,6 +35,7 @@ router.get('/kyc-status/:restaurantId', restaurantController.kycStatus);
 router.get('/getRestaurantsByCategory/:categoryId', restaurantController.getRestaurantsByCategory);
 router.post('/restaurantHome/:restaurantId',restaurantController.verifyToken1);
 router.delete('/:restaurantId/categories/:categoryId/items', restaurantController.deleteItem);
+router.put('/:restaurantId/categories/:categoryId/items/:itemId', upload.single('image'),restaurantController.updateItem);
 //admin route
 // Route to approve KYC by ID
 
@@ -44,6 +45,7 @@ router.put('/reject-kyc/:id', adminControllers.rejectKYCSubmission);
 router.put('/validate-kyc/:id', adminControllers.validateKYC);
 router.get('/restaurant-management', adminControllers.getAllRestaurants);
 router.put('/restaurant-management/:restaurantId', adminControllers.toggleRestaurantStatus);
+
 
 
 //placeorder

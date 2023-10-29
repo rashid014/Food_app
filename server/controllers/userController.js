@@ -390,6 +390,7 @@ placeOrder: async (req, res) => {
       paymentMethod,
       subtotal,
       restaurantName,
+      
       // Receive restaurantName from the request body
     } = req.body;
 
@@ -407,6 +408,7 @@ placeOrder: async (req, res) => {
       contactNumber,
       paymentMethod,
       subtotal,
+     
     });
 
     // Save the order
@@ -414,6 +416,7 @@ placeOrder: async (req, res) => {
 
     // Generate the orderId
     const orderId = order._id; // Assuming your order model uses '_id' as the primary key
+    await User.findByIdAndUpdate(userId, { $push: { orders: orderId } });
 
     return res.status(201).json({ message: 'Order placed successfully', orderId });
   } catch (error) {
