@@ -30,6 +30,21 @@ const orderSchema = new mongoose.Schema({
       amount: Number
     }
   ],
+  paymentStatus: {
+    type: String,
+    enum: ['paid', 'not paid', null], // Options for payment status
+    default: null, // Initially set to null
+  },
+  partnerPayment: {
+    type: String,
+    enum: ['Payment Approved', 'Payment Not Approved', null],
+    default: null,
+  },
+  restaurantPayment: {
+    type: String,
+    enum: ['Payment Approved', 'Payment Not Approved', null],
+    default: null,
+  },
   isPresent: { type: Boolean, default: true },
 }, { collection: 'orders' });
 

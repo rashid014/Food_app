@@ -60,7 +60,8 @@ function Header() {
     <div className="custom-header-container1">
     <nav className="navbar navbar-expand-lg" style={{ backgroundColor: '#000000' }}>
       <div className="container-fluid">
-      {/* <img src={WEYGIAT} className="logo" style={{ width: '100px' }} alt="Your Logo" /> */}
+      {/* <img src="https://cdn.dribbble.com/users/2512810/screenshots/17592344/media/db7a6f99501c0bd618821204ded13b4e.png?resize=400x0" className="logo" style={{ width: '100px' }} alt="Your Logo" /> */}
+
         <Link to="/" className="navbar-brand" style={{ color: 'white' }}>
           {isLoggedIn && (
             <img src={userImage || BLANK_IMAGE_SRC} className="userLogo" style={{ width: '30px' }} alt="User Logo" />

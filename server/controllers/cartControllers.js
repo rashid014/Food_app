@@ -273,28 +273,27 @@ exports.getOrderDetails = async (req, res) => {
   }
 };
 
-// Cancel an order by order ID
 exports.cancelOrder = async (req, res) => {
   const { orderId } = req.params;
 
   try {
-    console.log('Order ID from params:', orderId);
+    // Find the order by its ID
     const order = await Order.findById(orderId);
-    console.log('Order ID from params:', JSON.stringify(order));
+
     if (!order) {
-      return res.status(404).json({ message: 'Order not found' });
+      return res.status(404).json({ success: false, message: 'Order not found' });
     }
 
-    // Set isPresent to false
-    order.isPresent = false;
-    
+    // Update the order status to 'Cancelled'
+    order.status = 'Cancelled';
+
     // Save the updated order
     await order.save();
 
-    res.json({ message: 'Order canceled successfully' });
+    res.status(200).json({ success: true, message: 'Order status updated to "Cancelled"' });
   } catch (error) {
-    console.error('Error canceling order:', error);
-    res.status(500).json({ message: 'Internal server error' });
+    console.error('Error updating order status:', error);
+    res.status(500).json({ success: false, message: 'Internal server error' });
   }
 };
 

@@ -20,7 +20,7 @@ import RestaurantMenuManagement from './Components/RestaurantComponents/Restaura
 import RestaurantMenuEdit from './Components/RestaurantComponents/RestaurantMenuEdit/RestaurantMenuEdit'
 import RestaurantManagement from './Components/AdminComponents/Restaurant/RestaurantManagement'
 import DeliveryPartner from './Components/DeliveryPartner/DeliveryPartner'
-import ItemEdit from './Components/RestaurantComponents/ItemEdit/ItemEdit'
+import RestaurantPayment from './Components/RestaurantComponents/RestaurantPayment/RestaurantPayment'
 import RestaurantList from './Components/RestaurantComponents/List/RestaurantList'
 import ItemList from './Components/RestaurantComponents/List/ItemList'
 import CategoryList from './Components/RestaurantComponents/List/CategoryList'
@@ -36,6 +36,7 @@ import OrderSuccessPage from './Components/UserComponets/PlaceOrderPage/PlaceOrd
 import OrderManagement from './Components/RestaurantComponents/OrderManagement/OrderManagement'
 import PartnerOrderManagement from './Components/DeliveryPartner/PartnerOrderManagement/PartnerOrderManagement'
 import OrderView from './Components/UserComponets/OrderView/OrderView'
+import AdminPayment from './Components/AdminComponents/AdminPayment/AdminPayment'
 import './App.css'
 
 function App() {
@@ -89,11 +90,11 @@ function App() {
     <Route path="/ordermanagement/:restaurantId" element={<OrderManagement/>} />
     <Route path="/partnerordermanagement/:partnerId" element={<PartnerOrderManagement/>} />
     <Route path="/userorderview" element={<OrderView />} />
-    <Route path="/itemedit" element={<ItemEdit />} />
-    //
+    <Route path="/restaurantpayment" element={<RestaurantPayment/>} />
     admin pages 
     <Route path="/admin-approval" element ={<KycAuthentication />} />
-    <Route path="/partner-approval" element ={<PartnerApproval />} />
+    <Route path="/partner-approval" element ={<PartnerApproval/>} />
+    <Route path="/admin-payment" element ={<AdminPayment />} />
     {
       accessToken && <Route path='/restaurantedit' element={<RestaurantMenuEdit/>} />
     }

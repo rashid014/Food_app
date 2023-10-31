@@ -13,6 +13,8 @@ import MapboxDirections from '@mapbox/mapbox-gl-directions/dist/mapbox-gl-direct
 import 'mapbox-gl/dist/mapbox-gl.css';
 import mapboxgl from 'mapbox-gl';
 import turf from '@turf/turf';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 
 mapboxgl.accessToken="pk.eyJ1IjoicmFzaGlkMDAxNCIsImEiOiJjbG80OWd6dnowYjdjMmpwMDVmM3FwcHltIn0.QbxE40btQ7RKkBDqdANVDw"
@@ -57,6 +59,37 @@ const OrderSuccessPage = () => {
     const geocoderDefaultOverrides = { transitionDuration: 1000 };
     handleViewportChange({ ...newViewport, ...geocoderDefaultOverrides });
   };
+
+
+  const handleDownloadPDF = async () => {
+    // Create a new jsPDF instance
+    const pdf = new jsPDF({
+      orientation: 'portrait',
+      unit: 'mm',
+      format: 'a3',
+    });
+  
+    // Define the content that you want to include in the PDF
+    const content = document.getElementById('pdf-content');
+  
+    // Decrease the font size for the entire content
+    pdf.setFontSize(8); // Adjust the font size as needed
+  
+    // Convert the entire content to a canvas
+    const canvas = await html2canvas(content);
+  
+    // Convert the canvas to a data URL
+    const imgData = canvas.toDataURL('image/png');
+  
+    // Add the image to the PDF
+    pdf.addImage(imgData, 'PNG', 0, 0);
+  
+    // Save the PDF
+    pdf.save('order_details.pdf');
+  };
+  
+
+  
   
   useEffect(() => {
     const fetchData = async () => {
@@ -95,23 +128,32 @@ const OrderSuccessPage = () => {
       confirmButtonText: 'Yes, cancel it',
       cancelButtonText: 'No, keep it',
     });
-
+  
     if (result.isConfirmed) {
       try {
-        // Send a request to delete the order
-        await axios.delete(`http://localhost:4000/api/orders/${orderId}`);
-        setOrderCancelled(true); // Set the cancellation status to true
-        // Update the order status
-        setOrderDetails((prevOrderDetails) => ({
-          ...prevOrderDetails,
-          status: 'Cancelled',
-        }));
-        // Redirect to the dashboard or another appropriate page
+        // Send a request to update the order status in the database
+        const response = await axios.put(`http://localhost:4000/api/orders/${orderId}`, {
+          status: 'Cancelled', // Set the status to 'Cancelled'
+        });
+  
+        if (response.data.success) {
+          // Update the order status in your client-side state
+          setOrderDetails((prevOrderDetails) => ({
+            ...prevOrderDetails,
+            status: 'Cancelled',
+          }));
+          setOrderCancelled(true);
+  
+          // Optionally, you can redirect to another page or perform other actions.
+        } else {
+          console.error('Failed to update order status:', response.data.message);
+        }
       } catch (error) {
         console.error('Error canceling order:', error);
       }
     }
   };
+  
 
   useEffect(() => {
     const fetchOrderDetails = async () => {
@@ -168,6 +210,23 @@ const OrderSuccessPage = () => {
       zoom: viewport.zoom,
     });
 
+
+    async function fetchLocationData() {
+      try {
+        const response = await axios.get('http://localhost:4000/api/map'); // Replace with your actual backend API URL
+        if (response.data) {
+          const { latitude, longitude } = response.data;
+          setViewport({
+            ...viewport,
+            latitude: parseFloat(latitude), // Convert to a float if needed
+            longitude: parseFloat(longitude), // Convert to a float if needed
+          });
+        }
+      } catch (error) {
+        console.error('Error fetching location data:', error);
+      }
+    }
+    
     // Add directions control to the map
     const directions = new MapboxDirections({
       accessToken: mapboxgl.accessToken,
@@ -261,9 +320,61 @@ const OrderSuccessPage = () => {
       
       const estimatedTimeMinutes = calculateEstimatedTime(distanceInKm, averageBikingSpeedKmph);
 
+      const getOrderHeader = (status) => {
+  switch (status) {
+    case 'Pending':
+      return 'Waiting for restaurant to confirm your order';
+    case 'Confirmed':
+      return 'Order Confirmed';
+    case 'Rejected':
+      return 'Order Rejected';
+    case 'Cancelled':
+      return 'Cancelled Order';
+    case 'Delivery Partner Assigned':
+      return 'Delivery Partner Assigned';
+    case 'Order Picked Up':
+      return 'Order Picked Up';
+    case 'On the Way':
+      return 'On the Way';
+    case 'Delivered':
+      return 'Order Delivered';
+    case 'Not Delivered':
+      return 'Order Not Delivered';
+    default:
+      return 'Order Status Unavailable';
+  }
+};
+
+const getOrderSuccessMessage = (status) => {
+  switch (status) {
+    case 'Pending':
+      return 'Please wait until the restaurant confirms your order.';
+    case 'Confirmed':
+      return 'Your order has been confirmed and is being prepared.';
+    case 'Rejected':
+      return 'Unfortunately, your order has been rejected.';
+    case 'Cancelled':
+      return 'Your order has been cancelled.';
+    case 'Delivery Partner Assigned':
+      return 'A delivery partner has been assigned to your order.';
+    case 'Order Picked Up':
+      return 'Your order has been picked up for delivery.';
+    case 'On the Way':
+      return 'Your order is on the way to your location.';
+    case 'Delivered':
+      return 'Your order has been delivered successfully.';
+    case 'Not Delivered':
+      return 'We apologize, but your order could not be delivered.';
+    default:
+      return 'Order Status Information Unavailable';
+  }
+};
+
+
   
 return (
-  <div className="order-container mt-5">
+  <>
+  <div className="order-container ">
      
      <div id="map" ref={mapRef}></div>
 
@@ -272,39 +383,50 @@ return (
       <div className="col-md-8">
         <div className="card-top">
           <div className="card-header">
-            <h2 className="text-center order-success-header">
-              {isOrderCancelled ? 'Cancelled Order' : 'Order Placed Successfully from '+restaurantName}
-            </h2>
+          <h2 className="text-center order-success-header mt-5">
+  {orderDetails ? getOrderHeader(orderDetails.status) : 'Loading...'}
+</h2>
+
           </div>
           <div className="card-body">
-            <p className="text-center order-success-message">
-              {isOrderCancelled
-                ? 'Your order has been cancelled.'
-                : 'Thank you for your order. Your order has been successfully placed.'}
-            </p>
+          <p className="text-center order-success-message">
+            {orderDetails ? getOrderSuccessMessage(orderDetails.status):'Loading...'}
+          </p>
+
+
             {orderDetails && (
-              <div>
+             
+
                 <div className="card-header mt-5">
                   <div className="card-header">
-                    <h2 className="text-center">INVOICE</h2>
+                    
                   </div>
                   <div className="text-danger"> {isOrderCancelled ? 'Cancelled Order' : ''} </div>
               <div className="d-flex justify-content-between">
-                {!isOrderCancelled && (
-                  <button
-                    onClick={handleCancelOrder}
-                    className="btn btn-danger small-cancel-order-button"
-                    style={{ width: '150px' }} // Adjust the width to your desired size
-                  >
-                    Cancel Order
-                  </button>
-                )}
+              {orderDetails.status === 'Pending' && (
+        <button
+          onClick={handleCancelOrder}
+          className="btn btn-danger small-cancel-order-button"
+          style={{ width: '150px' }}
+        >
+          Cancel Order
+        </button>
+              )}                
               </div>
-
-
-
+              
+              <div className="text-center mt-4">
+                <button onClick={handleDownloadPDF} className="btn btn-primary">
+                  Download PDF
+                </button>
+                
+                </div>
+                <div id="pdf-content">
                   <div className="card-body">
+                  <h2 className="text-center mt-5">INVOICE</h2>
                     <table className="table table-bordered">
+                    <div>
+                   </div>
+
                       <tbody>
                       <tr>
                           <td>Restaurant Id:</td>
@@ -332,20 +454,17 @@ return (
                         </tr>
                         <tr>
                           <td>Status:</td>
-                          <td>{orderDetails.isPresent ? 'Pending' : 'Cancelled'}</td>
+                          <td>{orderDetails.status}</td>
                         </tr>
                         {/* Add more rows as needed */}
                       </tbody>
                     </table>
                   </div>
-                </div>
-              </div>
-            )}
-
+           
             <div className="card-middle mt-5">
               <div className="card-header">
                 <h2 className="text-center">Order Items</h2>
-              </div>
+              
               <div className="card-body">
                 <table className="table table-bordered">
                   <thead>
@@ -397,6 +516,10 @@ return (
                 </table>
               </div>
             </div>
+            </div>
+            </div>
+              </div>
+            )}
 
             {orderDetails && !isOrderCancelled && (
                 <div>
@@ -506,7 +629,9 @@ return (
         </div>
       </div>
     </div>
+    
   </div>
+  </>
 );
 // ...
 

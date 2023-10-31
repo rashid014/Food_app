@@ -121,7 +121,7 @@ const Unique1RestaurantOwnerHomePage = () => {
     const html = `
       <div class="unique1-edit-item-modal">
         <div class="unique1-edit-item-modal-content">
-          <h2>Edit Item</h2>
+          <h2></h2>
           <label>Name</label>
           <input type="text" value="${item.name}" id="editItemName" />
           <label>Price</label>

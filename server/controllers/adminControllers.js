@@ -2,7 +2,7 @@ const { json } = require('express');
 const User=require('../model/userMode');
 const jwt = require('jsonwebtoken')
 const {KYC} = require('../model/kyc');
-
+const Order=require('../model/Order')
 const Restaurant=require('../model/Restaurant')
 
 
@@ -264,6 +264,95 @@ approveKYCSubmission : async (req, res) => {
         }
       },
       
+      getFilteredOrders : async (req, res) => {
+        try {
+          // Query the database to find orders with a status not equal to 'Pending'
+          const orders = await Order.find({ status: { $ne: 'Pending' } });
       
+          // Return the filtered orders as a JSON response
+          res.json({ orders });
+        } catch (error) {
+          // Handle any errors and send an error response
+          console.error('Error fetching orders:', error);
+          res.status(500).json({ error: 'Internal Server Error' });
+        }
+      },
+      
+
+
+      confirmOrder: async (req, res) => {
+        const orderId = req.body.orderId;
+      
+        try {
+          // Fetch the order from the database by its orderId
+          const order = await Order.findById(orderId);
+      
+          if (!order) {
+            return res.status(404).json({ message: 'Order not found' });
+          }
+      
+          // Check if paymentStatus is 'paid', and if so, update partnerPayment and restaurantPayment
+          if (order.paymentStatus === 'paid') {
+            // Update partnerPayment and restaurantPayment fields
+            await Order.findOneAndUpdate({ _id: orderId }, { partnerPayment: 'Payment Approved' });
+            await Order.findOneAndUpdate({ _id: orderId }, { restaurantPayment: 'Payment Approved' });
+          }
+         
+      
+          // Save the updated order to the database
+          await order.save();
+      
+          res.status(200).json({
+            message: `Order ${orderId} confirmed successfully with status: Confirmed`,
+            partnerPayment: 'Payment Approved', // Update the response accordingly
+            restaurantPayment: 'Payment Approved', // Update the response accordingly
+          });
+        } catch (error) {
+          console.error(`Error confirming order ${orderId}:`, error);
+          res.status(500).json({ error: `Error confirming order ${orderId}.` });
+        }
+      },
+      
+      
+
+// Reject an order and update payment status
+rejectOrder :async (req, res) => {
+  const orderId = req.body.orderId;
+      
+  try {
+    // Fetch the order from the database by its orderId
+    const order = await Order.findById(orderId);
+
+    if (!order) {
+      return res.status(404).json({ message: 'Order not found' });
+    }
+
+    // Get the paymentStatus from the order
+    const paymentStatus = order.paymentStatus;
+
+    // Determine partnerPayment and restaurantPayment based on paymentStatus
+    const partnerPayment=order.partnerPayment;
+    const restaurantPayment=order.restaurantPayment;
+      partnerPayment = 'Payment Not Approved';
+      restaurantPayment = 'Payment Not Approved';
+    
+
+    // Update the order's partnerPayment and restaurantPayment fields
+    order.partnerPayment = partnerPayment;
+    order.restaurantPayment = restaurantPayment;
+
+    // Save the updated order to the database
+    await order.save();
+
+    res.status(200).json({
+      message: `Order ${orderId} confirmed successfully with status: ${paymentStatus}`,
+      partnerPayment,
+      restaurantPayment,
+    });
+  } catch (error) {
+    console.error(`Error confirming order ${orderId}:`, error);
+    res.status(500).json({ error: `Error confirming order ${orderId}.` });
+  }
+},
 
     }

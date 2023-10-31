@@ -17,6 +17,11 @@
   stroke-dasharray: 4;
 }
 
+#pdf-content p {
+  font-size: 8px; /* Adjust the font size as needed */
+  /* Add any other desired styling properties */
+}
+
 /* Optional: Customize the line's color when selected */
 .mapbox-directions-route.mapbox-directions-selected {
   stroke: #00f;

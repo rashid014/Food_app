@@ -20,6 +20,8 @@ const Unique1RestaurantOwnerHomePage = () => {
   const [categories, setCategories] = useState([]);
   const [newCategory, setNewCategory] = useState('');
   const [newCategoryImage, setNewCategoryImage] = useState(null);
+  const initialCartState = [];
+  const [cart, setCart] = useState(initialCartState);
   const [newItem, setNewItem] = useState({
     name: '',
     price: '',
@@ -63,21 +65,75 @@ const Unique1RestaurantOwnerHomePage = () => {
       'Authorization': token,
       'Content-Type': 'application/json',
     };
-
-    axios.post('http://localhost:4000/api/cart/add', { itemId: item._id }, { headers })
-      .then((response) => {
-        Swal.fire({
-          icon: 'success',
-          title: 'Item Added to Cart',
-          text: 'The item has been added to your cart.',
+  
+    if (cartIsEmpty() || isSameRestaurant(item, restaurantId)) {
+      const requestData = {
+        itemId: item._id,
+        restaurantId: restaurantId, // Use the restaurantId from Redux
+      };
+  
+      axios.post('http://localhost:4000/api/cart/add', requestData, { headers })
+        .then((response) => {
+          console.log('Response:', response);
+          if (response.status === 200) {
+            Swal.fire({
+              icon: 'success',
+              title: 'Item Added to Cart',
+              text: 'The item has been added to your cart.',
+            });
+            console.log('Item added to cart:', response.data);
+          } else {
+            console.error('Error response:', response.data);
+            handleCartError('Error Adding Item to Cart', response.data.message);
+          }
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+          
+          Swal.fire({
+            icon: 'error',
+            title: 'Unable to Add Item to Cart',
+            text: 'You have items from a different restaurant in your cart. Do you want to discard them and add this item?',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, discard them',
+            cancelButtonText: 'No, cancel',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              // User chose to discard items, handle this logic here
+              // You may want to clear the cart or remove items from the other restaurant
+              // Then, you can add the new item to the cart
+            }
+          });
         });
-        console.log('Item added to cart:', response.data);
-      })
-      .catch((error) => {
-        console.error('Error adding item to cart:', error);
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Unable to Add Item to Cart',
+        text: 'Discard items from the previous restaurant before adding new items.',
       });
+    }
   };
+  
+  
+  
+  function cartIsEmpty() {
 
+    return cart.length === 0;
+  }
+  
+  function isSameRestaurant(item) {
+   
+    return item.restaurantId === cart[0].restaurantId;
+  }
+  
+  function handleCartError(title, message) {
+    Swal.fire({
+      icon: 'error',
+      title,
+      text: message,
+    });
+  }
+  
   return (
     <div className="unique1-restaurant-owner-homepage"> {/* Updated class name */}
       

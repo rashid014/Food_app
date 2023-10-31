@@ -20,7 +20,7 @@ function SideNavbar() {
           <Link to="/partner-approval">Partner Approval</Link>
         </li>
         <li>
-          <Link to="/orders">Orders</Link>
+          <Link to="/admin-payment ">Restaurant Payment</Link>
         </li>
         <li>
           <Link to="/restaurants">Restaurants</Link>

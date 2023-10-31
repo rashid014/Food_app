@@ -63,7 +63,7 @@ exports.signup = async (req, res) => {
 
 exports.listSubmissions = async (req, res) => {
   try {
-    const submissions = await DeliveryPartner.find({ isApproved: false });
+    const submissions = await DeliveryPartner.find();
     res.status(200).json(submissions);
   } catch (error) {
     console.error('Error listing submissions:', error);
@@ -281,8 +281,11 @@ exports.markOrderAsDelivered = async (req, res) => {
       // Find the order in the database and update its status to 'Delivered'
       await Order.findOneAndUpdate({ _id: orderId }, { status: 'Delivered' });
 
+      // Update paymentStatus to 'paid'
+      await Order.findOneAndUpdate({ _id: orderId }, { paymentStatus: 'paid' });
+
       // Respond with a success message or updated order
-      res.status(200).json({ message: 'Order marked as delivered successfully' });
+      res.status(200).json({ message: 'Order marked as delivered and payment status updated to "paid" successfully' });
     } else {
       res.status(400).json({ error: 'Order can only be marked as delivered if it is in "Order Picked Up" status' });
     }
@@ -304,8 +307,11 @@ exports.markOrderAsNotDelivered = async (req, res) => {
       // Find the order in the database and update its status to 'Not Delivered'
       await Order.findOneAndUpdate({ _id: orderId }, { status: 'Not Delivered' });
 
+      // Update paymentStatus to 'not paid'
+      await Order.findOneAndUpdate({ _id: orderId }, { paymentStatus: 'not paid' });
+
       // Respond with a success message or updated order
-      res.status(200).json({ message: 'Order marked as not delivered successfully' });
+      res.status(200).json({ message: 'Order marked as not delivered and payment status updated to "not paid" successfully' });
     } else {
       res.status(400).json({ error: 'Order can only be marked as not delivered if it is in "Order Picked Up" status' });
     }

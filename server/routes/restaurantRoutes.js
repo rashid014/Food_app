@@ -45,6 +45,9 @@ router.put('/reject-kyc/:id', adminControllers.rejectKYCSubmission);
 router.put('/validate-kyc/:id', adminControllers.validateKYC);
 router.get('/restaurant-management', adminControllers.getAllRestaurants);
 router.put('/restaurant-management/:restaurantId', adminControllers.toggleRestaurantStatus);
+router.get('/restaurantpayment/orders', adminControllers.getFilteredOrders);
+router.post('/restaurant/confirm-payment', adminControllers.confirmOrder);
+router.post('/restaurant/reject-payment', adminControllers.rejectOrder);
 
 
 

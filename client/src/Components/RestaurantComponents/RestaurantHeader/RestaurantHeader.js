@@ -103,11 +103,7 @@ const Header = () => {
                 Payments
               </Link>
             </li>
-            <li className="Unique4-nav-item">
-              <Link to={`/profile/${restaurantId}`} className="Unique4-nav-link">
-                Profile
-              </Link>
-            </li>
+           
           </>
         ) : null}
 
