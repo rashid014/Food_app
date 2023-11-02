@@ -12,6 +12,9 @@ import { changeId } from '../../../Redux/restaurantIdsReducer';
 import { setCategoryId } from '../../../Redux/categoryIdSlice';
 import { setItemId } from '../../../Redux/itemsSlice';
 import { addItemToCart } from '../../../Redux/cartSlice';
+import Card from '@mui/material/Card';
+
+
 
 
 const HomePage = () => {
@@ -128,15 +131,15 @@ const HomePage = () => {
           Swal.fire({
             icon: 'error',
             title: 'Unable to Add Item to Cart',
-            text: 'You have items from a different restaurant in your cart. Do you want to discard them and add this item?',
+            text: 'Discard items from the previous restaurant before adding new items.',
             showCancelButton: true,
-            confirmButtonText: 'Yes, discard them',
+            confirmButtonText: 'Go to Cart', // Change the text to "Go to Cart"
             cancelButtonText: 'No, cancel',
           }).then((result) => {
             if (result.isConfirmed) {
-              // User chose to discard items, handle this logic here
-              // You may want to clear the cart or remove items from the other restaurant
-              // Then, you can add the new item to the cart
+              // User chose to go to the cart, handle the navigation here
+              // You can use React Router's Link component to navigate to the cart page
+              navigate('/cart');
             }
           });
         });
@@ -193,6 +196,7 @@ const HomePage = () => {
             >
               <ul className={styles['horizontal-list']} style={{ overflowX: 'hidden' }}>
                 {restaurants.map((restaurant) => (
+                 
                   <li
                     key={restaurant._id}
                     className={`list-group-item list-group-item-action ${styles['restaurant-card']}`}

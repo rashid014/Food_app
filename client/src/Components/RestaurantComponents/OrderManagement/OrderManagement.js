@@ -3,14 +3,30 @@ import Swal from 'sweetalert2'; // Import SweetAlert2
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import RestaurantHeader from '../RestaurantHeader/RestaurantHeader';
+import Paper from '@mui/material/Paper';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TablePagination from '@mui/material/TablePagination';
+import TableRow from '@mui/material/TableRow';
+import {  Card,CardHeader,CardContent} from '@mui/material'
+import { Button } from '@mui/material';
+
+
 
 function OrderManagement() {
+
   const [orders, setOrders] = useState([]);
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [deliveryPartners, setDeliveryPartners] = useState([]);
   const [cart, setCart] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const { restaurantId } = useParams();
+  
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
   useEffect(() => {
     async function fetchData() {
@@ -212,91 +228,109 @@ function OrderManagement() {
       }
     });
   };
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0); // Reset the page when the number of rows per page changes
+  };
 
   return (
     <div>
       <RestaurantHeader />
       <h2 className="order-management mt-5">Order Management</h2>
       <div>
-        <h3>Orders</h3>
-        <div className="card-one">
-         
-          <div className="card-body">
-            <table className="table">
-              <thead>
-                <tr>
-                <th>Order No.</th>
-                  <th>Order ID</th>
-                  <th>Customer Name</th>
-                  <th>Delivery Address</th>
-                  <th>Order Date</th>
-                  <th>Status</th>
-                  <th>Total Amount</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {orders.map((order, index) => (
-                  <tr key={order._id}>
-                     <td>{index + 1}</td>
-                    <td>{order._id}</td>
-                    <td>{order.customerName}</td>
-                    <td>{order.deliveryAddress}</td>
-                    <td>{order.orderDate}</td>
-                    <td>{order.status}</td>
-                    <td>${order.totalAmount}</td>
-                    <td>
-                      <button onClick={() => openCustomModal(order)}>View Orders</button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
+       
+        <Paper elevation={3}>
+          <Table style={{ border: '2px solid black' }}>
+            <TableHead>
+              <TableRow style={{ border: '2px solid black' }}>
+                <TableCell>Order No.</TableCell>
+                <TableCell>Order ID</TableCell>
+                <TableCell>Customer Name</TableCell>
+                <TableCell>Delivery Address</TableCell>
+                <TableCell>Order Date</TableCell>
+                <TableCell>Status</TableCell>
+                <TableCell>Total Amount</TableCell>
+                <TableCell>Actions</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody style={{ border: '2px solid black' }}>
+              {orders.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((order, index) => (
+                <TableRow key={order._id}>
+                  <TableCell>{index + 1}</TableCell>
+                  <TableCell>{order._id}</TableCell>
+                  <TableCell>{order.customerName}</TableCell>
+                  <TableCell>{order.deliveryAddress}</TableCell>
+                  <TableCell>{order.orderDate}</TableCell>
+                  <TableCell>{order.status}</TableCell>
+                  <TableCell>${order.totalAmount}</TableCell>
+                  <TableCell>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={() => openCustomModal(order)}
+                    >
+                      View Orders
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </Paper>
+        <TablePagination
+          component="div"
+          count={orders.length}
+          page={page}
+          onPageChange={handleChangePage}
+          rowsPerPage={rowsPerPage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
       </div>
       {selectedOrder && (
-        // Display the selected order details in a popup
         <div>
           <h3>Order Details</h3>
-          <div className="card">
-            <div className="card-header">Order Details</div>
-            <div className="card-body">
+          <Card>
+            <CardHeader title="Order Details" />
+            <CardContent>
               <p>Order ID: {selectedOrder._id}</p>
               <p>Customer Name: {selectedOrder.customerName}</p>
               <p>Delivery Address: {selectedOrder.deliveryAddress}</p>
               <p>Restaurant Name: {selectedOrder.restaurantName}</p>
               <p>Order Date: {selectedOrder.orderDate}</p>
               <p>Status: {selectedOrder.status}</p>
-              
+
               <h4>Order Items</h4>
-              <table className="table">
-                <thead>
-                  <tr>
-                    <th>Item Name</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th>Amount</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {cart.map((item) => (
-                    <tr key={item._id}>
-                      <td>{item.name}</td>
-                      <td>${item.price}</td>
-                      <td>{item.quantity}</td>
-                      <td>${item.price * item.quantity}</td>
-                    </tr>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Item Name</TableCell>
+                    <TableCell>Price</TableCell>
+                    <TableCell>Quantity</TableCell>
+                    <TableCell>Amount</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {selectedOrder.cart.map((item) => (
+                    <TableRow key={item._id}>
+                      <TableCell>{item.name}</TableCell>
+                      <TableCell>${item.price}</TableCell>
+                      <TableCell>{item.quantity}</TableCell>
+                      <TableCell>${item.price * item.quantity}</TableCell>
+                    </TableRow>
                   ))}
-                </tbody>
-              </table>
+                </TableBody>
+              </Table>
               <p>Total Amount: ${selectedOrder.totalAmount}</p>
-            </div>
-          </div>
+            </CardContent>
+          </Card>
         </div>
       )}
     </div>
   );
-}
+};
 
 export default OrderManagement;

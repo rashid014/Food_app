@@ -15,7 +15,7 @@ import mapboxgl from 'mapbox-gl';
 import turf from '@turf/turf';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
-
+import { Card } from '@mui/material';
 
 mapboxgl.accessToken="pk.eyJ1IjoicmFzaGlkMDAxNCIsImEiOiJjbG80OWd6dnowYjdjMmpwMDVmM3FwcHltIn0.QbxE40btQ7RKkBDqdANVDw"
 
@@ -374,13 +374,16 @@ const getOrderSuccessMessage = (status) => {
   
 return (
   <>
-  <div className="order-container ">
      
+  <Header  />
+     <div  style={{ minHeight: '100vh' }}>
+
+
      <div id="map" ref={mapRef}></div>
 
-    <Header />
-    <div className="row justify-content-center">
-      <div className="col-md-8">
+    
+    <div className="row-just">
+      <div className="col-md-8 offset-md-2 text-center">
         <div className="card-top">
           <div className="card-header">
           <h2 className="text-center order-success-header mt-5">
@@ -631,6 +634,7 @@ return (
     </div>
     
   </div>
+
   </>
 );
 // ...

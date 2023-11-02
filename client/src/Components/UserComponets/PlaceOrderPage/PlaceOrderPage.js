@@ -28,6 +28,14 @@ function CheckoutPage(props) {
 
   const [paymentMethod, setPaymentMethod] = useState('COD'); // Payment method (default: Cash on Delivery)
   const { restaurantId, restaurantName } = location.state || {};
+  const calculateCommission = (totalAmount) => {
+  const commissionPercentage = 5;
+  const commission = (totalAmount * commissionPercentage) / 100;
+  return commission;
+};
+
+// Calculate remaining amount after deducting commission
+
   // Fetch user's cart items
   useEffect(() => {
     const fetchData = async () => {
@@ -144,9 +152,11 @@ function CheckoutPage(props) {
         totalAmount: totalAmount,
         customerName: userDetails.name,
         contactNumber: userDetails.contactNumber,
-        paymentMethod,
+        paymentMethod:paymentMethod,
         restaurantId: cart[0].restaurantId,
-        subtotal:subtotal
+        subtotal:subtotal,
+        commission:commission,
+        remainingAmount:remainingAmount,
       };
      
       const giveData = {
@@ -202,10 +212,17 @@ function CheckoutPage(props) {
     };
 
     const totalAmount = getTotalAmount().totalAmount;
+    const calculateRemainingAmount = (totalAmount) => {
+      const commission = calculateCommission(totalAmount);
+      const remainingAmount = totalAmount - commission;
+      return remainingAmount;
+    };
+      const commission = calculateCommission(totalAmount);
+    const remainingAmount = calculateRemainingAmount(totalAmount);
 
 async function displayRazorpay(totalAmount) {
   
-
+  const paymentMethod = 'ONLINE PAYMENT';
   const res = await loadScript("https://checkout.razorpay.com/v1/checkout.js");
 
   if (!res) {
@@ -219,7 +236,7 @@ const options = {
   key: "rzp_test_VdGdvprTKB8u1w",
   currency: "INR",
   amount: totalAmount * 100,
-  name: "Code with akky",
+  name: "WEYGIAT",
   description: "Thanks for purchasing",
   image: "https://mern-blog-akky.herokuapp.com/static/media/logo.8c649bfa.png",
   handler: async function (response) {
@@ -245,7 +262,7 @@ const options = {
         totalAmount: totalAmount,
         customerName: userDetails.name,
         contactNumber: userDetails.contactNumber,
-        paymentMethod,
+        paymentMethod:paymentMethod,
         restaurantId: cart[0].restaurantId,
         subtotal: subtotal,
       };
@@ -283,7 +300,7 @@ const options = {
     }
   },
   prefill: {
-    name: "code with akky",
+    name: "WEYGIAY",
   },
 };
 
@@ -311,7 +328,6 @@ const handleRemove = async (item) => {
   }
 };
 
-    
 
   return (
     <>

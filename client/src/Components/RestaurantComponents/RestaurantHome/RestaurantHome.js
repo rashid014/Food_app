@@ -8,6 +8,7 @@ import { setCategoryId } from '../../../Redux/categoryIdSlice';
 import { setItemId } from '../../../Redux/itemsSlice';
 import { useNavigate } from 'react-router-dom';
 import swal from 'sweetalert2';
+import Button from '@mui/material/Button'; 
 
 const Unique1RestaurantOwnerHomePage = () => {
   const { restaurantId } = useParams();
@@ -144,8 +145,7 @@ const Unique1RestaurantOwnerHomePage = () => {
               }>${option}</option>`
             ).join('')}
           </select>
-          <label>Image</label>
-          <input type="file" id="editItemImage" accept="image/*" />
+       
         </div>
       </div>
     `;
@@ -167,10 +167,7 @@ const Unique1RestaurantOwnerHomePage = () => {
           };
 
           // Check if a new image was selected
-          const imageInput = document.getElementById('editItemImage');
-          if (imageInput.files.length > 0) {
-            editedItem.image = imageInput.files[0];
-          }
+        
 
           axios
             .put(`http://localhost:4000/api/${restaurantId}/categories/${item.categoryId}/items/${item._id}`, editedItem)
@@ -200,7 +197,15 @@ const Unique1RestaurantOwnerHomePage = () => {
         <ul>
           {categories.map((category) => (
             <li key={category._id}>
-              <a href={`#category-${category._id}`}>{category.name}</a>
+          <Button
+            href={`#category-${category._id}`}
+            variant="text"
+            color="primary"
+            style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', fontWeight: 'bold' }}
+          >
+            {category.name}
+          </Button>
+
             </li>
           ))}
         </ul>

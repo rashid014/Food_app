@@ -24,11 +24,9 @@ function AdminHeader() {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg adminHeadernav">
+    <nav className="navbar navbar-expand-lg adminHeadernav" style={{ backgroundColor: 'black' }}>
       <div className="container-fluid">
-        <a className="navbar-brand" href="/adminHome" style={{ color: 'white' }}>
-          WELCOME ADMIN
-        </a>
+        
         <button
           className="navbar-toggler"
           type="button"
@@ -42,12 +40,14 @@ function AdminHeader() {
         </button>
         <div className="navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-           
+          <a className="navbar-brand" href="/adminHome" style={{ color: 'white' }}>
+          WELCOME ADMIN
+        </a>
            
            
           </ul>
           <form className="d-flex">
-            <button className="btn adminLogoutBtn" onClick={adminLogout1}>
+            <button className="btn adminLogoutBtn" style={{ color: 'white' }} onClick={adminLogout1}>
               Logout
             </button>
           </form>        

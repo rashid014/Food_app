@@ -37,6 +37,7 @@ import OrderManagement from './Components/RestaurantComponents/OrderManagement/O
 import PartnerOrderManagement from './Components/DeliveryPartner/PartnerOrderManagement/PartnerOrderManagement'
 import OrderView from './Components/UserComponets/OrderView/OrderView'
 import AdminPayment from './Components/AdminComponents/AdminPayment/AdminPayment'
+import DeliveryPayment from './Components/DeliveryPartner/DeliveryPayment/DeliveryPayment'
 import './App.css'
 
 function App() {
@@ -91,6 +92,7 @@ function App() {
     <Route path="/partnerordermanagement/:partnerId" element={<PartnerOrderManagement/>} />
     <Route path="/userorderview" element={<OrderView />} />
     <Route path="/restaurantpayment" element={<RestaurantPayment/>} />
+    <Route path="/partnerpayment/:partnerId" element={<DeliveryPayment/>} />
     admin pages 
     <Route path="/admin-approval" element ={<KycAuthentication />} />
     <Route path="/partner-approval" element ={<PartnerApproval/>} />

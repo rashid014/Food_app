@@ -9,6 +9,8 @@ const orderSchema = new mongoose.Schema({
   tax: Number,
   totalAmount: Number,
   subtotal: Number,
+  commission:Number,
+  remainingAmount:Number,
   orderDate: { type: Date, default: Date.now },
   status: {
     type: String,
@@ -36,15 +38,44 @@ const orderSchema = new mongoose.Schema({
     default: null, // Initially set to null
   },
   partnerPayment: {
-    type: String,
-    enum: ['Payment Approved', 'Payment Not Approved', null],
-    default: null,
+    type: {
+      status: {
+        type: String,
+        enum: ['Pending'],
+        default: 'Pending', // Initially set to 'Pending'
+      },
+      amount: Number, // Payment amount (set to null initially)
+    },
+    default: {
+      status: 'Pending',
+      amount: null,
+    },
   },
   restaurantPayment: {
-    type: String,
-    enum: ['Payment Approved', 'Payment Not Approved', null],
-    default: null,
+    type: {
+      status: {
+        type: String,
+        enum: ['Pending'],
+        default: 'Pending', // Initially set to 'Pending'
+      },
+      amount: Number, // Payment amount (set to null initially)
+    },
+    default: {
+      status: 'Pending',
+      amount: null,
+    },
   },
+
+ commissionAmount: {
+    type: String,
+   
+  },
+  paymentType: {
+    type: String,
+    enum: ['COD', 'ONLINE PAYMENT', null], // Options for payment status
+    default: 'COD', // Initially set to null
+  },
+
   isPresent: { type: Boolean, default: true },
 }, { collection: 'orders' });
 

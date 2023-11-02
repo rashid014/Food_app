@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import './RestaurantHeader.css'; // Updated CSS file import
 import Cookies from 'js-cookie';
 import axios from 'axios';
+import Button from '@mui/material/Button';
 
 const Header = () => {
   const { restaurantId } = useParams();
@@ -89,19 +90,19 @@ const Header = () => {
         {isKycApproved ? (
           <>
             <li className="Unique4-nav-item">
-              <Link to={`/restaurantmenu/${restaurantId}`} className="Unique4-nav-link">
-                Menu Management
-              </Link>
+            <Button variant="text" component={Link} to={`/restaurantmenu/${restaurantId}`} className="Unique4-nav-link">
+              Menu Management
+            </Button>
             </li>
             <li className="Unique4-nav-item">
-              <Link to={`/ordermanagement/${restaurantId}`} className="Unique4-nav-link">
-                Orders
-              </Link>
+            <Button variant="text" component={Link} to={`/ordermanagement/${restaurantId}`} className="Unique4-nav-link">
+              Orders
+            </Button>
             </li>
             <li className="Unique4-nav-item">
-              <Link to={`/payments/${restaurantId}`} className="Unique4-nav-link">
+            <Button variant="text" component={Link} to={`/payments/${restaurantId}`} className="Unique4-nav-link">
                 Payments
-              </Link>
+              </Button>
             </li>
            
           </>

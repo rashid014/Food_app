@@ -4,6 +4,13 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import AdminHeader from '../Header/AdminHeader'
 import SideNavbar from '../SideNav/SideNavbar';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
 function RestaurantPayment() {
   const [orders, setOrders] = useState([]);
   const [selectedOrder, setSelectedOrder] = useState(null);
@@ -202,53 +209,53 @@ function RestaurantPayment() {
   return (
     <div>
       <AdminHeader />
-      <h2 className="order-management mt-5">Order Management</h2>
+      <h2 className="order-management mt-5">Restaurant Payment</h2>
       <div>
-     
-        <h3>Orders</h3>
+      <SideNavbar />
+        
         <div className="card-one"> 
           <div className="card-body">
-             <SideNavbar />
-            <table className="table">
            
-              <thead>
-                <tr>
-                  <th>Order No.</th>
-                  <th>Order ID</th>
-                  <th>Customer Name</th>
-                  <th>Delivery Address</th>
-                  <th>Order Date</th>
-                  <th>Restaurant Payment Status</th>
-                  <th>Partner Payment Status</th>
-                  <th>User Payment Status</th>
-                  <th>Status</th>
-                  <th>Date</th>
-                  <th>Total Amount</th>
-                  <th>Actions</th>
-                 
-                </tr>
-              </thead>
-              <tbody>
-                {orders.map((order, index) => (
-                  <tr key={order._id}>
-                    <td>{index + 1}</td>
-                    <td>{order._id}</td>
-                    <td>{order.customerName}</td>
-                    <td>{order.deliveryAddress}</td>
-                    <td>{order.orderDate}</td>
-                    <td>{order.partnerPayment}</td>
-                    <td>{order.restaurantPayment}</td>
-                    <td>{order.paymentStatus}</td>
-                    <td>{order.status}</td>
-                    <td>{order.orderDate}</td>             
-                    <td>${order.totalAmount}</td>
-                    <td>
-                      <button onClick={() => openCustomModal(order)}>View Orders</button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+             <TableContainer component={Paper}>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>Order</TableCell>
+            <TableCell>Order ID</TableCell>
+            <TableCell>Customer Name</TableCell>
+            <TableCell>Delivery Address</TableCell>
+            <TableCell>Order Date</TableCell>
+            <TableCell>Partner Payment</TableCell>
+            <TableCell>Restaurant Payment</TableCell>
+            <TableCell>Payment Status</TableCell>
+            <TableCell>Status</TableCell>
+            <TableCell>Order Date</TableCell>
+            <TableCell>Total Amount</TableCell>
+            <TableCell>Actions</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {orders.map((order, index) => (
+            <TableRow key={order._id}>
+              <TableCell>{index + 1}</TableCell>
+              <TableCell>{order._id}</TableCell>
+              <TableCell>{order.customerName}</TableCell>
+              <TableCell>{order.deliveryAddress}</TableCell>
+              <TableCell>{order.orderDate}</TableCell>
+              <TableCell>{order.partnerPayment}</TableCell>
+              <TableCell>{order.restaurantPayment}</TableCell>
+              <TableCell>{order.paymentStatus}</TableCell>
+              <TableCell>{order.status}</TableCell>
+              <TableCell>{order.orderDate}</TableCell>
+              <TableCell>${order.totalAmount}</TableCell>
+              <TableCell>
+                <button onClick={() => openCustomModal(order)}>View Orders</button>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
           </div>
         </div>
       </div>

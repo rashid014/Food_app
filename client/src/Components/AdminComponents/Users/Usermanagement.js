@@ -7,6 +7,15 @@ import { adminDeleteUser, admingetAllusers, adminSearchUser } from '../../../uti
 import { useNavigate } from 'react-router-dom';
 import './userManagement.css'
 import Swal from 'sweetalert2'
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import Button from '@mui/material/Button'; 
+import SideNavbar from '../SideNav/SideNavbar'
 
 
 function Usermanagement() {
@@ -67,41 +76,52 @@ function Usermanagement() {
 
 
     return (
+      
+             
+      <div className="horizontal-one">
+          <div>
+            <AdminHeader/>
         <div >
-             <AdminHeader/>
-      <div className="horizontal-container">
        
             <input class="form-control mb-3 w-25 searchadmin" onChange={userSearch} name="query" type="search" placeholder="Search" aria-label="Search"/>
+            
                 <button class=" addButtonAdmin" onClick={()=>navigate('/adminAddUser')} >add</button>
-           
-            <table id="customers">
-                <tr>
-                    <th class="w-5">No</th>
-                    <th>User Name</th>
-                    <th>Emaiil</th>
-                    <th>Action</th>
-                    <th>Action</th>
-                </tr>
-                
-                  { 
-                   users.map((obj,index)=>
-                   <tr>
-                    <td>{index+1}</td>
-                    <td>{obj.userName}</td>
-                    <td>{obj.email}</td>
-                    <td>
-                        <button className='editt' onClick={()=>navigate(`/updateUser/${obj._id}`)} >Edit</button>
-                    </td>
-                    <td> 
-                        <button className='deletee' onClick={()=>deleteUser(obj._id)}>Delete</button>
-                    </td>
-                    </tr>
-                  )}
-
-                
-
-            </table>
+          
+                <TableContainer component={Paper}>
+             
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell className="w-5">No</TableCell>
+            <TableCell>User Name</TableCell>
+            <TableCell>Email</TableCell>
+            <TableCell>Action</TableCell>
+            <TableCell>Action</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {users.map((obj, index) => (
+            <TableRow key={obj._id}>
+              <TableCell>{index + 1}</TableCell>
+              <TableCell>{obj.userName}</TableCell>
+              <TableCell>{obj.email}</TableCell>
+              <TableCell>
+                <Button variant="contained" color="primary" onClick={() => navigate(`/updateUser/${obj._id}`)}>
+                  Edit
+                </Button>
+              </TableCell>
+              <TableCell>
+                <Button variant="contained" color="error" onClick={() => deleteUser(obj._id)}>
+                  Delete
+                </Button>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
             <Footer />
+        </div>
         </div>
         </div>
     )

@@ -3,6 +3,14 @@ import axios from 'axios';
 import './PartnerApproval.css';
 import SideNavbar from '../SideNav/SideNavbar';
 import AdminHeader from '../Header/AdminHeader';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import Button from '@mui/material/Button'; 
 
 const AdminDashboard = () => {
   const [submissions, setSubmissions] = useState([]);
@@ -48,50 +56,55 @@ const AdminDashboard = () => {
     <div>
       <AdminHeader />
       <div classname="real" >
-        <h2>Admin Dashboard</h2>
+        <h2>Partner Approval</h2>
         </div>
       <div className="horizontal-container">
      
         <SideNavbar />
-
-        <table>
-      
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Vehicle</th>
-              <th>Veh.no.</th>
-              <th>Address</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {submissions.map((submission) => (
-              <tr key={submission._id}>
-                <td>{submission.name}</td>
-                <td>{submission.email}</td>
-                <td>{submission.vehicle}</td>
-                <td>{submission.address}</td>
-                <td>{submission.vehicleNumber}</td>
-                <td>
-                  {submission.isApproved ? (
-                    <span className="approved">
-                      Approved <i className="fa fa-check" />
-                    </span>
-                  ) : submission.isRejected ? (
-                    <span className="rejected">Rejected</span>
-                  ) : (
-                    <div>
-                      <button onClick={() => handleApprove(submission._id)}>Approve</button>
-                      <button onClick={() => handleReject(submission._id)}>Reject</button>
-                    </div>
-                  )}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        
+    <TableContainer component={Paper}>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>Name</TableCell>
+            <TableCell>Email</TableCell>
+            <TableCell>Vehicle</TableCell>
+            <TableCell>Vehicle No.</TableCell>
+            <TableCell>Address</TableCell>
+            <TableCell>Action</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {submissions.map((submission) => (
+            <TableRow key={submission._id}>
+              <TableCell>{submission.name}</TableCell>
+              <TableCell>{submission.email}</TableCell>
+              <TableCell>{submission.vehicle}</TableCell>
+              <TableCell>{submission.vehicleNumber}</TableCell>
+              <TableCell>{submission.address}</TableCell>
+              <TableCell>
+                {submission.isApproved ? (
+                  <span style={{ color: 'green' }}>
+                    Approved <i className="fa fa-check" />
+                  </span>
+                ) : submission.isRejected ? (
+                  <span style={{ color: 'red' }}>Rejected</span>
+                ) : (
+                  <div>
+                    <Button variant="contained" color="primary" onClick={() => handleApprove(submission._id)}>
+                      Approve
+                    </Button>
+                    <Button variant="contained" color="error" onClick={() => handleReject(submission._id)}>
+                      Reject
+                    </Button>
+                  </div>
+                )}
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
       </div>
     </div>
     

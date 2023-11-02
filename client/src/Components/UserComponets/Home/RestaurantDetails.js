@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify'; // Import Toast from react-toastify
 import 'react-toastify/dist/ReactToastify.css'; // Import the default CSS
 import Swal from 'sweetalert2';
+import Button from '@mui/material/Button'; 
 
 const Unique1RestaurantOwnerHomePage = () => {
   const { restaurantId } = useParams();
@@ -90,18 +91,19 @@ const Unique1RestaurantOwnerHomePage = () => {
         .catch((error) => {
           console.error('Error:', error);
           
+         
           Swal.fire({
             icon: 'error',
             title: 'Unable to Add Item to Cart',
-            text: 'You have items from a different restaurant in your cart. Do you want to discard them and add this item?',
+            text: 'Discard items from the previous restaurant before adding new items.',
             showCancelButton: true,
-            confirmButtonText: 'Yes, discard them',
+            confirmButtonText: 'Go to Cart', // Change the text to "Go to Cart"
             cancelButtonText: 'No, cancel',
           }).then((result) => {
             if (result.isConfirmed) {
-              // User chose to discard items, handle this logic here
-              // You may want to clear the cart or remove items from the other restaurant
-              // Then, you can add the new item to the cart
+              // User chose to go to the cart, handle the navigation here
+              // You can use React Router's Link component to navigate to the cart page
+              navigate('/cart');
             }
           });
         });
@@ -148,7 +150,14 @@ const Unique1RestaurantOwnerHomePage = () => {
         <ul>
           {categories.map((category) => (
             <li key={category._id}>
-              <a href={`#category-${category._id}`}>{category.name}</a>
+            <Button
+            href={`#category-${category._id}`}
+            variant="text"
+            color="primary"
+            style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', fontWeight: 'bold' }}
+          >
+            {category.name}
+          </Button>
             </li>
           ))}
         </ul>

@@ -15,7 +15,7 @@ const {partnerId}=useParams();
         <nav>
           <ul className="nav justify-content-center">
             <li className="nav-item">
-              <a className="nav-link" href="/">Home</a>
+              <a className="nav-link" href="/">fHome</a>
             </li>
             <li className="nav-item">
               <a className="nav-link" href="/profile">Profile</a>
@@ -51,6 +51,7 @@ const {partnerId}=useParams();
               <i className="fas fa-history fa-3x mb-3"></i>
               <h2 className="card-title">Delivery History</h2>
               <p className="card-text">Track your order delivery history.</p>
+
               <button className="btn btn-primary">View History</button>
             </div>
           </div>
@@ -62,7 +63,9 @@ const {partnerId}=useParams();
               <i className="fas fa-money-bill fa-3x mb-3"></i>
               <h2 className="card-title">Earnings Report</h2>
               <p className="card-text">Check your earnings and payment history.</p>
-              <button className="btn btn-primary"> Earnings</button>
+                 <Link to={`/partnerpayment/${partnerId}`} className="btn btn-primary">
+               Earnings
+              </Link>
             </div>
           </div>
         </div>

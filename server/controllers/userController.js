@@ -364,7 +364,6 @@ verifyOTP :async (req, res) => {
 
 
 
-
 placeOrder: async (req, res) => {
   try {
     const token = req.headers.authorization; // Extract the token from the Authorization header
@@ -388,11 +387,16 @@ placeOrder: async (req, res) => {
       customerName,
       contactNumber,
       paymentMethod,
+      paymentStatus,
       subtotal,
       restaurantName,
-      
+      commission,
+      remainingAmount,
       // Receive restaurantName from the request body
     } = req.body;
+
+    // Define the paymentStatus based on the paymentMethod
+ 
 
     // Create a new order
     const order = new Order({
@@ -407,9 +411,17 @@ placeOrder: async (req, res) => {
       customerName,
       contactNumber,
       paymentMethod,
+      paymentStatus, // Set the paymentStatus based on paymentMethod
       subtotal,
-     
+      commission,
+      remainingAmount,
     });
+
+       
+       const paymentType = paymentMethod === 'COD' ? 'COD' : 'ONLINE PAYMENT';
+
+       order.paymentType = paymentType;
+   
 
     // Save the order
     await order.save();
@@ -424,6 +436,7 @@ placeOrder: async (req, res) => {
     return res.status(500).json({ message: 'Failed to place the order' });
   }
 },
+
 
 
 

@@ -7,6 +7,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setKycSubmissions, approveKycSubmission, validateKycSubmission } from '../../../Redux/kycSlice';
 import SideNavbar from '../SideNav/SideNavbar';
 import AdminHeader from '../Header/AdminHeader';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import Button from '@mui/material/Button'; 
 const KycAuthentication = () => {
   const dispatch = useDispatch();
   const kycList = useSelector((state) => state.kyc.kycSubmissions);
@@ -71,8 +79,10 @@ const KycAuthentication = () => {
   }, [dispatch, kycList]);
 
   return (
+    <div>
+       <AdminHeader/>
     <div className={styles['kyc-container']}>
-      <AdminHeader/>
+     
       <div>
       <h2 className={styles['kyc-heading']}>Admin Approval Page</h2>
       </div>
@@ -80,69 +90,78 @@ const KycAuthentication = () => {
         <SideNavbar />
      
       <div className={styles['table-container']}>
-        <table className={styles['kyc-table']}>
-          <thead>
-            <tr>
-              <th>Restaurant Name</th>
-              <th>PAN Card</th>
-              <th>GST Number</th>
-              <th>ID Proof</th>
-              <th>FSSAI Number</th>
-              <th>Bank Holder Name</th>
-              <th>Bank Name</th>
-              <th>IFSC Code</th>
-              <th>Account Number</th>
-              <th>KYC Status</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {kycList.length > 0 &&
-              kycList.map((kyc) => (
-                <tr key={kyc._id}>
-                  <td>{kyc.restaurantName}</td>
-                  <td>{kyc.panCard}</td>
-                  <td>{kyc.gstNumber}</td>
-                  <td>
-                    <a href={kyc.idProof} target="_blank" rel="noopener noreferrer">
-                      View ID Proof
-                    </a>
-                  </td>
-                  <td>{kyc.fssaiNumber}</td>
-                  <td>{kyc.bankHolderName}</td>
-                  <td>{kyc.bankName}</td>
-                  <td>{kyc.ifsc}</td>
-                  <td>{kyc.accountNumber}</td>
-                  <td>
-                    {kycValidatedIds.includes(kyc._id) ? (
-                      'Validated ✔'
-                    ) : (
-                      kyc.isApproved ? (
-                        <span className={styles['approved-status']}>Approved ✔</span>
-                      ) : (
-                        <span className={styles['rejected-status']}>Rejected ✘</span>
-                      )
-                    )}
-                  </td>
-                  <td>
-                    {kycValidatedIds.includes(kyc._id) ? (
-                      'Approved ✔'
-                    ) : (
-                      <>
-                        <button className={styles['approve-btn']} onClick={() => approveKyc(kyc._id)}>
-                          Approve
-                        </button>
-                        <button className={styles['reject-btn']} onClick={() => rejectKyc(kyc._id)}>
-                          Reject
-                        </button>
-                      </>
-                    )}
-                  </td>
-                </tr>
-              ))}
-          </tbody>
-        </table>
+      <TableContainer component={Paper}>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>Restaurant Name</TableCell>
+            <TableCell>PAN Card</TableCell>
+            <TableCell>GST Number</TableCell>
+            <TableCell>ID Proof</TableCell>
+            <TableCell>FSSAI Number</TableCell>
+            <TableCell>Bank Holder Name</TableCell>
+            <TableCell>Bank Name</TableCell>
+            <TableCell>IFSC Code</TableCell>
+            <TableCell>Account Number</TableCell>
+            <TableCell>KYC Status</TableCell>
+            <TableCell>Actions</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {kycList.length > 0 &&
+            kycList.map((kyc) => (
+              <TableRow key={kyc._id}>
+                <TableCell>{kyc.restaurantName}</TableCell>
+                <TableCell>{kyc.panCard}</TableCell>
+                <TableCell>{kyc.gstNumber}</TableCell>
+                <TableCell>
+                  <a href={kyc.idProof} target="_blank" rel="noopener noreferrer">
+                    View ID Proof
+                  </a>
+                </TableCell>
+                <TableCell>{kyc.fssaiNumber}</TableCell>
+                <TableCell>{kyc.bankHolderName}</TableCell>
+                <TableCell>{kyc.bankName}</TableCell>
+                <TableCell>{kyc.ifsc}</TableCell>
+                <TableCell>{kyc.accountNumber}</TableCell>
+                <TableCell>
+                  {kycValidatedIds.includes(kyc._id) ? (
+                    'Validated ✔'
+                  ) : kyc.isApproved ? (
+                    <span style={{ color: 'green' }}>Approved ✔</span>
+                  ) : (
+                    <span style={{ color: 'red' }}>Rejected ✘</span>
+                  )}
+                </TableCell>
+                <TableCell>
+                  {kycValidatedIds.includes(kyc._id) ? (
+                    'Approved ✔'
+                  ) : (
+                    <>
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={() => approveKyc(kyc._id)}
+                      >
+                        Approve
+                      </Button>
+                      <Button
+                        variant="contained"
+                        color="error"
+                        onClick={() => rejectKyc(kyc._id)}
+                      >
+                        Reject
+                      </Button>
+                    </>
+                  )}
+                </TableCell>
+              </TableRow>
+            ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
       </div>
+    </div>
     </div>
     </div>
   );

@@ -12,13 +12,13 @@
   align-items: center;
   justify-content: flex-start;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-  transition: width 0.3s ease; /* Add smooth transition for width change */
-  z-index: 1; /* Ensure the sidebar is above other elements */
+  transition: width 0.3s ease;
+  z-index: 1;
 }
 
-/* Add a class to toggle the sidebar visibility */
+/* Closed sidebar */
 .sidebar-closed .side-nav {
-  width: 60px; /* Set a smaller width when the sidebar is closed */
+  width: 60px;
 }
 
 .side-nav ul {
@@ -38,7 +38,7 @@
   font-size: 18px;
   width: 100%;
   display: flex;
-  align-items: center; /* Vertically center link text and icons */
+  align-items: center;
   padding: 10px 20px;
   transition: background-color 0.3s ease;
 }
@@ -47,12 +47,12 @@
   background-color: #00bcd4;
 }
 
-/* Add styles for icons (you can use any icon library) */
-.side-nav i {
+/* Icon style (you can use Material-UI icons) */
+.side-nav .MuiSvgIcon-root {
   margin-right: 10px;
 }
 
-/* Add a style for the sidebar toggle button */
+/* Sidebar toggle button */
 .sidebar-toggle {
   position: absolute;
   top: 10px;
@@ -62,7 +62,7 @@
   font-size: 24px;
 }
 
-/* Style for an active link if needed */
+/* Active link style */
 .side-nav a.active {
   background-color: #00bcd4;
 }

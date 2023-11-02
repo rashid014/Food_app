@@ -1,9 +1,4 @@
-/* Header Container Styles */
-.custom-header-container1 {
-  background-color: #000000; /* Background color for the header container */
-  padding: 0px 0; /* Adjust the padding as needed */
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Add a subtle shadow if desired */
-}
+
 
 /* Navbar Styles */
 .navbar {

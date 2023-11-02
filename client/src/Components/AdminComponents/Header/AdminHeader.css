@@ -1,14 +1,20 @@
-.adminHeadernav{
-  background-color: #000001;
+.adminHeadernav {
+  background-color: #010103;
+  background: #bbb;
+  position: fixed;
+  height: 80px;
+  width: 100%;
+  z-index: 1; /* Set a positive z-index value */
 }
 
-.adminLogoutBtn{
+.adminLogoutBtn {
   border-radius: 5px;
-  border: 1px #1864ab solid;
+  border: 1px #030404 solid;
   margin-top: 15px;
   width: 70px;
   height: 35px;
- background-color: transparent;
+  background-color: transparent;
   color: rgb(250, 12, 12);
 }
+
 

@@ -1,46 +1,73 @@
-// src/components/SideNavbar.js
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import {
+  Drawer,
+  List,
+  ListItem,
+  ListItemText,
+  ListItemIcon,
+  Container,
+} from '@mui/material';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import './SideNavbar.css'; // You should include the CSS file here
 
-import React from 'react';
-import { Link } from 'react-router-dom'; // If using React Router for navigation
-import './SideNavbar'
+const iconSize = 100; // Adjust the icon size as needed
+
+const iconStyle = {
+  fontSize: iconSize,
+};
+
+const listItemStyle = {
+  display: 'flex',
+  alignItems: 'center', // Center items vertically
+};
+
 function SideNavbar() {
+  const [isSideNavOpen, setSideNavOpen] = useState(false);
+
+  const toggleSideNav = () => {
+    setSideNavOpen(!isSideNavOpen);
+  };
+
   return (
-    <nav className="side-nav col-md-2 ">
-      <ul>
-        <li>
-          <Link to="/adminHome">Dashboard</Link>
-        </li>
-        <li>
-          <Link to="/admin-approval">Restuarent Approval</Link>
-        </li>
-        <li>
-          <Link to="/restaurant-management">Restaurant Management</Link>
-        </li>
-        <li>
-          <Link to="/partner-approval">Partner Approval</Link>
-        </li>
-        <li>
-          <Link to="/admin-payment ">Restaurant Payment</Link>
-        </li>
-        <li>
-          <Link to="/restaurants">Restaurants</Link>
-        </li>
-        <li>
-          <Link to="/users">Users</Link>
-        </li>
-        <li>
-          <Link to="/promocode">Promocode</Link>
-        </li>
-        <li>
-          <Link to="/reviews">Reviews</Link>
-        </li>
-        <li>
-          <Link to="/required-documents">Required Documents</Link>
-        </li>
-        <li>
-          <Link to="/settings">Settings</Link>
-        </li>
-      </ul>
+    <nav className={`mini-navbar ${isSideNavOpen ? 'sidenav-open' : ''}`}>
+      <Drawer variant="temporary" open={isSideNavOpen} onClose={toggleSideNav}>
+        <Container maxWidth="xs">
+          <List>
+            <div style={listItemStyle}>
+              <ListItemIcon>
+                <AccountCircleIcon style={iconStyle} />
+              </ListItemIcon>
+              <h2 className="text-center mt-5">Admin</h2>
+            </div>
+            <ListItem button component={Link} to="/adminHome">
+              <ListItemText primary="Dashboard" />
+            </ListItem>
+            <ListItem button component={Link} to="/admin-approval">
+              <ListItemText primary="Restaurant Approval" />
+            </ListItem>
+            <ListItem button component={Link} to="/restaurant-management">
+              <ListItemText primary="Restaurant Management" />
+            </ListItem>
+            <ListItem button component={Link} to="/partner-approval">
+              <ListItemText primary="Partner Approval" />
+            </ListItem>
+            <ListItem button component={Link} to="/admin-payment">
+              <ListItemText primary="Restaurant Payment" />
+            </ListItem>
+            <ListItem button component={Link} to="/restaurants">
+              <ListItemText primary="Restaurants" />
+            </ListItem>
+            <ListItem button component={Link} to="/users">
+              <ListItemText primary="Users" />
+            </ListItem>
+           
+          </List>
+        </Container>
+      </Drawer>
+      <div className="mini-navbar-button" onClick={toggleSideNav}>
+        <AccountCircleIcon style={iconStyle} />
+      </div>
     </nav>
   );
 }

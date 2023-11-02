@@ -1,13 +1,16 @@
 /* Apply styles to the main container */
 .order-container {
   margin: 20px auto;
-  max-width: 900px; /* Limit the maximum width of the container */
+  max-width: 1500px; /* Limit the maximum width of the container */
   padding: 20px;
 }
 
 /* Style for the card */
 .card {
   margin: 10px;
+}
+.row-just{
+  justify-content: flex-start;
 }
 
 .mapbox-directions-route {

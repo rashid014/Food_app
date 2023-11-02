@@ -3,6 +3,14 @@ import axios from 'axios';
 import './RestaurantManagement.css'
 import AdminHeader from '../Header/AdminHeader';
 import SideNavbar from '../SideNav/SideNavbar';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import Button from '@mui/material/Button'; 
 
 const RestaurantManagement = () => {
   const [restaurants, setRestaurants] = useState([]);
@@ -38,39 +46,45 @@ const RestaurantManagement = () => {
 
   return (
     <div>
+      
+       <div className='hey' style={{paddingTop:'0px'}}>
        <AdminHeader/>
-       <div>
       <h1>Restaurant Management</h1>
       </div>
       <div className="horizontal-container">
         <SideNavbar />
-      
-      <table>
-        <thead>
-          <tr>
-            <th>No</th>
-            <th>Restaurant Name</th>
-            <th>Email</th>
-            <th>Status</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
+        <TableContainer component={Paper}>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>No</TableCell>
+            <TableCell>Restaurant Name</TableCell>
+            <TableCell>Email</TableCell>
+            <TableCell>Status</TableCell>
+            <TableCell>Action</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
           {restaurants.map((restaurant, index) => (
-            <tr key={restaurant._id}>
-              <td>{index + 1}</td>
-              <td>{restaurant.restaurantName}</td>
-              <td>{restaurant.email}</td>
-              <td>{restaurant.isBlocked ? 'Blocked' : 'Unblocked'}</td>
-              <td>
-                <button onClick={() => toggleBlockStatus(restaurant._id, restaurant.isBlocked)}>
+            <TableRow key={restaurant._id}>
+              <TableCell>{index + 1}</TableCell>
+              <TableCell>{restaurant.restaurantName}</TableCell>
+              <TableCell>{restaurant.email}</TableCell>
+              <TableCell>{restaurant.isBlocked ? 'Blocked' : 'Unblocked'}</TableCell>
+              <TableCell>
+                <Button
+                  variant="contained"
+                  color={restaurant.isBlocked ? 'success' : 'error'}
+                  onClick={() => toggleBlockStatus(restaurant._id, restaurant.isBlocked)}
+                >
                   {restaurant.isBlocked ? 'Unblock' : 'Block'}
-                </button>
-              </td>
-            </tr>
+                </Button>
+              </TableCell>
+            </TableRow>
           ))}
-        </tbody>
-      </table>
+        </TableBody>
+      </Table>
+    </TableContainer>
     </div>
     </div>
   );
