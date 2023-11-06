@@ -15,6 +15,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import LoginIcon from '@mui/icons-material/Login';
 import Typography from '@mui/material/Typography';
+import imgLogo from './foodie2.png'
 
 // import {WEYGIAT} from '../../../util/WEYGIAT.jpg'
 
@@ -85,19 +86,16 @@ function Header() {
     {/* <div className="container-fluid"> */}
     
    
-    <Typography
-  variant="h2"
-  style={{
-    color: 'white',
-    fontFamily: 'Arial, Helvetica, sans-serif',
-    fontWeight: 'bold',
-    textDecoration: 'none', // Remove underline
-  }}
-  component={Link}
-  to="/"
->
-  WEYGIAT
-</Typography>
+    <Link to="/">
+      <img
+        src={imgLogo} // Replace with the image path
+        alt="Your Logo"
+        style={{
+          height: '80px', // Customize the height as needed
+          textDecoration: 'none', // Remove underline
+        }}
+      />
+    </Link>
 
 
 </div>
@@ -136,6 +134,7 @@ function Header() {
             </Button>
           </Link>
 </div>
+
 {isLoggedIn && (
             <span className="navUserName" style={{ marginLeft: '10px', marginTop: '10px', color: 'white' }}>
               {name}
@@ -166,7 +165,10 @@ function Header() {
       >
         <Button onClick={() => navigate('/profile')}>  
         <AccountBoxIcon />
-        Profile</Button>
+        My Profile</Button>
+        <Button onClick={() => navigate('/userorderview')}>  
+        <AccountBoxIcon />
+        My Orders</Button>
         <Button onClick={isLoggedIn ? handleLogoutUser : () => navigate('/login')}>
           <LogoutIcon/>
           {isLoggedIn ? 'Logout' : 'Login'}

@@ -35,4 +35,6 @@ router.post('/restaurant/deliverorder', partnerController.markOrderAsDelivered);
 
 router.post('/restaurant/notdeliverorder', partnerController.markOrderAsNotDelivered);
 
+router.get('/partnerpayment', partnerController.getPartnerOrders);
+
 module.exports=router;

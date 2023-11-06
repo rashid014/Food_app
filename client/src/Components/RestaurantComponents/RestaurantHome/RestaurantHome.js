@@ -184,12 +184,17 @@ const Unique1RestaurantOwnerHomePage = () => {
   };
 
   return (
+    <>
+    <RestaurantHeader />
     <div className="unique1-restaurant-owner-homepage">
       <section className="unique1-hero">
-        <RestaurantHeader />
+        
         <div className="unique1-hero-content">
-          <h1>Welcome to Your Restaurant Partner Dashboard</h1>
-          <p>Unlock the full potential of your restaurant with our platform.</p>
+        <h1 className="homies" style={{ color: 'black', textAlign: 'center' }}>
+  Welcome to Your Restaurant Partner Dashboard
+</h1>
+
+          <p className='homies' style={{color:'black'}}>Unlock the full potential of your restaurant with our platform.</p>
         </div>
       </section>
 
@@ -284,6 +289,7 @@ const Unique1RestaurantOwnerHomePage = () => {
 
    
     </div>
+    </>
   );
 };
 

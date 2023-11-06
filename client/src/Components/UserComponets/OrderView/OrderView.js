@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import Header from '../../UserComponets/Home/Header'
 
 
 function UniqueOrderManagement() {
@@ -14,18 +15,28 @@ function UniqueOrderManagement() {
   useEffect(() => {
     async function fetchData() {
       try {
-        // Fetch orders from the server
+        // Get the token from localStorage
+        const token = localStorage.getItem('token');
+        
+        // Make the GET request with the token in the headers
         const ordersResponse = await axios.get(
-          `http://localhost:4000/api/restaurant/orders?restaurantId=${restaurantId}`
+          'http://localhost:4000/api/restaurantorders/orders',
+          {
+            headers: {
+              Authorization: localStorage.getItem('token'),// Assuming it's a Bearer token
+            },
+          }
         );
+  
         setOrders(ordersResponse.data.orders);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     }
-
+  
     fetchData();
   }, [restaurantId]);
+  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -67,10 +78,9 @@ function UniqueOrderManagement() {
         </style>
         <p class="bright-black">Order ID: ${order._id}</p>
         <p class="bright-black">Customer Name: ${order.customerName}</p>
-        <p class="bright-black">Delivery Address: ${order.deliveryAddress}</p>
+        <p class "bright-black">Delivery Address: ${order.deliveryAddress}</p>
         <p class="bright-black">Order Date: ${order.orderDate}</p>
         <p class="bright-black">Status: ${order.status}</p>
-       
         <h4 class="bright-black">Order Items</h4>
         <table class="table table-bordered">
           <thead>
@@ -81,83 +91,23 @@ function UniqueOrderManagement() {
               <th class="bright-black">Amount</th>
             </tr>
           </thead>
-         <tbody>
-        ${generateCartItemsHTML(order.cart)}
-      </tbody>
+          <tbody>
+            ${generateCartItemsHTML(order.cart)}
+          </tbody>
         </table>
         <p class="bright-black total mt-5">Amount: $${order.subtotal}</p>
         <p class="bright-black total1">Tax Amount: $${order.tax}</p>
         <p class="bright-black total1">Delivery Charge: $${order.deliveryCharge}</p>
         <p class="bright-black total1">Total Amount: $${order.totalAmount}</p>`,
-      showCancelButton: true,
-      confirmButtonText: 'Confirm',
-      cancelButtonText: 'Reject',
       customClass: {
-        confirmButton: 'swal-confirm-button',
-        cancelButton: 'swal-cancel-button',
         popup: 'wider-modal', // Apply the wider-modal class to the popup
         content: 'wider-modal', // Apply the wider-modal class to the content
       },
-    }).then((result) => {
-      if (result.isConfirmed) {
-        confirmOrder(order);
-      } else if (result.isDismissed && result.dismiss === Swal.DismissReason.cancel) {
-        rejectOrder(order);
-      }
     });
   };
+  
 
-  const confirmOrder = (order) => {
-    // Send a request to the server to confirm the order
-    const requestData = {
-      orderId: order._id,
-      status: 'Confirmed', // Update the order status to "Confirmed"
-    };
 
-    axios
-      .post('http://localhost:4000/api/restaurant/accept-order', requestData)
-      .then((response) => {
-        // Handle the response, e.g., show a success message
-        console.log(`Order ${order._id} confirmed successfully.`);
-        // Optionally, you can update the local state to reflect the change
-        setOrders((prevOrders) => {
-          const updatedOrders = prevOrders.map((o) =>
-            o._id === order._id ? { ...o, status: 'Confirmed' } : o
-          );
-          return updatedOrders;
-        });
-      })
-      .catch((error) => {
-        // Handle any errors, e.g., show an error message
-        console.error(`Error confirming order ${order._id}:`, error);
-      });
-  };
-
-  const rejectOrder = (order) => {
-    // Send a request to the server to reject the order
-    const requestData = {
-      orderId: order._id,
-      status: 'Rejected', // Update the order status to "Rejected"
-    };
-
-    axios
-      .post('http://localhost:4000/api/restaurant/reject-order', requestData)
-      .then((response) => {
-        // Handle the response, e.g., show a success message
-        console.log(`Order ${order._id} rejected successfully.`);
-        // Optionally, you can update the local state to reflect the change
-        setOrders((prevOrders) => {
-          const updatedOrders = prevOrders.map((o) =>
-            o._id === order._id ? { ...o, status: 'Rejected' } : o
-          );
-          return updatedOrders;
-        });
-      })
-      .catch((error) => {
-        // Handle any errors, e.g., show an error message
-        console.error(`Error rejecting order ${order._id}:`, error);
-      });
-  };
 
   function generateCartItemsHTML(cartItems) {
     return cartItems.map((item) => `
@@ -171,12 +121,14 @@ function UniqueOrderManagement() {
   }
 
   return (
+    <>
+      <Header />
     <div>
       
-      <h2 className="order-management mt-5">Unique Order Management</h2>
+      <h2 className="order-management ">Your Orders</h2>
       <div>
-        <h3>Orders</h3>
-        <div className="card">
+       
+        <div className="card-order">
           <div className="card-body">
             <div className="table-responsive">
               <table className="table table-striped">
@@ -255,6 +207,7 @@ function UniqueOrderManagement() {
         </div>
       )}
     </div>
+    </>
   );
 }
 

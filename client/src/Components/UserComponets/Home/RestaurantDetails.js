@@ -11,6 +11,7 @@ import { toast } from 'react-toastify'; // Import Toast from react-toastify
 import 'react-toastify/dist/ReactToastify.css'; // Import the default CSS
 import Swal from 'sweetalert2';
 import Button from '@mui/material/Button'; 
+import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 
 const Unique1RestaurantOwnerHomePage = () => {
   const { restaurantId } = useParams();
@@ -139,7 +140,7 @@ const Unique1RestaurantOwnerHomePage = () => {
   return (
     <div className="unique1-restaurant-owner-homepage"> {/* Updated class name */}
       
-      <section className="unique1-hero"> {/* Updated class name */}
+      <section className="nil"> {/* Updated class name */}
       <Header />
         <div className="unique1-hero-content"> {/* Updated class name */}
      
@@ -183,6 +184,7 @@ const Unique1RestaurantOwnerHomePage = () => {
                className="btn btn-primary btn-sm"
                onClick={() => handleAddToCartClick(item)}
                >
+                <ShoppingCartCheckoutIcon />
               Add to Cart
               </button>
               </div>

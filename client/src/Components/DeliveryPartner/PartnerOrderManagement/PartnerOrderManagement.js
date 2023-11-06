@@ -285,13 +285,15 @@ function OrderManagement() {
     });
   };
   
-  
+
+
   
 
   return (
     <div>
       <DeliveryHeader />
       <h2 className="order-management mt-5">Orders</h2>
+      
       <div className="row">
         {orders.map((order) => (
           <div className="col-md-4" key={order._id}>
@@ -303,6 +305,7 @@ function OrderManagement() {
                 <p className="card-text">Order Date: {order.orderDate}</p>
                 <p className="card-text">Status: {order.status}</p>
                 <p className="card-text">Total Amount: ${order.totalAmount}</p>
+                <p className="card-text">Payment Type: {order.paymentType}</p>
 
                 {
         order.status === 'Delivered' || order.status === 'Not Delivered' ? (

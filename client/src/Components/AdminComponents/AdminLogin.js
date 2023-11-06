@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from '../../utils/axios';
 import { adminPostLogin } from '../../utils/Constants';
 import Swal from 'sweetalert2';
+import Cookies from 'js-cookie'; // Import js-cookie
 
 import './AdminLogin.css';
 
@@ -19,17 +20,18 @@ function AdminLogin() {
     });
 
     if (email === '' || password === '') {
-      Swal.fire(
-        'Please Fill All the Fields',
-        'All fields are required.',
-        'error'
-      );
+      Swal.fire('Please Fill All the Fields', 'All fields are required.', 'error');
     } else {
       try {
         let admin = await axios.post(adminPostLogin, body, {
           headers: { 'Content-Type': 'application/json' },
         });
+
         if (admin.data.status === 'ok') {
+          // Save the admin token to a cookie
+          Cookies.set('adminToken', admin.data.token);
+
+          // Redirect to the admin home page
           navigate('/adminHome');
         } else {
           Swal.fire({

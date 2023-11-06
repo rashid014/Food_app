@@ -321,4 +321,28 @@ exports.markOrderAsNotDelivered = async (req, res) => {
   }
 };
 
+exports.getPartnerOrders = async (req, res) => {
+  const { partnerId } = req.body; // Assuming partnerId is passed in the request
+
+  try {
+    let orders;
+    if (partnerId) {
+      // If partnerId is provided, fetch orders assigned to that specific partner
+      orders = await Order.find({
+        status: { $nin: ["Cancelled", "Rejected", "Pending","Confirmed"] },
+        assignedDeliveryPartner: partnerId, // Filter orders assigned to the specific partner
+      });
+    } else {
+      // If no partnerId is provided, fetch all orders with a status other than "Cancelled", "Rejected", or "Pending"
+      orders = await Order.find({
+        status: { $nin: ["Cancelled", "Rejected", "Pending","Confirmed"] },
+      });
+    }
+
+    return res.json({ orders });
+  } catch (error) {
+    console.error('Error fetching orders:', error);
+    return res.status(500).json({ error: 'Error fetching orders' });
+  }
+};
 

@@ -1,0 +1,21 @@
+/* Coupon.css */
+.CouponManagement {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* Ensure the component covers the entire viewport height */
+   width: 100%;
+  }
+  .card-coupon{
+    width: 1200px;
+  }
+  .CouponTableContainer {
+    width: 80%; /* Adjust as needed */
+    margin-top: 20px;
+  }
+  
+  .CouponButton {
+    margin-top: 20px;
+  }
+  

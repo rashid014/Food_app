@@ -16,7 +16,7 @@
   display: flex-start;
 }
 .unique1-hero {
-  background-image: url('https://wallpapercave.com/wp/wp4289147.jpg'); /* Add your background image */
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAVAAAACWCAMAAAC/8CD2AAAAA1BMVEX/9fW9/hpcAAAAR0lEQVR4nO3BAQEAAACCIP+vbkhAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAF8GxXYAARizDlgAAAAASUVORK5CYII='); /* Add your background image */
   background-size: cover;
   color: #fff;
   width: 100%;

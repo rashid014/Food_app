@@ -25,7 +25,7 @@ function OrderManagement() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const ordersResponse = await axios.get('http://localhost:4000/api/partnerorders');
+        const ordersResponse = await axios.get('http://localhost:4000/api/partnerpayment');
         setOrders(ordersResponse.data.orders);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -59,12 +59,26 @@ function OrderManagement() {
     fetchData();
   }, []);
 
+  const totalAmountToPay = orders
+  .filter((order) => order.paymentType === 'COD' && (order.status === 'Delivered' || order.status === 'Not Delivered'))
+  .reduce((total, order) => total + parseFloat(order.totalAmount), 0);
+
+
+console.log('Total amount to pay for COD orders: $' + totalAmountToPay.toFixed(2));
+const totalAmountReceivedByDeliveryPartner = orders
+  .filter((order) => (order.status === 'Delivered' || order.status === 'Not Delivered'))
+  .reduce((total, order) => total + parseFloat(order.deliveryCharge), 0);
+
+
   // ... Other functions and JSX
 
   return (
     <div>
       <DeliveryHeader />
-      <h2 className="order-management mt-5">Your payments</h2>
+      <h2 className="order-management mt-5">Your Payments</h2>
+      <p>Total amount to pay for COD orders: ${totalAmountToPay.toFixed(2)}</p>
+      <p>Total amount received by the delivery partner for Delivered/Not Delivered orders: ${totalAmountReceivedByDeliveryPartner.toFixed(2)}</p>
+
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
@@ -73,9 +87,10 @@ function OrderManagement() {
               <TableCell>Customer Name</TableCell>
               <TableCell>Delivery Address</TableCell>
               <TableCell>Order Date</TableCell>
+              <TableCell>Payment Type</TableCell>
               <TableCell>Status</TableCell>
               <TableCell>Total Amount</TableCell>
-              <TableCell>Actions</TableCell>
+              <TableCell>Your Amount</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -85,6 +100,7 @@ function OrderManagement() {
                 <TableCell>{order.customerName}</TableCell>
                 <TableCell>{order.deliveryAddress}</TableCell>
                 <TableCell>{order.orderDate}</TableCell>
+                <TableCell>{order.paymentType}</TableCell>
                 <TableCell>{order.status}</TableCell>
                 <TableCell>${order.totalAmount}</TableCell>
                 <TableCell>
@@ -93,7 +109,7 @@ function OrderManagement() {
                       <div className={`status ${order.status === 'Delivered' ? 'delivered' : 'not-delivered'}`}>
                         <p className="new">
                           {order.status === 'Delivered' ? (
-                           <p className='hey' style={{color:'black'}}>You received $5 as a delivery fee</p> 
+                           <p className='hey' style={{color:'green'}}>You received $5 as a delivery fee</p> 
                           ) : (
                             <span style={{ color: 'red' }}></span>
                           )}
@@ -102,7 +118,7 @@ function OrderManagement() {
                         
                       </div>
                     ) : (
-                      <p>Payment Pending</p>
+                      <p className='hey' style={{color:'#ff8c00 '}}>Payment Pending</p>
                     )
                   }
                 </TableCell>

@@ -79,7 +79,10 @@ const Header = () => {
   return (
     <nav className="Unique4-navbar">
       <div className="Unique4-navbar-brand">
-        <img src={restaurantImage} alt="Restaurant" className="Unique4-brand-logo" />
+      <Link to={`/restaurantHome/${restaurantId}`}>
+      <img src={restaurantImage} alt="Restaurant" className="Unique4-brand-logo" />
+      </Link>
+
         {restaurantData && (
           <>
             <p className="Unique4-brand-name">{restaurantData.restaurantName}</p>
@@ -91,7 +94,7 @@ const Header = () => {
           <>
             <li className="Unique4-nav-item">
             <Button variant="text" component={Link} to={`/restaurantmenu/${restaurantId}`} className="Unique4-nav-link">
-              Menu Management
+              Menu 
             </Button>
             </li>
             <li className="Unique4-nav-item">
@@ -100,10 +103,15 @@ const Header = () => {
             </Button>
             </li>
             <li className="Unique4-nav-item">
-            <Button variant="text" component={Link} to={`/payments/${restaurantId}`} className="Unique4-nav-link">
+            <Button variant="text" component={Link} to={`/restaurantpayment/${restaurantId}`} className="Unique4-nav-link">
                 Payments
               </Button>
             </li>
+              {/* <li className="Unique4-nav-item">
+            <Button variant="text" component={Link} to={`/restaurantcoupon/${restaurantId}`} className="Unique4-nav-link">
+                Coupons
+              </Button>
+            </li> */}
            
           </>
         ) : null}

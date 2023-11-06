@@ -11,7 +11,7 @@ const cartRoutes=require('./routes/cartRoutes')
 const partnerRoutes=require('./routes/partnerRoutes')
 const forgotPassword=require('./routes/forgotPassword')
 const orderRoutes=require("./routes/orderRoutes")
-
+const couponRoutes=require('./routes/couponRoute')
 
 var app = express();
 port=4000
@@ -34,6 +34,7 @@ app.use('/', userRouter);
 app.use('/api',partnerRoutes)
 app.use('/api',forgotPassword)
 app.use('/api',orderRoutes)
+app.use('/api',couponRoutes)
 
 async function startApp() {
     try {

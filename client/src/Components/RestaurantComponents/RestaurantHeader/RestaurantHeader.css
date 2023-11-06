@@ -5,8 +5,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
+  padding: 10px 30px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  height: 100px; 
 }
 
 /* Navbar brand styles */
@@ -34,6 +35,11 @@
   gap: 20px;
   color: #890909;
 }
+.Unique4-nav-item {
+  background-color: white;
+  border-radius: 8px; /* Adjust the value to control the amount of rounding */
+}
+
 
 /* Navigation link styles */
 .Unique4-nav-link {

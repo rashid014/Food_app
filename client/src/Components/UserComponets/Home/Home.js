@@ -6,13 +6,26 @@ import styles from './Home.module.css';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify'; // Import Toast from react-toastify
 import 'react-toastify/dist/ReactToastify.css'; // Import the default CSS
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+import './foodie2.png'
+import banner from './banner.jpg'
+import burger from './burger.jpg'
 import Swal from 'sweetalert2';
-
+import { Grid } from '@mui/material';
+import dosa from './dosa.jpg'
+import arun from './arun2.jpg'
+import sooraj from './sooraj.jpg'
+import front from './front2.jpg'
+import front3 from './front3.jpg'
+import front4 from './front4.jpg'
 import { changeId } from '../../../Redux/restaurantIdsReducer';
 import { setCategoryId } from '../../../Redux/categoryIdSlice';
 import { setItemId } from '../../../Redux/itemsSlice';
 import { addItemToCart } from '../../../Redux/cartSlice';
-import Card from '@mui/material/Card';
+import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 
 
 
@@ -26,6 +39,8 @@ const HomePage = () => {
   const categoryId = useSelector((state) => state.category);
   const itemId = useSelector((state) => state.item);
   const initialCartState = [];
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
   const [restaurants, setRestaurants] = useState([]);
   const [categories, setCategories] = useState([]);
   const [items, setItems] = useState([]);
@@ -171,49 +186,75 @@ const HomePage = () => {
       text: message,
     });
   }
-  
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+    const bannerImages = [
+    front,front4,front3]
+    
+// UseEffect for banner images
+useEffect(() => {
+  const bannerInterval = setInterval(() => {
+    setCurrentImageIndex((prevIndex) => (prevIndex + 1) % bannerImages.length);
+  }, 2000); // Change banner image every 2 seconds (2000 milliseconds)
+
+  return () => {
+    clearInterval(bannerInterval);
+  };
+}, [bannerImages]);
+
 
   return (
     <div className={styles['parent-container']}>
       <div className={styles['homepage-container']}>
-        <h1 className="display-4 mb-5">
-          <div className="card text-center" style={{ width: '1450px' }}>
-            <img
-              src="https://i.imgur.com/kDe8xDB.jpeg" // Replace with the actual image path
-              alt="Static Restaurant Image"
-              className="card-img-top mx-auto" // Use mx-auto to center the image horizontally
-            />
-          </div>
-        </h1>
+      <div className="card text-center-one" style={{ width: '1450px', margin: '0 auto' }}>
+        <img
+          src={bannerImages[currentImageIndex]}
+          alt="Static Restaurant Image"
+          className="card-img-top mx-auto"
+        />
+      </div>
 
         <div className={styles['horizontal-container']}>
           {/* Restaurants */}
           <div className={styles['list-container']}>
-            <h2>Restaurants</h2>
+          <h2 className="heading mt-5" style={{ fontFamily: 'Arial, sans-serif', fontSize: '35px', fontWeight: 'bold', color: '#333' }}>
+            Restaurants
+          </h2>
+
             <div
               className={`d-flex ${styles['horizontal-list-container']}`}
               style={{ width: '100%', overflowX: 'auto', whiteSpace: 'nowrap' }}
             >
-              <ul className={styles['horizontal-list']} style={{ overflowX: 'hidden' }}>
-                {restaurants.map((restaurant) => (
-                 
-                  <li
-                    key={restaurant._id}
-                    className={`list-group-item list-group-item-action ${styles['restaurant-card']}`}
-                    onClick={() => handleRestaurantClick(restaurant)}
-                    style={{ width: '200px', margin: '10px' }}
-                  >
-                    <div className=" d-flex align-items-center">
-                      <img
-                        src={`http://localhost:4000/${restaurant.restaurantImageFile}`} // Set the correct path to your images
-                        alt={restaurant.restaurantName}
-                        className={styles['restaurant-image']}
-                      />
-                    </div>
-                    {restaurant.restaurantName}
-                  </li>
-                ))}
-              </ul>
+ <Grid container spacing={3}>
+      {restaurants.map((restaurant) => (
+        <Grid item xs={12} sm={6} md={2} lg={3} key={restaurant._id}>
+          <Card
+            className={`list-group-item list-group-item-action ${styles['restaurant-card']}`}
+            onClick={() => handleRestaurantClick(restaurant)}
+            style={{ border: '4px solid white', borderRadius: '20px', display: 'flex', flexDirection: 'column' }}
+          >
+            <div style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+              <CardMedia
+                component="img"
+                alt={restaurant.restaurantName}
+                style={{ maxWidth: '100%', maxHeight: '100%' }}
+                image={`http://localhost:4000/${restaurant.restaurantImageFile}`}
+              />
+            </div>
+            <CardContent>
+              <Typography variant="h6" component="div">
+                {restaurant.restaurantName}
+              </Typography>
+            </CardContent>
+          </Card>
+        </Grid>
+      ))}
+    </Grid>
+
             </div>
           </div>
           {/* Categories */}
@@ -238,8 +279,84 @@ const HomePage = () => {
             </div>
           </div> */}
           {/* Items */}
-          <div className={styles['list-container']}>
-            <h2>Items</h2>
+          
+          <Card>
+            <CardContent>
+            <h2
+            className="card-title mt-5"
+            style={{
+              fontFamily: 'Pacifico', // Use Pacifico and fallback to cursive
+              fontSize: '50px',
+              fontWeight: 'bold',
+              color: 'black',
+            }}
+          >
+            Have A Watch
+          </h2>
+
+    <div className="row">
+    <div className="col-md-3">
+          <Link to="/restaurant/65262883bcb7defd73040b76"> {/* Replace "/other-page" with the actual path you want to navigate to */}
+            <h1 className="display-4 mb-5">
+              <div className="card text-center" style={{ width: '350px' }}>
+                <img
+                  src={burger} // Replace with the actual image path
+                  alt="Static Restaurant Image"
+                  className="card-img-top mx-auto" // Use mx-auto to center the image horizontally
+                />
+              </div>
+            </h1>
+          </Link>
+        </div>
+
+      <div className="col-md-3">
+      <Link to="/restaurant/65262cc6bcb7defd7304c6dd">
+        <h1 className="display-4 mb-5">
+          <div className="card text-center" style={{ width: '350px' }}>
+            <img
+              src={dosa} // Replace with the actual image path
+              alt="Static Restaurant Image"
+              className="card-img-top mx-auto" // Use mx-auto to center the image horizontally
+            />
+          </div>
+        </h1>
+        </Link>
+      </div>
+      <div className="col-md-3">
+      <Link to="/restaurant/65262ecfbcb7defd7304d758">
+        <h1 className="display-4 mb-5">
+          <div className="card text-center" style={{ width: '350px' }}>
+            <img
+              src={sooraj} // Replace with the actual image path
+              alt="Static Restaurant Image"
+              className="card-img-top mx-auto" // Use mx-auto to center the image horizontally
+            />
+          </div>
+        </h1>
+        </Link>
+      </div>
+      <div className="col-md-3">
+      <Link to="/restaurant/65262077bcb7defd7302ac58">
+        <h1 className="display-4 mb-5">
+          <div className="card text-center" style={{ width: '350px' }}>
+            <img
+              src={arun} // Replace with the actual image path
+              alt="Static Restaurant Image"
+              className="card-img-top mx-auto" // Use mx-auto to center the image horizontally
+            />
+          </div>
+        </h1>
+        </Link>
+      </div>
+    </div>
+  </CardContent>
+</Card>
+       
+       
+          {/* <div className={styles['list-container']}>
+          <h2 className="heading mt-5" style={{ fontFamily: 'Arial, sans-serif', fontSize: '35px', fontWeight: 'bold', color: '#333' }}>
+            Items
+          </h2>
             <div className={styles['horizontal-list-container']}>
               <ul className={styles['horizontal-list']}>
                 {items.map((item) => (
@@ -264,7 +381,66 @@ const HomePage = () => {
                 ))}
               </ul>
             </div>
-          </div>
+          </div> */}
+
+<div className={styles['horizontal-container']}>
+  {/* Restaurants */}
+  <div className={styles['list-container']}>
+    <h2 className="heading mt-5" style={{ fontFamily: 'Arial, sans-serif', fontSize: '35px', fontWeight: 'bold', color: '#333' }}>
+      Top Selling Items
+    </h2>
+
+    <div
+      className={`d-flex ${styles['horizontal-list-container']}`}
+      style={{
+        width: '100%',
+        overflowX: 'auto',
+        whiteSpace: 'nowrap',
+        display: 'flex',
+        justifyContent: 'center',  // Center horizontally
+        alignItems: 'center',      // Center vertically
+      }}
+    >
+     <Grid container spacing={4}>
+  {items.slice(0, 8).map((item) => ( // Limit to the first 8 items
+    <Grid item xs={12} sm={6} md={2} lg={3} key={item._id}>
+      <Card
+        className={`list-group-item list-group-item-action ${styles['item-card']}`}
+        onClick={() => handleItemClick(item)}
+        style={{ border: '4px solid white', borderRadius: '20px', display: 'flex', flexDirection: 'column' }}
+      >
+        <div style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <CardMedia
+            component="img"
+            alt={item.name}
+            style={{ maxWidth: '100%', maxHeight: '100%' }}
+            image={`http://localhost:4000/${item.image}`}
+          />
+        </div>
+        <CardContent>
+          <Typography variant="h6" component="div">
+            {item.name}
+          </Typography>
+        </CardContent>
+        <div>
+          <button
+            className="btn btn-primary btn-sm"
+            onClick={() => handleAddToCartClick(item, rid)}
+          >
+            <ShoppingCartCheckoutIcon />
+            Add to Cart
+          </button>
+        </div>
+      </Card>
+    </Grid>
+  ))}
+</Grid>
+
+    </div>
+  </div>
+</div>
+
+
         </div>
       </div>
     </div>

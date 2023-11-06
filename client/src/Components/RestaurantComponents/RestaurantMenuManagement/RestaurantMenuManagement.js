@@ -141,8 +141,10 @@ const UniqueRestaurantMenu = () => {
   
 
   return (
+    <>
+     <RestaurantHeader />
     <div className="unique-restaurant-menu-container">
-      <RestaurantHeader />
+     
       <h1>Restaurant Menu Management</h1>
 
       {/* Add Category */}
@@ -254,6 +256,7 @@ const UniqueRestaurantMenu = () => {
         ))}
       </div>
     </div>
+    </>
   );
 };
 

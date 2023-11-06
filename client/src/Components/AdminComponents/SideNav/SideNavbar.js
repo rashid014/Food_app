@@ -11,7 +11,7 @@ import {
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import './SideNavbar.css'; // You should include the CSS file here
 
-const iconSize = 100; // Adjust the icon size as needed
+const iconSize = 50; // Adjust the icon size as needed
 
 const iconStyle = {
   fontSize: iconSize,

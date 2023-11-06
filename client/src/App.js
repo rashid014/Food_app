@@ -39,6 +39,9 @@ import OrderView from './Components/UserComponets/OrderView/OrderView'
 import AdminPayment from './Components/AdminComponents/AdminPayment/AdminPayment'
 import DeliveryPayment from './Components/DeliveryPartner/DeliveryPayment/DeliveryPayment'
 import './App.css'
+import Coupon from './Components/AdminComponents/Coupon/Coupon'
+import Chat from './Components/Chat/chat'
+import RestaurantCoupon from './Components/RestaurantComponents/RestaurantCoupon/RestaurantCoupon'
 
 function App() {
   const[accessToken,setAccessToken]=useState("")
@@ -91,12 +94,15 @@ function App() {
     <Route path="/ordermanagement/:restaurantId" element={<OrderManagement/>} />
     <Route path="/partnerordermanagement/:partnerId" element={<PartnerOrderManagement/>} />
     <Route path="/userorderview" element={<OrderView />} />
-    <Route path="/restaurantpayment" element={<RestaurantPayment/>} />
+    <Route path="/restaurantpayment/:restaurantId" element={<RestaurantPayment/>} />
     <Route path="/partnerpayment/:partnerId" element={<DeliveryPayment/>} />
     admin pages 
     <Route path="/admin-approval" element ={<KycAuthentication />} />
     <Route path="/partner-approval" element ={<PartnerApproval/>} />
     <Route path="/admin-payment" element ={<AdminPayment />} />
+    <Route path="/restaurantcoupon/:restaurantId" element ={<RestaurantCoupon />} />
+    <Route path="/chat" element ={<Chat/>} />
+    <Route path="/coupon" element ={<Coupon />} />
     {
       accessToken && <Route path='/restaurantedit' element={<RestaurantMenuEdit/>} />
     }

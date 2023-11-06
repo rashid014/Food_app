@@ -76,13 +76,10 @@ function Usermanagement() {
 
 
     return (
-      
-             
+      <>
+         <AdminHeader  />
       <div className="horizontal-one">
-          <div>
-            <AdminHeader/>
-        <div >
-       
+        
             <input class="form-control mb-3 w-25 searchadmin" onChange={userSearch} name="query" type="search" placeholder="Search" aria-label="Search"/>
             
                 <button class=" addButtonAdmin" onClick={()=>navigate('/adminAddUser')} >add</button>
@@ -122,8 +119,9 @@ function Usermanagement() {
     </TableContainer>
             <Footer />
         </div>
-        </div>
-        </div>
+        
+        
+        </>
     )
 }
 

@@ -45,11 +45,13 @@ const RestaurantManagement = () => {
   };
 
   return (
+    <>
+   <AdminHeader/>
     <div>
-      
+     
        <div className='hey' style={{paddingTop:'0px'}}>
-       <AdminHeader/>
-      <h1>Restaurant Management</h1>
+       
+      <h1 style={{ textAlign: 'center' }}>Restaurant Management</h1>
       </div>
       <div className="horizontal-container">
         <SideNavbar />
@@ -87,6 +89,7 @@ const RestaurantManagement = () => {
     </TableContainer>
     </div>
     </div>
+    </>
   );
 };
 

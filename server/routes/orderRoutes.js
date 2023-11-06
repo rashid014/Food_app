@@ -11,6 +11,8 @@ router.post('/api/restaurant/update-order-status', orderController.updateOrderSt
 router.post('/restaurant/accept-order', orderController.updateOrderStatus);
 router.post('/restaurant/reject-order', orderController.rejectOrder);
 router.get('/orders/:orderId', orderController.getOrderDetails);
+router.get('/restaurantorders/orders', orderController.getUserOrderDetails);
+router.get('/restaurant/orders/admin', orderController.getAllAdminOrders);
 // router.post('/api/restaurant/send-request', deliveryPartnerController.sendRequestToDeliveryPartners);
 
 // // Delivery Partner Routes

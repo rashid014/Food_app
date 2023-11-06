@@ -265,6 +265,8 @@ const options = {
         paymentMethod:paymentMethod,
         restaurantId: cart[0].restaurantId,
         subtotal: subtotal,
+        commission:commission,
+        remainingAmount:remainingAmount,
       };
 
       const giveData = {

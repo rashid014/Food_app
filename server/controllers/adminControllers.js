@@ -8,25 +8,25 @@ const Restaurant=require('../model/Restaurant')
 
 // const getKycSubmissions=require('../model/kyc')
 module.exports={
-    adminLoginn:async(req,res)=>{
-      
-        try{
-            let adminData=req.body
-            let adminEmail="admin@gmail.com";
-            let password="12345";
-            if(adminEmail==adminData.email && password== adminData.password){
-            //    console.log(adminData)
-                res.json({status:"ok",admin:true})
-
-            }else{
-                res.json({status:"not Ok",error:"admin details invalid"})
-            }
-
-        }catch(err){
-             res.json({status:"error",error:"oops catch error"})
-        }
-    },
-
+ adminLoginn : async (req, res) => {
+    try {
+      const adminData = req.body;
+      const adminEmail = 'admin@gmail.com';
+      const password = '12345';
+  
+      if (adminEmail === adminData.email && password === adminData.password) {
+        // Generate a JWT token with user data
+        const token = jwt.sign({ email: adminData.email, isAdmin: true }, 'secret123');
+  
+        res.json({ status: 'ok', admin: true, token });
+      } else {
+        res.json({ status: 'not ok', error: 'Admin details invalid' });
+      }
+    } catch (err) {
+      console.error('Error in adminLoginn:', err);
+      res.json({ status: 'error', error: 'Oops, catch error' });
+    }
+  },
 
     getAllUsers:async(req,res)=>{
         

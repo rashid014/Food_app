@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './AdminHeader.css';
 import Swal from 'sweetalert2';
+import Cookies from 'js-cookie'; // Import js-cookie
 
 function AdminHeader() {
   const navigate = useNavigate();
@@ -18,10 +19,23 @@ function AdminHeader() {
       confirmButtonText: 'Logout',
     }).then((result) => {
       if (result.isConfirmed) {
-        navigate('/admin');
-      }
-    });
+        // Remove the admin token from cookies or local storage
+        navigate('/admin')
+        Cookies.remove('adminToken');
+    };}
+    )};
+    
+  const verifyAdminToken = () => {
+    const adminToken = Cookies.get('adminToken');
+
+    if (!adminToken) {
+      navigate('/admin');
+    }
   };
+
+  React.useEffect(() => {
+    verifyAdminToken();
+  }, []);
 
   return (
     <nav className="navbar navbar-expand-lg adminHeadernav" style={{ backgroundColor: 'black' }}>

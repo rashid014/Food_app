@@ -14,7 +14,7 @@
 
 /* Styling for the hero section */
 .unique1-hero {
-  background-image: url('https://wallpapercave.com/wp/wp4289147.jpg'); /* Add your background image */
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAVAAAACWCAMAAAC/8CD2AAAAA1BMVEX/9fW9/hpcAAAAR0lEQVR4nO3BAQEAAACCIP+vbkhAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAF8GxXYAARizDlgAAAAASUVORK5CYII='); /* Add your background image */
   background-size: cover;
   color: #fff;
   width: 100%;
@@ -27,7 +27,7 @@
 
 /* Styling for the category sidebar */
 .unique1-category-sidebar {
-  background-color: #f2f2f2;
+  background-color:  #F3F5F0;
   padding: 10px;
   width: 200px;
 }
@@ -35,16 +35,19 @@
 .unique1-category-sidebar ul {
   list-style: none;
   padding: 0;
+  background-color: #F3F5F0;
 }
 
 .unique1-category-sidebar li {
   margin-bottom: 10px;
+  background-color: white;
 }
 
 /* Styling for the category container */
 .unique1-category-container {
   width: calc(100% - 220px); /* Adjust this value based on the width of your sidebar */
   padding-left: 20px;
+  background-color: #f3f5f0;
 }
 
 /* Styling for the category */
@@ -53,7 +56,7 @@
   padding: 20px;
   background-color: #fff;
   border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: red;
   margin-top: 20px;
 }
 
@@ -149,6 +152,7 @@
 
 .unique1-feature:hover {
   transform: translateY(-5px);
+  color: white;
 }
 
 .unique1-feature-icon {

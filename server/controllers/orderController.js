@@ -3,6 +3,9 @@
 const Order = require('../model/Order'); // Import your order model
 const geocoder = require('@mapbox/mapbox-sdk/services/geocoding');
 const mapboxClient = geocoder({ accessToken: 'pk.eyJ1IjoicmFzaGlkMDAxNCIsImEiOiJjbG80OWd6dnowYjdjMmpwMDVmM3FwcHltIn0.QbxE40btQ7RKkBDqdANVDw'});
+const User = require('../model/userMode');
+const jwt = require('jsonwebtoken');
+
 
 exports.getAllOrders = async (req, res) => {
   const { restaurantId } = req.query;
@@ -119,3 +122,29 @@ async function geocodeAddress(address) {
   }
 };
 
+exports.getUserOrderDetails=async(req, res) =>{
+  try {
+    const { authorization } = req.headers;
+ 
+    const decodedToken = jwt.verify(authorization, 'secret123');
+    const userId = decodedToken.id;
+
+    const orders = await Order.find({ user: userId }).exec();
+
+    res.json({ orders });
+  } catch (error) {
+    console.error('Error fetching orders:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+}
+
+exports.getAllAdminOrders = async (req, res) => {
+
+
+  try {
+    const orders = await Order.find(); // Find orders with matching restaurantId
+    res.json({ orders });
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching orders' });
+  }
+};
