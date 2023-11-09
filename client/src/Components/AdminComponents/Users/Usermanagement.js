@@ -86,7 +86,8 @@ function Usermanagement() {
           
                 <TableContainer component={Paper}>
              
-      <Table>
+     
+      <Table style={{ border: '2px solid black' ,marginBottom:350}}>
         <TableHead>
           <TableRow>
             <TableCell className="w-5">No</TableCell>

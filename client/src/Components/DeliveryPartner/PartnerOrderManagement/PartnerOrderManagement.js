@@ -4,6 +4,9 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { Card, Button, Row, Col } from 'react-bootstrap';
 import DeliveryHeader from '../DeliveryHeader/DeliveryHeader';
+import Container from 'react-bootstrap/Container';
+
+
 import './PartnerOrderManagement.css'
 function OrderManagement() {
   const [orders, setOrders] = useState([]);
@@ -16,15 +19,18 @@ function OrderManagement() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const ordersResponse = await axios.get('http://localhost:4000/api/partnerorders');
+        const ordersResponse = await axios.get(`http://localhost:4000/api/partnerorders/${partnerId}`);
         setOrders(ordersResponse.data.orders);
       } catch (error) {
         console.error('Error fetching data:', error);
+      } finally {
+        setIsLoading(false);
       }
     }
 
     fetchData();
   }, []);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -290,89 +296,88 @@ function OrderManagement() {
   
 
   return (
-    <div>
-      <DeliveryHeader />
-      <h2 className="order-management mt-5">Orders</h2>
-      
-      <div className="row">
-        {orders.map((order) => (
-          <div className="col-md-4" key={order._id}>
-            <div className="card mb-4">
-              <div className="card-body">
-                <h5 className="card-title">Order ID: {order._id}</h5>
-                <p className="card-text">Customer Name: {order.customerName}</p>
-                <p className="card-text">Delivery Address: {order.deliveryAddress}</p>
-                <p className="card-text">Order Date: {order.orderDate}</p>
-                <p className="card-text">Status: {order.status}</p>
-                <p className="card-text">Total Amount: ${order.totalAmount}</p>
-                <p className="card-text">Payment Type: {order.paymentType}</p>
+    <>
+     <DeliveryHeader />
+     
+     <Container >
+     <h2 className="order-management mt-5">Orders</h2>
+      <div>
+       
 
-                {
-        order.status === 'Delivered' || order.status === 'Not Delivered' ? (
-          <div className={`status-card ${order.status === 'Delivered' ? 'delivered' : 'not-delivered'}`}>
-        <p className="status-text">
-        {order.status === 'Delivered' ? (
-          <span style={{ color: 'green' }}>&#10004; Delivered</span>
-        ) : (
-          <span style={{ color: 'red' }}>&#10008; Not Delivered</span>
-        )}
-      </p>
+        <div className="row">
+          {orders.map((order) => (
+            <div className="col-md-4" key={order._id}>
+              <div className="card mb-4">
+                <div className="card-body" >
+                  <h5 className="card-title">Order ID: {order._id}</h5>
+                  <p className="card-text">Customer Name: {order.customerName}</p>
+                  <p className="card-text">Delivery Address: {order.deliveryAddress}</p>
+                  <p className="card-text">Order Date: {order.orderDate}</p>
+                  <p className="card-text">Status: {order.status}</p>
+                  <p className="card-text">Total Amount: ${order.totalAmount}</p>
+                  <p className="card-text">Payment Type: {order.paymentType}</p>
 
-      <p className="delivery-fee" style={{ color: 'green' }}>You received $5 as a delivery fee</p>
+                  {order.status === 'Delivered' || order.status === 'Not Delivered' ? (
+                    <div className={`status-card ${order.status === 'Delivered' ? 'delivered' : 'not-delivered'}`}>
+                      <p className="status-text">
+                        {order.status === 'Delivered' ? (
+                          <span style={{ color: 'green' }}>&#10004; Delivered</span>
+                        ) : (
+                          <span style={{ color: 'red' }}>&#10008; Not Delivered</span>
+                        )}
+                      </p>
 
-    </div>
-  ) : (
-    <Button
-      className="btn btn-primary"
-      onClick={() => openCustomModal(order)}
-    >
-      {order.status === 'Delivery Partner Assigned'
-        ? 'Pick-Up'
-        : order.status === 'Order Picked Up'
-        ? 'Ready to Deliver'
-        : 'Accept'}
-    </Button>
-  )
-}
-
-
-
-
+                      <p className="delivery-fee" style={{ color: 'green' }}>You received $5 as a delivery fee</p>
+                    </div>
+                  ) : (
+                    <Button
+                      className="btn btn-primary"
+                      onClick={() => openCustomModal(order)}
+                    >
+                      {order.status === 'Delivery Partner Assigned'
+                        ? 'Pick-Up'
+                        : order.status === 'Order Picked Up'
+                        ? 'Ready to Deliver'
+                        : 'Accept'}
+                    </Button>
+                  )}
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
+        {selectedOrder && (
+          <Row className="mb-3">
+            <Col>
+              <Card>
+                <Card.Body>
+                  <Card.Title>Order Details</Card.Title>
+                  <Card.Text>Order ID: {selectedOrder._id}</Card.Text>
+                  <Card.Text>Customer Name: {selectedOrder.customerName}</Card.Text>
+                  <Card.Text>Delivery Address: {selectedOrder.deliveryAddress}</Card.Text>
+                  <Card.Text>Restaurant Name: {selectedOrder.restaurantName}</Card.Text>
+                  <Card.Text>Order Date: {selectedOrder.orderDate}</Card.Text>
+                  <Card.Text>Status: {selectedOrder.status}</Card.Text>
+                  <h4>Order Items</h4>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Item Name</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Amount</th>
+                      </tr>
+                    </thead>
+                    <tbody></tbody>
+                  </table>
+                </Card.Body>
+              </Card>
+            </Col>
+          </Row>
+        )}
       </div>
-      {selectedOrder && (
-        <Row className="mb-3">
-          <Col>
-            <Card>
-              <Card.Body>
-                <Card.Title>Order Details</Card.Title>
-                <Card.Text>Order ID: {selectedOrder._id}</Card.Text>
-                <Card.Text>Customer Name: {selectedOrder.customerName}</Card.Text>
-                <Card.Text>Delivery Address: {selectedOrder.deliveryAddress}</Card.Text>
-                <Card.Text>Restaurant Name: {selectedOrder.restaurantName}</Card.Text>
-                <Card.Text>Order Date: {selectedOrder.orderDate}</Card.Text>
-                <Card.Text>Status: {selectedOrder.status}</Card.Text>
-                <h4>Order Items</h4>
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Item Name</th>
-                      <th>Price</th>
-                      <th>Quantity</th>
-                      <th>Amount</th>
-                    </tr>
-                  </thead>
-                  <tbody></tbody>
-                </table>
-              </Card.Body>
-            </Card>
-          </Col>
-        </Row>
-      )}
-    </div>
+    </Container>
+    </>
   );
 }
 

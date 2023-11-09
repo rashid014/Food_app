@@ -174,6 +174,8 @@ function OrderManagement() {
  
 
   const openCustomModal = (order) => {
+    const showConfirmRejectButtons = order.status === 'Pending';
+  
     Swal.fire({
       title: 'Order Details',
       html: `
@@ -192,7 +194,7 @@ function OrderManagement() {
         <p class="bright-black">Delivery Address: ${order.deliveryAddress}</p>
         <p class="bright-black">Order Date: ${order.orderDate}</p>
         <p class="bright-black">Status: ${order.status}</p>
-       
+        
         <h4 class="bright-black">Order Items</h4>
         <table>
           <thead>
@@ -203,22 +205,23 @@ function OrderManagement() {
               <th class="bright-black">Amount</th>
             </tr>
           </thead>
-         <tbody>
-        ${generateCartItemsHTML(order.cart)}
-      </tbody>
+          <tbody>
+            ${generateCartItemsHTML(order.cart)}
+          </tbody>
         </table>
         <p class="bright-black total mt-5">Amount: $${order.subtotal}</p>
         <p class="bright-black total1">Tax Amount: $${order.tax}</p>
         <p class="bright-black total1">Delivery Charge: $${order.deliveryCharge}</p>
         <p class="bright-black total1">Total Amount: $${order.totalAmount}</p>`,
-      showCancelButton: true,
-      confirmButtonText: 'Confirm',
+      showCancelButton: showConfirmRejectButtons, // Show confirm and reject buttons conditionally
+      confirmButtonText: showConfirmRejectButtons ? 'Confirm' : 'OK',
       cancelButtonText: 'Reject',
+      showCloseButton: !showConfirmRejectButtons, // Show close button (OK) conditionally
       customClass: {
         confirmButton: 'swal-confirm-button',
         cancelButton: 'swal-cancel-button',
-        popup: 'wider-modal', // Apply the wider-modal class to the popup
-        content: 'wider-modal', // Apply the wider-modal class to the content
+        popup: 'wider-modal',
+        content: 'wider-modal',
       },
     }).then((result) => {
       if (result.isConfirmed) {
@@ -228,6 +231,7 @@ function OrderManagement() {
       }
     });
   };
+  
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -238,13 +242,16 @@ function OrderManagement() {
   };
 
   return (
-    <div>
-      <RestaurantHeader />
+    <>
+    <RestaurantHeader />
+    <div className=''>
+
+      
       <h2 className="order-management mt-5">Order Management</h2>
       <div>
        
         <Paper elevation={3}>
-          <Table style={{ border: '2px solid black' }}>
+          <Table style={{ border: '2px solid black', marginBottom:350}}>
             <TableHead>
               <TableRow style={{ border: '2px solid black' }}>
                 <TableCell>Order No.</TableCell>
@@ -330,6 +337,7 @@ function OrderManagement() {
         </div>
       )}
     </div>
+    </>
   );
 };
 

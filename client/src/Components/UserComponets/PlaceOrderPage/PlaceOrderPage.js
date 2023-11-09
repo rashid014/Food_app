@@ -230,7 +230,7 @@ async function displayRazorpay(totalAmount) {
     return;
   }
 
-  // ... (previous code)
+
 
 const options = {
   key: "rzp_test_VdGdvprTKB8u1w",
@@ -381,7 +381,7 @@ const handleRemove = async (item) => {
               <div className="form-group">
                 <label htmlFor="deliAddress"></label>
                 <textarea
-                  className="form-control"
+                  className="form-control-dis"
                   id="dress"
                   name="dress"
                   value={userDetails.dAddress}

@@ -5,7 +5,7 @@ require('dotenv').config();
 
 // Your Twilio Account SID and Auth Token
 const accountSid = 'ACa9e23a419d5e702889fd7442a44bf4a6';
-const authToken = '784bcf3746076037fad4110888b44c0f'
+const authToken = '74ff3dafb0b979235fc2bccb5916a083'
 
 const client = new twilio(accountSid, authToken);
 

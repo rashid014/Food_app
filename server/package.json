@@ -27,6 +27,7 @@
     "nodemon": "^3.0.1",
     "razorpay": "^2.9.2",
     "save-dev": "^0.0.1-security",
+    "socket.io": "^4.7.2",
     "stream-browserify": "^3.0.0",
     "stripe": "^14.2.0",
     "twilio": "^4.14.0",

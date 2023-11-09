@@ -1,34 +1,50 @@
-/* CSS for the Navbar component */
+/* DeliveryHeader.css */
 
+/* Style for the navbar background */
 .navbar {
-    background-color: #007bff; /* Navbar background color */
-    color: #fff; /* Text color */
-    padding: 10px 0; /* Vertical and horizontal padding */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Drop shadow */
-  }
-  
-  .navbar-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px; /* Horizontal padding inside the container */
-  }
-  
-  .partner-name {
-    font-weight: bold;
-  }
-  
-  .logout-button {
-    background-color: #ff5722; /* Button background color */
-    color: #fff; /* Button text color */
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-  }
-  
-  .logout-button:hover {
-    background-color: #ff7043; /* Button background color on hover */
-  }
-  
+  background-color: #343a40; /* Dark gray background color */
+  border-bottom: 4px solid #28a745; /* Green border at the bottom */
+}
+
+/* Style for the navbar brand (partner name) */
+.navbar-brand {
+  color: #ffffff; /* White text color */
+  font-size: 1.5rem; /* Adjust the font size as needed */
+  font-weight: bold; /* Make the text bold */
+}
+
+/* Style for the "Loading..." text */
+.partner-name {
+  color: #ffffff; /* White text color */
+  font-size: 1.2rem; /* Adjust the font size as needed */
+  font-style: italic; /* Italicize the text */
+}
+
+/* Style for the logout link */
+.nav-link {
+  color: #ffffff; /* White text color */
+  font-weight: bold; /* Make the text bold */
+}
+
+/* Hover effect for the logout link */
+.nav-link:hover {
+  text-decoration: underline; /* Underline the link on hover */
+}
+/* Add this to your CSS file, e.g., styles.css */
+.logout-button {
+  background-color: #f44336; /* Red background color */
+  color: white; /* White text color */
+  border: none; /* Remove button border */
+  padding: 10px 20px; /* Add some padding */
+  text-align: center; /* Center-align text */
+  text-decoration: none; /* Remove underlines from text */
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 5px; /* Rounded corners */
+}
+
+.logout-button:hover {
+  background-color: #d32f2f; /* Darker red on hover */
+}

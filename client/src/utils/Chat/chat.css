@@ -1,0 +1,79 @@
+/* chat.css */
+/* Style for the entire chat container */
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 300px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+  }
+  
+  /* Style for the chat widget header */
+  .rcw-header {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    font-size: 18px;
+  }
+  
+  /* Style for the chat widget subtitle */
+  .rcw-header-subtitle {
+    font-size: 14px;
+  }
+  
+  /* Style for user messages */
+  .rcw-client-message {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 5px;
+  }
+  
+  /* Style for bot responses */
+  .rcw-response {
+    background-color: #f5f5f5;
+    color: #333;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 5px;
+  }
+  
+  /* Style for typing indicator */
+  .rcw-composer.typing {
+    color: #777;
+    font-size: 14px;
+  }
+  
+  /* Style for the "Bot is typing..." message */
+  .typing-message {
+    background-color: #f5f5f5;
+    color: #333;
+    padding: 5px 10px;
+    margin: 5px;
+    border-radius: 5px;
+  }
+  
+  /* Add this to your CSS file */
+.blink {
+    animation: blink 1s infinite; /* Animation duration and iteration */
+  }
+  
+  @keyframes blink {
+    0% {
+      opacity: 1; /* Fully visible */
+    }
+    50% {
+      opacity: 0; /* Completely invisible */
+    }
+    100% {
+      opacity: 1; /* Fully visible */
+    }
+  }
+  

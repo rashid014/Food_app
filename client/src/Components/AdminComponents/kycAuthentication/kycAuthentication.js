@@ -91,7 +91,7 @@ const KycAuthentication = () => {
      
       <div className={styles['table-container']}>
       <TableContainer component={Paper}>
-      <Table>
+      <Table style={{ border: '2px solid black' ,marginBottom:350}}>
         <TableHead>
           <TableRow>
             <TableCell>Restaurant Name</TableCell>

@@ -40,9 +40,9 @@ import AdminPayment from './Components/AdminComponents/AdminPayment/AdminPayment
 import DeliveryPayment from './Components/DeliveryPartner/DeliveryPayment/DeliveryPayment'
 import './App.css'
 import Coupon from './Components/AdminComponents/Coupon/Coupon'
-import Chat from './Components/Chat/chat'
-import RestaurantCoupon from './Components/RestaurantComponents/RestaurantCoupon/RestaurantCoupon'
 
+import RestaurantCoupon from './Components/RestaurantComponents/RestaurantCoupon/RestaurantCoupon'
+import History from './Components/DeliveryPartner/History/History'
 function App() {
   const[accessToken,setAccessToken]=useState("")
   useEffect(
@@ -101,8 +101,10 @@ function App() {
     <Route path="/partner-approval" element ={<PartnerApproval/>} />
     <Route path="/admin-payment" element ={<AdminPayment />} />
     <Route path="/restaurantcoupon/:restaurantId" element ={<RestaurantCoupon />} />
-    <Route path="/chat" element ={<Chat/>} />
+   
     <Route path="/coupon" element ={<Coupon />} />
+    <Route path="/partnerhistory/:partnerId" element ={<History />} />
+    
     {
       accessToken && <Route path='/restaurantedit' element={<RestaurantMenuEdit/>} />
     }

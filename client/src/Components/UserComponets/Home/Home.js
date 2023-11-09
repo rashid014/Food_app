@@ -26,8 +26,7 @@ import { setCategoryId } from '../../../Redux/categoryIdSlice';
 import { setItemId } from '../../../Redux/itemsSlice';
 import { addItemToCart } from '../../../Redux/cartSlice';
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
-
-
+import front5 from './front5.jpg'
 
 
 const HomePage = () => {
@@ -193,7 +192,7 @@ const HomePage = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
     const bannerImages = [
-    front,front4,front3]
+    front4,front,front5,front3]
     
 // UseEffect for banner images
 useEffect(() => {
@@ -210,7 +209,7 @@ useEffect(() => {
   return (
     <div className={styles['parent-container']}>
       <div className={styles['homepage-container']}>
-      <div className="card text-center-one" style={{ width: '1450px', margin: '0 auto' }}>
+      <div className="card text-center-one" style={{ width: '1450px', margin: '0 auto',height:'900px' }}>
         <img
           src={bannerImages[currentImageIndex]}
           alt="Static Restaurant Image"
@@ -418,8 +417,11 @@ useEffect(() => {
           />
         </div>
         <CardContent>
-          <Typography variant="h6" component="div">
+          <Typography variant="h6" component="div" style={{textAlign:'center'}}>
             {item.name}
+            <div style={{textAlign:'center'}}>
+            ₹{item.price}
+            </div>
           </Typography>
         </CardContent>
         <div>

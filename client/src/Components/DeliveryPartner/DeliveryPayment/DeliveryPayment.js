@@ -25,16 +25,20 @@ function OrderManagement() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const ordersResponse = await axios.get('http://localhost:4000/api/partnerpayment');
-        setOrders(ordersResponse.data.orders);
+        const ordersResponse = await axios.get(`http://localhost:4000/api/partnerorders/${partnerId}`);
+        // Filter orders with status other than 'Pending' and 'Confirmed'
+        const filteredOrders = ordersResponse.data.orders.filter(order => !['Pending', 'Confirmed'].includes(order.status));
+        setOrders(filteredOrders);
       } catch (error) {
         console.error('Error fetching data:', error);
+      } finally {
+        setIsLoading(false);
       }
     }
-
+  
     fetchData();
   }, []);
-
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -73,8 +77,10 @@ const totalAmountReceivedByDeliveryPartner = orders
   // ... Other functions and JSX
 
   return (
+    <>
+    <DeliveryHeader />
     <div>
-      <DeliveryHeader />
+      
       <h2 className="order-management mt-5">Your Payments</h2>
       <p>Total amount to pay for COD orders: ${totalAmountToPay.toFixed(2)}</p>
       <p>Total amount received by the delivery partner for Delivered/Not Delivered orders: ${totalAmountReceivedByDeliveryPartner.toFixed(2)}</p>
@@ -134,6 +140,7 @@ const totalAmountReceivedByDeliveryPartner = orders
         </div>
       )}
     </div>
+    </>
   );
 }
 

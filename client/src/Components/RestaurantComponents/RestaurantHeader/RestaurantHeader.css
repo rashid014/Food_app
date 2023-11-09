@@ -7,7 +7,9 @@
   align-items: center;
   padding: 10px 30px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  height: 100px; 
+  height: 100px;
+  width:100vw; 
+  /* margin-bottom: 400px; */
 }
 
 /* Navbar brand styles */

@@ -55,9 +55,7 @@ function SideNavbar() {
             <ListItem button component={Link} to="/admin-payment">
               <ListItemText primary="Restaurant Payment" />
             </ListItem>
-            <ListItem button component={Link} to="/restaurants">
-              <ListItemText primary="Restaurants" />
-            </ListItem>
+           
             <ListItem button component={Link} to="/users">
               <ListItemText primary="Users" />
             </ListItem>

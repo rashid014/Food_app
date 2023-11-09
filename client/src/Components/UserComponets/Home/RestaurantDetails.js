@@ -177,8 +177,8 @@ const Unique1RestaurantOwnerHomePage = () => {
                     <div className="unique1-item-content"> {/* Updated class name */}
                       <p>{item.name}</p>
                       <p>${item.price}</p>
-                      <p>Type of Meal: {item.typeOfMeal}</p>
-                      <p>Time Available: {item.timeAvailable}</p>
+                      {/* <p>Type of Meal: {item.typeOfMeal}</p>
+                      <p>Time Available: {item.timeAvailable}</p> */}
                       <div>
               <button
                className="btn btn-primary btn-sm"

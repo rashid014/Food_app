@@ -17,6 +17,7 @@ import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { Card } from '@mui/material';
 
+
 mapboxgl.accessToken="pk.eyJ1IjoicmFzaGlkMDAxNCIsImEiOiJjbG80OWd6dnowYjdjMmpwMDVmM3FwcHltIn0.QbxE40btQ7RKkBDqdANVDw"
 
 const TOKEN = 'pk.eyJ1IjoicmFzaGlkMDAxNCIsImEiOiJjbG80OWd6dnowYjdjMmpwMDVmM3FwcHltIn0.QbxE40btQ7RKkBDqdANVDw';
@@ -50,6 +51,7 @@ const OrderSuccessPage = () => {
   });
 
   const [distance, setDistance] = useState(null);
+  
 
   const handleViewportChange = (newViewport) => {
     setViewport({ ...viewport, ...newViewport });
@@ -375,11 +377,11 @@ const getOrderSuccessMessage = (status) => {
   
 return (
   <>
-     
+   
   <Header  />
      <div  style={{ minHeight: '100vh' }}>
-
-
+   
+     
      <div id="map" ref={mapRef}></div>
 
     

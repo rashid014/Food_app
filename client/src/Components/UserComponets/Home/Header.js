@@ -91,7 +91,7 @@ function Header() {
         src={imgLogo} // Replace with the image path
         alt="Your Logo"
         style={{
-          height: '80px', // Customize the height as needed
+          height: '100px',width:'100px',// Customize the height as needed
           textDecoration: 'none', // Remove underline
         }}
       />

@@ -24,7 +24,7 @@ router.post('/admin/reject/:submissionId', partnerController.rejectSubmission);
 
 router.post('/partnerlogin', partnerController.login);
 
-router.get('/partnerorders', partnerController.getAllOrders);
+router.get('/partnerorders/:partnerId', partnerController.getAllOrders);
 
 router.post('/restaurant/partneraccept', partnerController.assignDeliveryPartner);
 

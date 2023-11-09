@@ -118,6 +118,10 @@
   border-bottom: none;
   padding-bottom: 0;
 }
+.form-control-dis{
+  display:none;
+  border: #fff;
+}
 
 /* Media Query for Responsive Design */
 @media (max-width: 768px) {

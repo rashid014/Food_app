@@ -192,15 +192,21 @@ exports.verifyToken2 = (req, res) => {
 };
 
 exports.getAllOrders = async (req, res) => {
-  const { partnerId } = req.body; // Assuming partnerId is passed in the request
-
+  const { partnerId } = req.params; // Assuming partnerId is passed in the request
+  console.log("partner"+partnerId)
   try {
     let orders;
+    
     if (partnerId) {
+      
       // If partnerId is provided, fetch orders assigned to that specific partner
       orders = await Order.find({
         status: { $nin: ["Cancelled", "Rejected", "Pending"] },
-        assignedDeliveryPartner: partnerId, // Filter orders assigned to the specific partner
+        $or: [
+          { assignedDeliveryPartner: partnerId },
+          { assignedDeliveryPartner: null }
+        ] // Filter orders assigned to the specific partner
+       
       });
     } else {
       // If no partnerId is provided, fetch all orders with a status other than "Cancelled", "Rejected", or "Pending"

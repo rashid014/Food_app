@@ -63,7 +63,7 @@ const AdminDashboard = () => {
         <SideNavbar />
         
     <TableContainer component={Paper}>
-      <Table>
+    <Table style={{ border: '2px solid black' ,marginBottom:350,margin:5}}>
         <TableHead>
           <TableRow>
             <TableCell>Name</TableCell>

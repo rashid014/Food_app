@@ -56,7 +56,7 @@ const RestaurantManagement = () => {
       <div className="horizontal-container">
         <SideNavbar />
         <TableContainer component={Paper}>
-      <Table>
+        <Table style={{ border: '2px solid black' ,marginBottom:350}}>
         <TableHead>
           <TableRow>
             <TableCell>No</TableCell>
