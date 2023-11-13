@@ -3,7 +3,7 @@ import Swal from 'sweetalert2';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import Header from '../../UserComponets/Home/Header'
-
+import axiosInstance from '../../../utils/axiosInstance'
 
 function UniqueOrderManagement() {
   const [orders, setOrders] = useState([]);
@@ -19,8 +19,8 @@ function UniqueOrderManagement() {
         const token = localStorage.getItem('token');
         
         // Make the GET request with the token in the headers
-        const ordersResponse = await axios.get(
-          'http://localhost:4000/api/restaurantorders/orders',
+        const ordersResponse = await axiosInstance.get(
+          '/api/restaurantorders/orders',
           {
             headers: {
               Authorization: localStorage.getItem('token'),// Assuming it's a Bearer token
@@ -42,7 +42,7 @@ function UniqueOrderManagement() {
     const fetchData = async () => {
       try {
         const token = localStorage.getItem('token');
-        const cartResponse = await axios.get('http://localhost:4000/api/cart', {
+        const cartResponse = await axiosInstance.get('/api/cart', {
           headers: {
             Authorization: token,
           },

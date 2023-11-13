@@ -12,6 +12,8 @@ require('dotenv').config();
 const Order= require('../model/Order')
 const createRazorpayOrder=require('../controllers/razorPayController')
 const mongoose=require('mongoose')
+const Restaurant=require('../model/Restaurant')
+const Item=require("../model/RestaurantItem")
 
 const OtpPhone = require('../model/phoneOtp');
 const sendSMS = require('../util/sendSMS'); // Implement sending SMS logic
@@ -458,6 +460,34 @@ placeOrder: async (req, res) => {
   }
 },
 
+searchRestaurants : async (req, res) => {
+  try {
+   
+    const { term } = req.query;
+    console.log("term"+term)
+    const regex = new RegExp(term, 'i'); // Case-insensitive search
 
+    const restaurants = await Restaurant.find({ restaurantName: regex });
+
+    res.json({ results: restaurants });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+},
+
+searchItems : async (req, res) => {
+  try {
+    const { term } = req.query;
+    const regex = new RegExp(term, 'i'); // Case-insensitive search
+
+    const items = await Item.find({ name: regex });
+
+    res.json({ results: items });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+},
 
 }

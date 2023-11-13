@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './RestaurantSignup.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import axiosInstance from '../../../utils/axiosInstance'
 
 const SignupForm = () => {
   const [formData, setFormData] = useState({
@@ -64,7 +65,7 @@ const SignupForm = () => {
 
     if (Object.keys(validationErrors).length === 0) {
       try {
-        const response = await axios.post('http://localhost:4000/api/signup', formData, {
+        const response = await axiosInstance.post('/api/signup', formData, {
           headers: {
             'Content-Type': 'multipart/form-data', // Set the content type for file uploads
           },

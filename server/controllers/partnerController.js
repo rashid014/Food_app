@@ -207,7 +207,7 @@ exports.getAllOrders = async (req, res) => {
           { assignedDeliveryPartner: null }
         ] // Filter orders assigned to the specific partner
        
-      });
+      }).sort({ _id: -1  });
     } else {
       // If no partnerId is provided, fetch all orders with a status other than "Cancelled", "Rejected", or "Pending"
       orders = await Order.find({

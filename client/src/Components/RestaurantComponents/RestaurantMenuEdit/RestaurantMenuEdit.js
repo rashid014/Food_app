@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './RestaurantMenuEdit.css'
+import axiosInstance from '../../../utils/axiosInstance'
 
 const EditAndDeletePage = ({ type, id }) => {
   const [data, setData] = useState({});
@@ -14,7 +15,7 @@ const EditAndDeletePage = ({ type, id }) => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(`http://localhost:4000/api/${type}/${id}`);
+      const response = await axiosInstance.get(`/api/${type}/${id}`);
       setData(response.data);
     } catch (error) {
       console.error(`Error fetching ${type}:`, error);
@@ -26,7 +27,7 @@ const EditAndDeletePage = ({ type, id }) => {
       // Implement your edit logic here
       // Use data from the 'data' state to update the category or item
       // Example: Update the category name
-      await axios.put(`http://localhost:4000/api/${type}/${id}`, {
+      await axiosInstance.put(`/api/${type}/${id}`, {
         name: data.name,
         // Include other properties for editing
       });
@@ -43,7 +44,7 @@ const EditAndDeletePage = ({ type, id }) => {
       try {
         // Implement your delete logic here
         // Example: Delete the category or item
-        await axios.delete(`http://localhost:4000/api/${type}/${id}`);
+        await axiosInstance.delete(`/api/${type}/${id}`);
 
         // Navigate back to the categories or items page after deleting
         navigate(`/${type}s`);

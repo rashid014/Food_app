@@ -10,6 +10,7 @@ const {updateUserProfile,placeOrder,getOrderDetails}=require('../controllers/use
 const {updateName,updateEmail,verifyOTP1} =require('../controllers/userController')
 const {sendOTP,verifyOTP,checkDuplicate}=require("../controllers/userController")
 const {createRazorpayOrder}=require("../controllers/razorPayController")
+const { searchRestaurants,searchItems} = require('../controllers/userController');
 /* GET home page. */
 router.post('/signup',userSignup);
 router.post('/login',userLogin);
@@ -25,6 +26,9 @@ router.post('/send-otp', sendOTP);
 router.post('/verify-otp', verifyOTP);
 router.post('/verifyemail',verifyOTP1)
 router.get('/api/orders/:orderId', getOrderDetails);
+router.get('/search/restaurants', searchRestaurants);
+router.get('/search/items', searchItems);
+
 
 
 router.put('/update/name', updateName);

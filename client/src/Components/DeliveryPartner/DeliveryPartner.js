@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import axiosInstance from '../../utils/axiosInstance'
 const Signup = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -44,7 +45,7 @@ const Signup = () => {
       }
 
       // Make a POST request to your backend to create a new delivery partner
-      await axios.post('http://localhost:4000/api/partnersignup', formDataToSubmit, {
+      await axiosInstance.post('/api/partnersignup', formDataToSubmit, {
         headers: {
           'Content-Type': 'multipart/form-data', // Set content type for file upload
         },

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import TablePagination from '@mui/material/TablePagination';
+import axiosInstance from '../../../utils/axiosInstance'
 import {
   Table,
   TableBody,
@@ -20,12 +22,14 @@ function OrderManagement() {
   const [deliveryPartners, setDeliveryPartners] = useState([]);
   const [cart, setCart] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
   const { partnerId } = useParams();
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const ordersResponse = await axios.get(`http://localhost:4000/api/partnerorders/${partnerId}`);
+        const ordersResponse = await axiosInstance.get(`/api/partnerorders/${partnerId}`);
         // Filter orders with status other than 'Pending' and 'Confirmed'
         const filteredOrders = ordersResponse.data.orders.filter(order => !['Pending', 'Confirmed'].includes(order.status));
         setOrders(filteredOrders);
@@ -43,7 +47,7 @@ function OrderManagement() {
     const fetchData = async () => {
       try {
         const token = localStorage.getItem('token');
-        const cartResponse = await axios.get('http://localhost:4000/api/cart', {
+        const cartResponse = await axiosInstance.get('/api/cart', {
           headers: {
             Authorization: token,
           },
@@ -73,13 +77,19 @@ const totalAmountReceivedByDeliveryPartner = orders
   .filter((order) => (order.status === 'Delivered' || order.status === 'Not Delivered'))
   .reduce((total, order) => total + parseFloat(order.deliveryCharge), 0);
 
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
 
-  // ... Other functions and JSX
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0); // Reset the page when the number of rows per page changes
+  };
 
   return (
     <>
     <DeliveryHeader />
-    <div>
+    <div style={{marginLeft:50}}>
       
       <h2 className="order-management mt-5">Your Payments</h2>
       <p>Total amount to pay for COD orders: ${totalAmountToPay.toFixed(2)}</p>
@@ -110,7 +120,7 @@ const totalAmountReceivedByDeliveryPartner = orders
                 <TableCell>{order.status}</TableCell>
                 <TableCell>${order.totalAmount}</TableCell>
                 <TableCell>
-                  {
+            {
                     order.status === 'Delivered' || order.status === 'Not Delivered' ? (
                       <div className={`status ${order.status === 'Delivered' ? 'delivered' : 'not-delivered'}`}>
                         <p className="new">
@@ -133,6 +143,15 @@ const totalAmountReceivedByDeliveryPartner = orders
           </TableBody>
         </Table>
       </TableContainer>
+      <TablePagination
+          component="div"
+          count={orders.length}
+          page={page}
+          onPageChange={handleChangePage}
+          rowsPerPage={rowsPerPage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
+              
 
       {selectedOrder && (
         <div>

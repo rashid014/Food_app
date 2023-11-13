@@ -12,6 +12,7 @@ import 'react-toastify/dist/ReactToastify.css'; // Import the default CSS
 import Swal from 'sweetalert2';
 import Button from '@mui/material/Button'; 
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
+import axiosInstance from '../../../utils/axiosInstance'
 
 const Unique1RestaurantOwnerHomePage = () => {
   const { restaurantId } = useParams();
@@ -38,7 +39,7 @@ const Unique1RestaurantOwnerHomePage = () => {
 
   const fetchCategories = async () => {
     try {
-      const response = await axios.get(`http://localhost:4000/api/${restaurantId}/categories`);
+      const response = await axiosInstance.get(`/api/${restaurantId}/categories`);
       setCategories(response.data);
     } catch (error) {
       console.error('Error fetching categories:', error);
@@ -52,7 +53,7 @@ const Unique1RestaurantOwnerHomePage = () => {
   const handleDeleteItem = async (categoryId, itemId) => {
     try {
       // Send an API request to delete the item with itemId in the request body
-      await axios.delete(`http://localhost:4000/api/${restaurantId}/categories/${categoryId}/items`, { data: { itemId } });
+      await axiosInstance.delete(`/api/${restaurantId}/categories/${categoryId}/items`, { data: { itemId } });
 
       // Update the UI by refetching categories
       fetchCategories();
@@ -74,7 +75,7 @@ const Unique1RestaurantOwnerHomePage = () => {
         restaurantId: restaurantId, // Use the restaurantId from Redux
       };
   
-      axios.post('http://localhost:4000/api/cart/add', requestData, { headers })
+      axiosInstance.post('/api/cart/add', requestData, { headers })
         .then((response) => {
           console.log('Response:', response);
           if (response.status === 200) {

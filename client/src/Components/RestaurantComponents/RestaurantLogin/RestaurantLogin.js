@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { changeId } from '../../../Redux/restaurantIdsReducer'; // Import the action from your Redux slice
 import { Link } from 'react-router-dom';
+import axiosInstance from '../../../utils/axiosInstance'
 const Login = () => {
   const [formData, setFormData] = useState({
     email: '',
@@ -15,6 +16,8 @@ const Login = () => {
   const [loginError, setLoginError] = useState(''); // New state for login error message
   const navigate = useNavigate();
   const dispatch = useDispatch(); // Get the dispatch function
+
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -49,7 +52,7 @@ const Login = () => {
     if (Object.keys(validationErrors).length === 0) {
       try {
         // Make a POST request to your server for authentication
-        const response = await axios.post('http://localhost:4000/api/restaurantlogin', formData);
+        const response = await axiosInstance.post('/api/restaurantlogin', formData);
 
         if (response.data.isBlocked) {
           alert('Your account is blocked. Please contact support.');

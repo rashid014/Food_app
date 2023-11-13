@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { removeAllItemsFromCart } from '../../../Redux/cartSlice'
+import axiosInstance from '../../../utils/axiosInstance'
 
 function CheckoutPage(props) {
   const location = useLocation();
@@ -41,7 +42,7 @@ function CheckoutPage(props) {
     const fetchData = async () => {
       try {
         const token = localStorage.getItem('token');
-        const cartResponse = await axios.get('http://localhost:4000/api/cart', {
+        const cartResponse = await axiosInstance.get('/api/cart', {
           headers: {
             Authorization: token,
           },
@@ -169,7 +170,7 @@ function CheckoutPage(props) {
       // Make an API request to place the order
       const token = localStorage.getItem('token');
     
-      const response = await axios.post('http://localhost:4000/api/placeOrder', orderData, {
+      const response = await axiosInstance.post('/api/placeOrder', orderData, {
         headers: {
           Authorization: token,
         },
@@ -278,7 +279,7 @@ const options = {
       const token = localStorage.getItem('token');
 
       try {
-        const response = await axios.post('http://localhost:4000/api/placeOrder', orderData, {
+        const response = await axiosInstance.post('/api/placeOrder', orderData, {
           headers: {
             Authorization: token,
           },
@@ -318,7 +319,7 @@ const handleRemove = async (item) => {
       'Content-Type': 'application/json',
     };
 
-    const response = await axios.post('http://localhost:4000/api/orders/deletemany', { itemId: item._id }, { headers });
+    const response = await axiosInstance.post('/api/orders/deletemany', { itemId: item._id }, { headers });
 
     if (response.data.updatedCart) {
       setCart(response.data.updatedCart);

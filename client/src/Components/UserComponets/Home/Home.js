@@ -27,6 +27,7 @@ import { setItemId } from '../../../Redux/itemsSlice';
 import { addItemToCart } from '../../../Redux/cartSlice';
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 import front5 from './front5.jpg'
+import axiosInstance from '../../../utils/axiosInstance'
 
 
 const HomePage = () => {
@@ -52,7 +53,7 @@ const HomePage = () => {
 
   const fetchRestaurants = async () => {
     try {
-      const response = await axios.get(`http://localhost:4000/api/restaurants/${restaurantId}`);
+      const response = await axiosInstance.get(`/api/restaurants/${restaurantId}`);
       setRestaurants(response.data);
       console.log("data "+JSON.stringify(response.data))
       // setRestaurantId(response.data)
@@ -68,7 +69,7 @@ const HomePage = () => {
 
   const fetchCategories = async (restaurantId) => {
     try {
-      const response = await axios.get(`http://localhost:4000/api/${restaurantId}/categories`);
+      const response = await axiosInstance.get(`/api/${restaurantId}/categories`);
       setCategories(response.data);
     } catch (error) {
       console.error('Error fetching categories:', error);
@@ -78,7 +79,7 @@ const HomePage = () => {
 
   const fetchItems = async (categoryId) => {
     try {
-      const response = await axios.get(`http://localhost:4000/api/restaurants/items`);
+      const response = await axiosInstance.get(`/api/restaurants/items`);
       console.log("my res", response.data);
       setItems(response.data);
     } catch (error) {
@@ -92,7 +93,7 @@ const HomePage = () => {
       console.log('Restaurant clicked:', restaurant);
       dispatch(changeId(restaurant._id));
 
-      const response = await axios.get(`http://localhost:4000/api/restaurants/${restaurant._id}`);
+      const response = await axiosInstance.get(`/api/restaurants/${restaurant._id}`);
       setRestaurants(response.data);
 
       // Fetch categories for the selected restaurant
@@ -124,7 +125,7 @@ const HomePage = () => {
         restaurantId: restaurantId, // Use the restaurantId from Redux
       };
   
-      axios.post('http://localhost:4000/api/cart/add', requestData, { headers })
+      axiosInstance.post('/api/cart/add', requestData, { headers })
         .then((response) => {
           console.log('Response:', response);
           if (response.status === 200) {

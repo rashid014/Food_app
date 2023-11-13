@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { setCategoryId } from '../../../Redux/categoryIdSlice';
 import { setItemId ,updateItemDetails} from '../../../Redux/itemsSlice';
+import axiosInstance from '../../../utils/axiosInstance'
 
 const UniqueRestaurantMenu = () => {
   const { restaurantId } = useParams();
@@ -40,7 +41,7 @@ const UniqueRestaurantMenu = () => {
 
   const fetchCategories = async () => {
     try {
-      const response = await axios.get(`http://localhost:4000/api/${restaurantId}/categories`);
+      const response = await axiosInstance.get(`/api/${restaurantId}/categories`);
       setCategories(response.data);
     } catch (error) {
       console.error('Error fetching categories:', error);
@@ -58,7 +59,7 @@ const UniqueRestaurantMenu = () => {
         formData.append('name', newCategory);
         formData.append('image', newCategoryImage);
 
-        await axios.post(`http://localhost:4000/api/${restaurantId}/categories`, formData, {
+        await axiosInstance.post(`/api/${restaurantId}/categories`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },
@@ -109,8 +110,8 @@ const UniqueRestaurantMenu = () => {
         formData.append('typeOfMeal', newItem.typeOfMeal);
         formData.append('timeAvailable', newItem.timeAvailable);
 
-        await axios.post(
-          `http://localhost:4000/api/${restaurantId}/categories/${selectedCategory}/items`,
+        await axiosInstance.post(
+          `/api/${restaurantId}/categories/${selectedCategory}/items`,
           formData,
           {
             headers: {

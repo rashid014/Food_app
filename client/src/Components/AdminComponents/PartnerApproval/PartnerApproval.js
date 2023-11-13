@@ -11,20 +11,21 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button'; 
+import axiosInstance from '../../../utils/axiosInstance'
 
 const AdminDashboard = () => {
   const [submissions, setSubmissions] = useState([]);
 
   useEffect(() => {
     // Fetch all submissions from the server when the component mounts
-    axios.get('http://localhost:4000/api/admin/submissions').then((response) => {
+    axiosInstance.get('/api/admin/submissions').then((response) => {
       setSubmissions(response.data);
     });
   }, []);
 
   const handleApprove = async (submissionId) => {
     try {
-      await axios.post(`http://localhost:4000/api/admin/approve/${submissionId}`);
+      await axiosInstance.post(`/api/admin/approve/${submissionId}`);
 
       // Update the submission status to "Approved" locally
       setSubmissions((prevSubmissions) =>
@@ -39,7 +40,7 @@ const AdminDashboard = () => {
 
   const handleReject = async (submissionId) => {
     try {
-      await axios.post(`http://localhost:4000/api/admin/reject/${submissionId}`);
+      await axiosInstance.post(`/api/admin/reject/${submissionId}`);
 
       // Update the submission status to "Rejected" locally
       setSubmissions((prevSubmissions) =>

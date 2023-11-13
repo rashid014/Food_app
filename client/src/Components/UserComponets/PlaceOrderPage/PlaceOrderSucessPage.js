@@ -16,7 +16,7 @@ import turf from '@turf/turf';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { Card } from '@mui/material';
-
+import axiosInstance from '../../../utils/axiosInstance'
 
 mapboxgl.accessToken="pk.eyJ1IjoicmFzaGlkMDAxNCIsImEiOiJjbG80OWd6dnowYjdjMmpwMDVmM3FwcHltIn0.QbxE40btQ7RKkBDqdANVDw"
 
@@ -97,7 +97,7 @@ const OrderSuccessPage = () => {
     const fetchData = async () => {
       try {
         const token = localStorage.getItem('token');
-        const cartResponse = await axios.get('http://localhost:4000/api/cart', {
+        const cartResponse = await axiosInstance.get('/api/cart', {
           headers: {
             Authorization: token,
           },
@@ -134,7 +134,7 @@ const OrderSuccessPage = () => {
     if (result.isConfirmed) {
       try {
         // Send a request to update the order status in the database
-        const response = await axios.put(`http://localhost:4000/api/orders/${orderId}`, {
+        const response = await axiosInstance.put(`/api/orders/${orderId}`, {
           status: 'Cancelled', // Set the status to 'Cancelled'
         });
   
@@ -161,7 +161,7 @@ const OrderSuccessPage = () => {
     const fetchOrderDetails = async () => {
       try {
        
-        const response = await axios.get(`http://localhost:4000/api/orders/${orderId}`);
+        const response = await axiosInstance.get(`/api/orders/${orderId}`);
         if (response.data) {
           setOrderDetails(response.data);
           setOrderCancelled(!response.data.isPresent); // Set the cancellation status based on isPresent
@@ -216,7 +216,7 @@ const OrderSuccessPage = () => {
 
     async function fetchLocationData() {
       try {
-        const response = await axios.get('http://localhost:4000/api/map'); // Replace with your actual backend API URL
+        const response = await axiosInstance.get('/api/map'); // Replace with your actual backend API URL
         if (response.data) {
           const { latitude, longitude } = response.data;
           setViewport({

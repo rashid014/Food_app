@@ -6,6 +6,7 @@ import { changeImage } from '../../../Redux/userimageReducer';
 import { change, changeEmail } from '../../../Redux/usernameReducer'; // Import the new actions
 import axios from '../../../utils/axios';
 import Header from '../Home/Header';
+import axiosInstance from '../../../utils/axiosInstance'
 import Swal from 'sweetalert2';
 import './Profile.css';
 
@@ -48,9 +49,9 @@ function Profile() {
     const trimmedName = updatedName.trim(); // Remove leading and trailing spaces
     if (trimmedName) {
       const Token = localStorage.getItem('token');
-      axios
+      axiosInstance
         .put(
-          'http://localhost:4000/update/name',
+          '/update/name',
           { userName: trimmedName, Token: Token },
           {
             headers: {
@@ -77,9 +78,9 @@ function Profile() {
     }
   };
   const handleSaveEmail = () => {
-    axios
+    axiosInstance
       .put(
-        'http://localhost:4000/update/email',
+        '/update/email',
         { email: updatedEmail },
         {
           headers: {
@@ -116,7 +117,7 @@ function Profile() {
   const handleVerifyOTP = async () => {
     try {
       // Send the entered OTP to the server for verification
-      const response = await axios.post('http://localhost:4000/verifyemail', { otp },
+      const response = await axiosInstance.post('/verifyemail', { otp },
       {
         headers: {
           'Content-Type': 'application/json',

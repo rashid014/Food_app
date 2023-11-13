@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import { Card, Button, Row, Col } from 'react-bootstrap';
 import DeliveryHeader from '../DeliveryHeader/DeliveryHeader';
 import Container from 'react-bootstrap/Container';
-
+import axiosInstance from '../../../utils/axiosInstance'
 import './History.css';
 
 function OrderManagement() {
@@ -16,7 +16,7 @@ function OrderManagement() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const ordersResponse = await axios.get(`http://localhost:4000/api/partnerorders/${partnerId}`);
+        const ordersResponse = await axiosInstance.get(`/api/partnerorders/${partnerId}`);
         // Filter orders with status "Delivered" or "Not Delivered"
         const filteredOrders = ordersResponse.data.orders.filter(
           (order) => order.status === 'Delivered' || order.status === 'Not Delivered'

@@ -39,9 +39,10 @@ import OrderView from './Components/UserComponets/OrderView/OrderView'
 import AdminPayment from './Components/AdminComponents/AdminPayment/AdminPayment'
 import DeliveryPayment from './Components/DeliveryPartner/DeliveryPayment/DeliveryPayment'
 import './App.css'
-import Coupon from './Components/AdminComponents/Coupon/Coupon'
 
-import RestaurantCoupon from './Components/RestaurantComponents/RestaurantCoupon/RestaurantCoupon'
+import Search from './Components/UserComponets/Search/Search'
+
+
 import History from './Components/DeliveryPartner/History/History'
 function App() {
   const[accessToken,setAccessToken]=useState("")
@@ -100,9 +101,10 @@ function App() {
     <Route path="/admin-approval" element ={<KycAuthentication />} />
     <Route path="/partner-approval" element ={<PartnerApproval/>} />
     <Route path="/admin-payment" element ={<AdminPayment />} />
-    <Route path="/restaurantcoupon/:restaurantId" element ={<RestaurantCoupon />} />
    
-    <Route path="/coupon" element ={<Coupon />} />
+    <Route path="/search" element={<Search />} />
+   
+  
     <Route path="/partnerhistory/:partnerId" element ={<History />} />
     
     {

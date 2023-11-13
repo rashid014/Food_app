@@ -16,6 +16,7 @@ import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import LoginIcon from '@mui/icons-material/Login';
 import Typography from '@mui/material/Typography';
 import imgLogo from './foodie2.png'
+import TextField from '@mui/material/TextField';
 
 // import {WEYGIAT} from '../../../util/WEYGIAT.jpg'
 
@@ -26,6 +27,18 @@ function Header() {
   const dispatch = useDispatch();
 
   const [anchorEl, setAnchorEl] = useState(null);
+
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const handleSearchSubmit = (event) => {
+    event.preventDefault();
+    // Redirect to the search results page or handle the search logic here
+    navigate(`/search?term=${searchTerm}`);
+  };
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -79,7 +92,7 @@ function Header() {
   const isLoggedIn = !!localStorage.getItem('token');
 
   return (
-    <div className="custom-header-container1">
+    <div className="custom-header-container1"style={{marginLeft:50}}>
      
     <nav className="navbar navbar-expand-lg" style={{ backgroundColor: '#000000', width:"100%" }}>
     <div className="container-fluid"  style={{ backgroundColor: '#000000', height: '80px',width:"1180px" }}>
@@ -96,9 +109,27 @@ function Header() {
         }}
       />
     </Link>
+    <form onSubmit={handleSearchSubmit} style={{ display: 'flex', alignItems: 'center' }}>
+  <TextField  className="MuiButton-root"
+    id="outlined-basic"
+    label="Search"
+    variant="outlined"
+    onChange={handleSearchChange}
+    value={searchTerm}
+    style={{
+      marginLeft: '10px',
+      color: 'white',
+      width: '200px',
+    }}
+  />
+  <button type="submit" className="MuiButton-root"style={{width:67}}>Search</button>
+</form>
+
 
 
 </div>
+
+
       {/* <img src="https://cdn.dribbble.com/users/2512810/screenshots/17592344/media/db7a6f99501c0bd618821204ded13b4e.png?resize=400x0" className="logo" style={{ width: '100px' }} alt="Your Logo" /> */}
 
       <Button>
@@ -117,6 +148,7 @@ function Header() {
           horizontal: 'center',
         }}
       >
+        
         <Button onClick={() => navigate('/profile')}>Profile</Button>
         <Button onClick={isLoggedIn ? handleLogoutUser : () => navigate('/login')}>
           {isLoggedIn ? 'Logout' : 'Login'}
@@ -140,6 +172,7 @@ function Header() {
               {name}
             </span>
           )}
+         
 <Button
         aria-describedby="menu-popover"
         onClick={handleClick}
@@ -174,6 +207,7 @@ function Header() {
           {isLoggedIn ? 'Logout' : 'Login'}
         </Button>
       </Popover>
+   
        </div>
 
             

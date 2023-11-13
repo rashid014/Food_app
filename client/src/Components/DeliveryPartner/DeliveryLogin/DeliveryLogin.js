@@ -6,6 +6,7 @@ import { changePartnerId } from '../../../Redux/partnerIdSlice'; // Import the a
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import axiosInstance from '../../../utils/axiosInstance'
 
 const DeliveryPartnerLogin = () => {
   const [formData, setFormData] = useState({
@@ -48,7 +49,7 @@ const DeliveryPartnerLogin = () => {
 
     if (Object.keys(validationErrors).length === 0) {
       try {
-        const response = await axios.post('http://localhost:4000/api/partnerlogin', formData);
+        const response = await axiosInstance.post('/api/partnerlogin', formData);
 
         if (response.status === 200) {
           const jwtToken = response.data.token;

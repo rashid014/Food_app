@@ -14,7 +14,7 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import {  Card,CardHeader,CardContent} from '@mui/material'
 import { Button } from '@mui/material';
-
+import axiosInstance from '../../../utils/axiosInstance'
 
 
 function AdminPayment() {
@@ -33,8 +33,8 @@ function AdminPayment() {
     async function fetchData() {
       try {
         // Fetch orders from the server
-        const ordersResponse = await axios.get(
-          'http://localhost:4000/api/restaurant/orders/admin'
+        const ordersResponse = await axiosInstance.get(
+          '/api/restaurant/orders/admin'
         );
   
        
@@ -56,7 +56,7 @@ function AdminPayment() {
     const fetchData = async () => {
       try {
         const token = localStorage.getItem('token');
-        const cartResponse = await axios.get('http://localhost:4000/api/cart', {
+        const cartResponse = await axiosInstance.get('/api/cart', {
           headers: {
             Authorization: token,
           },
@@ -168,7 +168,7 @@ function AdminPayment() {
   .reduce((total, order) => total + parseFloat(order.remainingAmount), 0);
 
   return (
-    <div>
+    <div >
       <AdminHeader />
       <h2 className="order-management mt-5">Restaurant Payments</h2>
       <SideNavbar />
@@ -186,7 +186,7 @@ function AdminPayment() {
                 <TableCell>Status</TableCell>
                 <TableCell>Total Amount</TableCell>
                 <TableCell>Commision</TableCell>
-                <TableCell>Your Amount</TableCell>
+                <TableCell>Restaurant Amount</TableCell>
                 <TableCell>Actions</TableCell>
               </TableRow>
             </TableHead>

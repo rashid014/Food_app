@@ -14,6 +14,28 @@
   width: 30px; /* Adjust the width of the user logo as needed */
 }
 
+/* Style the form */
+
+
+/* Style the text field */
+.MuiTextField-root {
+  margin-left: 10px;
+  color: white;
+  width: 200px;
+  height:45px;
+  border: 2px solid white;
+  border-radius: 6px;
+}
+
+/* Style the submit button */
+.MuiButton-root {
+  background-color: #f7f2f2;
+  color: white;
+  margin-left: 10px;
+
+}
+
+
 /* Navbar Links Styles */
 .navbar-nav .nav-link {
   color: rgb(227, 17, 17); /* Text color for the navbar links */

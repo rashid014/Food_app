@@ -13,6 +13,7 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import {  Card,CardHeader,CardContent} from '@mui/material'
 import { Button } from '@mui/material';
+import axiosInstance from '../../../utils/axiosInstance'
 
 
 
@@ -32,29 +33,33 @@ function OrderManagement() {
     async function fetchData() {
       try {
         // Fetch orders from the server
-        const ordersResponse = await axios.get(
-          `http://localhost:4000/api/restaurant/orders?restaurantId=${restaurantId}`
+        const ordersResponse = await axiosInstance.get(
+          `/api/restaurant/orders?restaurantId=${restaurantId}`
         );
-        setOrders(ordersResponse.data.orders);
-
-        // Fetch delivery partners from the server
-        const deliveryPartnersResponse = await axios.get(
-          `http://localhost:4000/api/restaurant/delivery-partners?restaurantId=${restaurantId}`
-        );
-        setDeliveryPartners(deliveryPartnersResponse.data.deliveryPartners);
+  
+        // Sort orders by the latest order (assuming there's a timestamp field in each order)
+        const sortedOrders = ordersResponse.data.orders.sort((a, b) => {
+          return new Date(b.timestamp) - new Date(a.timestamp);
+        });
+  
+        setOrders(sortedOrders);
+  
+      
+        
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     }
-
+  
     fetchData();
   }, [restaurantId]);
+  
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const token = localStorage.getItem('token');
-        const cartResponse = await axios.get('http://localhost:4000/api/cart', {
+        const cartResponse = await axiosInstance.get('/api/cart', {
           headers: {
             Authorization: token,
           },
@@ -101,8 +106,8 @@ function OrderManagement() {
       status: 'Confirmed', // Update the order status to "Confirmed"
     };
 
-    axios
-      .post('http://localhost:4000/api/restaurant/accept-order', requestData)
+    axiosInstance
+      .post('/api/restaurant/accept-order', requestData)
       .then((response) => {
         // Handle the response, e.g., show a success message
         console.log(`Order ${order._id} confirmed successfully.`);
@@ -127,8 +132,8 @@ function OrderManagement() {
       status: 'Rejected', // Update the order status to "Rejected"
     };
 
-    axios
-      .post('http://localhost:4000/api/restaurant/reject-order', requestData)
+    axiosInstance
+      .post('/api/restaurant/reject-order', requestData)
       .then((response) => {
         // Handle the response, e.g., show a success message
         console.log(`Order ${order._id} rejected successfully.`);
@@ -244,7 +249,7 @@ function OrderManagement() {
   return (
     <>
     <RestaurantHeader />
-    <div className=''>
+    <div style={{marginLeft:30}}>
 
       
       <h2 className="order-management mt-5">Order Management</h2>

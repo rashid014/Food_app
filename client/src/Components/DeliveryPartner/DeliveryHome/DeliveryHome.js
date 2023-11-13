@@ -14,14 +14,16 @@ import Col from 'react-bootstrap/Col';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
+import axiosInstance from '../../../utils/axiosInstance'
 import Order from './order.jpg'
 const DeliveryPartnerHomepage = () => {
 const {partnerId}=useParams();
 const [submissions, setSubmissions] = useState([]);
 
+
 useEffect(() => {
   // Fetch all submissions from the server when the component mounts
-  axios.get('http://localhost:4000/api/admin/submissions').then((response) => {
+  axiosInstance.get('/api/admin/submissions').then((response) => {
     setSubmissions(response.data);
   });
 }, []);

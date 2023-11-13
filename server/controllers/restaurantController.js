@@ -97,7 +97,7 @@ exports.login = async (req, res) => {
 
 
 const secretKey = 'secret123'
-exports.verifyToken1 = (req, res) => {
+exports.verifyTokenRestuarant = (req, res) => {
   const { token } = req.body;
 
   if (!token) {

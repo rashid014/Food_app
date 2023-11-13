@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import RestaurantHeader from '../RestaurantHeader/RestaurantHeader';
+import axiosInstance from '../../../utils/axiosInstance'
 
 const Unique2KycPage = () => {
   const [formData, setFormData] = useState({
@@ -26,7 +27,7 @@ const Unique2KycPage = () => {
   useEffect(() => {
     console.log('Restaurant ID:', restaurantId);
     // Check KYC status from the server
-    axios.get(`http://localhost:4000/api/kyc-status/${restaurantId}`)
+    axiosInstance.get(`/api/kyc-status/${restaurantId}`)
       .then((response) => {
         const { isApproved } = response.data;
         setIsKycApproved(isApproved);
@@ -110,7 +111,7 @@ const Unique2KycPage = () => {
     if (Object.keys(validationErrors).length === 0) {
       try {
         console.log('restaurantId:', restaurantId);
-        const response = await axios.post(`http://localhost:4000/api/submit-kyc/${restaurantId}`, formData, {
+        const response = await axiosInstance.post(`/api/submit-kyc/${restaurantId}`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },

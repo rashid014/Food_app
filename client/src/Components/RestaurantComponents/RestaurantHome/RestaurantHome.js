@@ -9,6 +9,7 @@ import { setItemId } from '../../../Redux/itemsSlice';
 import { useNavigate } from 'react-router-dom';
 import swal from 'sweetalert2';
 import Button from '@mui/material/Button'; 
+import axiosInstance from '../../../utils/axiosInstance'
 
 const Unique1RestaurantOwnerHomePage = () => {
   const { restaurantId } = useParams();
@@ -31,13 +32,14 @@ const Unique1RestaurantOwnerHomePage = () => {
   const [isEditModalOpen, setEditModalOpen] = useState(false);
   const [editItem, setEditItem] = useState(null);
 
+  
   useEffect(() => {
     fetchCategories();
   }, [restaurantId]);
 
   const fetchCategories = async () => {
     try {
-      const response = await axios.get(`http://localhost:4000/api/${restaurantId}/categories`);
+      const response = await axiosInstance.get(`/api/${restaurantId}/categories`);
       setCategories(response.data);
     } catch (error) {
       console.error('Error fetching categories:', error);
@@ -65,7 +67,7 @@ const Unique1RestaurantOwnerHomePage = () => {
       // Check the result of the dialog
       if (result.isConfirmed) {
         // User clicked "Yes," proceed with deletion
-        await axios.delete(`http://localhost:4000/api/${restaurantId}/categories/${categoryId}/items`, { data: { itemId } });
+        await axiosInstance.delete(`/api/${restaurantId}/categories/${categoryId}/items`, { data: { itemId } });
         // Update the UI by refetching categories
         fetchCategories();
         swal.fire('Deleted!', 'The item has been deleted.', 'success');
@@ -98,7 +100,7 @@ const Unique1RestaurantOwnerHomePage = () => {
       // For example, you can make an API request to update the item
       // After saving, close the edit modal
       // Update the UI by refetching categories
-      await axios.put(`http://localhost:4000/api/${restaurantId}/categories/${editItem.categoryId}/items/${editItem._id}`, editItem);
+      await axiosInstance.put(`/api/${restaurantId}/categories/${editItem.categoryId}/items/${editItem._id}`, editItem);
       fetchCategories();
       swal.fire('Item Edited', 'The item has been successfully edited.', 'success');
       closeEditModal();
@@ -169,8 +171,8 @@ const Unique1RestaurantOwnerHomePage = () => {
           // Check if a new image was selected
         
 
-          axios
-            .put(`http://localhost:4000/api/${restaurantId}/categories/${item.categoryId}/items/${item._id}`, editedItem)
+          axiosInstance
+            .put(`/api/${restaurantId}/categories/${item.categoryId}/items/${item._id}`, editedItem)
             .then((response) => {
               console.log('Item updated successfully', response.data);
               fetchCategories();

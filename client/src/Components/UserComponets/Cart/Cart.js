@@ -8,6 +8,7 @@ import { setItemId } from '../../../Redux/itemsSlice';
 import Header from '../Home/Header';
 import { useNavigate } from 'react-router-dom';
 import swal from 'sweetalert2';
+import axiosInstance from '../../../utils/axiosInstance'
 
 function CartPage() {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ function CartPage() {
     const fetchCartItems = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get('http://localhost:4000/api/cart', {
+        const response = await axiosInstance.get('/api/cart', {
           headers: {
             Authorization: token,
           },
@@ -50,8 +51,8 @@ function CartPage() {
       'Content-Type': 'application/json',
     };
 
-    axios
-      .post('http://localhost:4000/api/cart/add', { itemId: item._id }, { headers })
+    axiosInstance
+      .post('/api/cart/add', { itemId: item._id }, { headers })
       .then((response) => {
         setCart((prevCart) =>
           prevCart.map((cartItem) =>
@@ -73,8 +74,8 @@ function CartPage() {
       'Content-Type': 'application/json',
     };
 
-    axios
-      .post('http://localhost:4000/api/cart/removeitem', { itemId: item._id }, { headers })
+    axiosInstance
+      .post('/api/cart/removeitem', { itemId: item._id }, { headers })
       .then((response) => {
         setCart((prevCart) =>
           prevCart.map((cartItem) =>
@@ -111,7 +112,7 @@ function CartPage() {
           'Content-Type': 'application/json',
         };
   
-        const response = await axios.post('http://localhost:4000/api/cart/removeall', { itemId: item._id }, { headers });
+        const response = await axiosInstance.post('/api/cart/removeall', { itemId: item._id }, { headers });
   
         if (response.data.updatedCart) {
           setCart(response.data.updatedCart);

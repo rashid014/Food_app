@@ -11,7 +11,7 @@ exports.getAllOrders = async (req, res) => {
   const { restaurantId } = req.query;
  console.log("res"+restaurantId)
   try {
-    const orders = await Order.find({ restaurantId }); // Find orders with matching restaurantId
+    const orders = await Order.find({ restaurantId }).sort({ _id: -1  }); // Find orders with matching restaurantId
     res.json({ orders });
   } catch (error) {
     res.status(500).json({ message: 'Error fetching orders' });

@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import { Card, Button, Row, Col } from 'react-bootstrap';
 import DeliveryHeader from '../DeliveryHeader/DeliveryHeader';
 import Container from 'react-bootstrap/Container';
-
+import axiosInstance from '../../../utils/axiosInstance'
 
 import './PartnerOrderManagement.css'
 function OrderManagement() {
@@ -19,7 +19,7 @@ function OrderManagement() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const ordersResponse = await axios.get(`http://localhost:4000/api/partnerorders/${partnerId}`);
+        const ordersResponse = await axiosInstance.get(`/api/partnerorders/${partnerId}`);
         setOrders(ordersResponse.data.orders);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -36,7 +36,7 @@ function OrderManagement() {
     const fetchData = async () => {
       try {
         const token = localStorage.getItem('token');
-        const cartResponse = await axios.get('http://localhost:4000/api/cart', {
+        const cartResponse = await axiosInstance.get('/api/cart', {
           headers: {
             Authorization: token,
           },
@@ -83,8 +83,8 @@ function OrderManagement() {
       partnerId: partnerId,
     };
 
-    axios
-      .post('http://localhost:4000/api/restaurant/partneraccept', requestData)
+    axiosInstance
+      .post('/api/restaurant/partneraccept', requestData)
       .then((response) => {
         console.log(`Order ${order._id} assigned to a delivery partner successfully.`);
         setOrders((prevOrders) => {
@@ -105,8 +105,8 @@ function OrderManagement() {
       status: 'Order Picked Up',
     };
 
-    axios
-      .post('http://localhost:4000/api/restaurant/pickuporder', requestData)
+    axiosInstance
+      .post('/api/restaurant/pickuporder', requestData)
       .then((response) => {
         console.log(`Order ${order._id} has been picked up.`);
         setOrders((prevOrders) => {
@@ -126,8 +126,8 @@ function OrderManagement() {
       orderId: order._id,
     };
 
-    axios
-      .post('http://localhost:4000/api/restaurant/partnerskip', requestData)
+    axiosInstance
+      .post('/api/restaurant/partnerskip', requestData)
       .then((response) => {
         console.log(`Order ${order._id} skipped successfully.`);
       })
@@ -157,8 +157,8 @@ function OrderManagement() {
       status: 'Delivered',
     };
   
-    axios
-      .post('http://localhost:4000/api/restaurant/deliverorder', requestData)
+    axiosInstance
+      .post('/api/restaurant/deliverorder', requestData)
       .then((response) => {
         console.log(`Order ${order._id} has been delivered.`);
         setOrders((prevOrders) => {
@@ -180,8 +180,8 @@ function OrderManagement() {
       status: 'Not Delivered',
     };
   
-    axios
-      .post('http://localhost:4000/api/restaurant/notdeliverorder', requestData)
+    axiosInstance
+      .post('/api/restaurant/notdeliverorder', requestData)
       .then((response) => {
         console.log(`Order ${order._id} has not been delivered.`);
         setOrders((prevOrders) => {

@@ -15,6 +15,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button'; 
+import axiosInstance from '../../../utils/axiosInstance'
 const KycAuthentication = () => {
   const dispatch = useDispatch();
   const kycList = useSelector((state) => state.kyc.kycSubmissions);
@@ -22,7 +23,7 @@ const KycAuthentication = () => {
 
   const fetchKycSubmissions = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/api/kyc-submissions');
+      const response = await axiosInstance.get('/api/kyc-submissions');
       dispatch(setKycSubmissions(response.data.kycSubmissions));
     } catch (error) {
       console.error('Error fetching KYC submissions:', error);
@@ -31,7 +32,7 @@ const KycAuthentication = () => {
   const approvedKycIds = useSelector((state) => state.kyc.approvedKycIds);
   const approveKyc = async (id) => {
     try {
-      await axios.put(`http://localhost:4000/api/approve-kyc/${id}`);
+      await axiosInstance.put(`/api/approve-kyc/${id}`);
       dispatch(approveKycSubmission(id));
 
       // Update localStorage with the latest approvedKycIds
@@ -48,7 +49,7 @@ const KycAuthentication = () => {
 
   const rejectKyc = async (id) => {
     try {
-      await axios.put(`http://localhost:4000/api/reject-kyc/${id}`);
+      await axiosInstance.put(`/api/reject-kyc/${id}`);
     } catch (error) {
       console.error('Error rejecting KYC:', error);
     }
@@ -56,7 +57,7 @@ const KycAuthentication = () => {
 
   const validateKyc = async (id) => {
     try {
-      await axios.put(`http://localhost:4000/api/validate-kyc/${id}`);
+      await axiosInstance.put(`/api/validate-kyc/${id}`);
       dispatch(validateKycSubmission(id));
 
       // Update local storage with KYC validation status

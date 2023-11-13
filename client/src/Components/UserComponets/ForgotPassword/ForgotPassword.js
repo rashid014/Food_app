@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import axiosInstance from '../../../utils/axiosInstance'
 
 import './ForgotPassword.css';
 
@@ -18,7 +19,7 @@ function ForgotPassword() {
 
     try {
       // Send a request to your backend to generate and send an OTP to the user's email.
-      const response = await axios.post('http://localhost:4000/api/forgot-password', { email,otp,newPassword });
+      const response = await axiosInstance.post('/api/forgot-password', { email,otp,newPassword });
 
       if (response.data.success) {
         setOtpSent(true);
@@ -39,7 +40,7 @@ function ForgotPassword() {
 
     try {
       // Send a request to your backend to verify the OTP and reset the password.
-      const response = await axios.post('http://localhost:4000/api/reset-password', {
+      const response = await axiosInstance.post('/api/reset-password', {
         email,
         otp,
         newPassword,

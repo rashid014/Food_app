@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { loginSuccess } from '../../../Redux/authSlice';
 import './Login.css';
 import Swal from 'sweetalert2';
+import axiosInstance from '../../../utils/axiosInstance'
 
 function Login() {
   const dispatch = useDispatch();
@@ -57,7 +58,7 @@ function Login() {
   
     try {
       // Send OTP verification request here
-      const response = await axios.post('http://localhost:4000/verify-otp', {
+      const response = await axiosInstance.post('/verify-otp', {
         phoneNumber,
         otp,
       });
@@ -89,7 +90,7 @@ function Login() {
   const sendOTP = async () => {
     try {
       // Send OTP to the user's phone number
-      const response = await axios.post('http://localhost:4000/send-otp', {
+      const response = await axiosInstance.post('/send-otp', {
         phoneNumber,
       });
 

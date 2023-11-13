@@ -13,6 +13,7 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import {  Card,CardHeader,CardContent} from '@mui/material'
 import { Button } from '@mui/material';
+import axiosInstance from '../../../utils/axiosInstance'
 
 
 
@@ -32,8 +33,8 @@ function RestaurantPayment() {
     async function fetchData() {
       try {
         // Fetch orders from the server
-        const ordersResponse = await axios.get(
-          `http://localhost:4000/api/restaurant/orders?restaurantId=${restaurantId}`
+        const ordersResponse = await axiosInstance.get(
+          `/api/restaurant/orders?restaurantId=${restaurantId}`
         );
   
         // Filter orders with status "Delivered" or "Not Delivered"
@@ -57,7 +58,7 @@ function RestaurantPayment() {
     const fetchData = async () => {
       try {
         const token = localStorage.getItem('token');
-        const cartResponse = await axios.get('http://localhost:4000/api/cart', {
+        const cartResponse = await axiosInstance.get('/api/cart', {
           headers: {
             Authorization: token,
           },

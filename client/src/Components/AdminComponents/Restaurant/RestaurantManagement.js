@@ -11,6 +11,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button'; 
+import axiosInstance from '../../../utils/axiosInstance'
 
 const RestaurantManagement = () => {
   const [restaurants, setRestaurants] = useState([]);
@@ -21,8 +22,8 @@ const RestaurantManagement = () => {
 
   const fetchRestaurants = () => {
     // Fetch the list of restaurants, including their block/unblock status
-    axios
-      .get('http://localhost:4000/api/restaurant-management') // Corrected endpoint
+    axiosInstance
+      .get('/api/restaurant-management') // Corrected endpoint
       .then((response) => {
         setRestaurants(response.data);
         console.log('response:', response.data); // Corrected log statement
@@ -35,7 +36,7 @@ const RestaurantManagement = () => {
 
   const toggleBlockStatus = (restaurantId, isBlocked) => {
     // Send a request to the backend to toggle the block/unblock status
-    axios.put(`http://localhost:4000/api/restaurant-management/${restaurantId}`, { isBlocked: !isBlocked })
+    axiosInstance.put(`/api/restaurant-management/${restaurantId}`, { isBlocked: !isBlocked })
       .then(() => {
         // Refresh the list of restaurants
         fetchRestaurants();

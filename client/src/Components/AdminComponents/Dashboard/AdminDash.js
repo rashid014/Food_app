@@ -9,6 +9,7 @@ import LocalMallIcon from '@mui/icons-material/LocalMall';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import LocalAtmIcon from '@mui/icons-material/LocalAtm';
 import AddCardIcon from '@mui/icons-material/AddCard';
+import axiosInstance from '../../../utils/axiosInstance'
 import './AdminDash.css';
 
 const AdminHomePage = () => {
@@ -21,8 +22,8 @@ const AdminHomePage = () => {
     async function fetchData() {
       try {
         // Fetch orders from the server
-        const ordersResponse = await axios.get(
-          'http://localhost:4000/api/restaurant/orders/admin'
+        const ordersResponse = await axiosInstance.get(
+          '/api/restaurant/orders/admin'
         );
 
         // Filter orders with status "Delivered" or "Not Delivered"

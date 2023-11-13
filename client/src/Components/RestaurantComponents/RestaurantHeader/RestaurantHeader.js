@@ -6,6 +6,7 @@ import './RestaurantHeader.css'; // Updated CSS file import
 import Cookies from 'js-cookie';
 import axios from 'axios';
 import Button from '@mui/material/Button';
+import axiosInstance from '../../../utils/axiosInstance'
 
 const Header = () => {
   const { restaurantId } = useParams();
@@ -17,7 +18,7 @@ const Header = () => {
 
   const handleLogout = async () => {
     try {
-      const response = await axios.post('http://localhost:4000/api/logout', null, {
+      const response = await axiosInstance.post('/api/logout', null, {
         headers: {
           Authorization: `Bearer ${Cookies.get('jwtsecret')}`,
         },
@@ -42,8 +43,8 @@ const Header = () => {
       navigate('/restaurantlogin');
     } else {
       // Fetch KYC status from your server
-      axios
-        .get(`http://localhost:4000/api/kyc-status/${restaurantId}`, {
+      axiosInstance
+        .get(`/api/kyc-status/${restaurantId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -58,8 +59,8 @@ const Header = () => {
         });
 
       // Fetch other restaurant data
-      axios
-        .post('http://localhost:4000/api/verifytoken1', JSON.stringify({ token }), {
+      axiosInstance
+        .post('/api/verifytoken1', JSON.stringify({ token }), {
           headers: { 'Content-Type': 'application/json' },
         })
         .then((res) => {

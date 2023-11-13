@@ -3,7 +3,7 @@ const router = express.Router();
 const restaurantController = require('../controllers/restaurantController');
 const multer = require('multer');
 const adminControllers= require('../controllers/adminControllers')
-const {  verifyToken1 } = require('../controllers/restaurantController');
+const {  verifyTokenRestuarant } = require('../controllers/restaurantController');
 
 // Set up multer for file uploads
 const storage = multer.diskStorage({
@@ -15,12 +15,13 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
+
 // Handle form submission
 router.post('/signup', upload.single('restaurantImageFile'),restaurantController.signup);
 router.post('/restaurantlogin', restaurantController.login);
-router.post('/verifytoken1',restaurantController.verifyToken1)
+router.post('/verifytoken1',restaurantController.verifyTokenRestuarant)
 router.post('/submit-kyc/:restaurantId',upload.single('idProof'), restaurantController.submitKyc);
-router.post('/restaurantHome/:restaurantId',restaurantController.verifyToken1);
+router.post('/restaurantHome/:restaurantId',restaurantController.verifyTokenRestuarant);
 // for categories and items 
 
 router.get('/:restaurantId/categories', restaurantController.getCategories);
@@ -33,7 +34,7 @@ router.post('/:restaurantId/categories/:categoryId/items', upload.single('image'
 router.post('/logout', restaurantController.logout);
 router.get('/kyc-status/:restaurantId', restaurantController.kycStatus);
 router.get('/getRestaurantsByCategory/:categoryId', restaurantController.getRestaurantsByCategory);
-router.post('/restaurantHome/:restaurantId',restaurantController.verifyToken1);
+router.post('/restaurantHome/:restaurantId',restaurantController.verifyTokenRestuarant);
 router.delete('/:restaurantId/categories/:categoryId/items', restaurantController.deleteItem);
 router.put('/:restaurantId/categories/:categoryId/items/:itemId', upload.single('image'),restaurantController.updateItem);
 //admin route
