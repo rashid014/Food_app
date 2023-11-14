@@ -9,7 +9,7 @@ const { uploadSingleFile } = require('../util/multer');
 const {updateUserProfile,placeOrder,getOrderDetails}=require('../controllers/userController')
 const {updateName,updateEmail,verifyOTP1} =require('../controllers/userController')
 const {sendOTP,verifyOTP,checkDuplicate}=require("../controllers/userController")
-const {createRazorpayOrder}=require("../controllers/razorPayController")
+
 const { searchRestaurants,searchItems} = require('../controllers/userController');
 /* GET home page. */
 router.post('/signup',userSignup);

@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const config = require('./../config/token');
 const nodemailer = require('nodemailer');
 const Order=require('../model/Order')
+const secret=process.env.JWT_SECRET
 require('dotenv').config();
 exports.signup = async (req, res) => {
   try {
@@ -171,7 +172,7 @@ exports.login = async (req, res) => {
 
 
 
-const secretKey = 'secret123'
+
 exports.verifyToken2 = (req, res) => {
   const { token } = req.body;
 
@@ -179,7 +180,7 @@ exports.verifyToken2 = (req, res) => {
     return res.status(400).json({ error: 'Token is missing.' });
   }
 
-  jwt.verify(token, secretKey, (err, decoded) => {
+  jwt.verify(token, secret, (err, decoded) => {
     if (err) {
       return res.status(401).json({ error: 'Token is invalid or expired.' });
     }

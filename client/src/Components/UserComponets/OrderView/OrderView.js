@@ -11,6 +11,7 @@ function UniqueOrderManagement() {
   const [cart, setCart] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const { restaurantId } = useParams();
+  
 
   useEffect(() => {
     async function fetchData() {
@@ -130,7 +131,7 @@ function UniqueOrderManagement() {
        
         <div className="card-order">
           <div className="card-body">
-            <div className="table-responsive">
+            <div className="table-responsive" style={{marginBottom:470,marginLeft:45}}>
               <table className="table table-striped">
                 <thead>
                   <tr>

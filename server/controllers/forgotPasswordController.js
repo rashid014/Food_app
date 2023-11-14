@@ -3,6 +3,8 @@ const crypto = require('crypto'); // for generating OTP
 const User = require('../model/userMode'); // your user model
 const OTP = require('../model/Otp');
 require('dotenv').config();
+console.log(process.env.PASSWORD);
+
 const bcrypt = require('bcrypt');
 
 

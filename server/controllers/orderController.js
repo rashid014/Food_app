@@ -5,6 +5,7 @@ const geocoder = require('@mapbox/mapbox-sdk/services/geocoding');
 const mapboxClient = geocoder({ accessToken: 'pk.eyJ1IjoicmFzaGlkMDAxNCIsImEiOiJjbG80OWd6dnowYjdjMmpwMDVmM3FwcHltIn0.QbxE40btQ7RKkBDqdANVDw'});
 const User = require('../model/userMode');
 const jwt = require('jsonwebtoken');
+const secret=process.env.JWT_SECRET
 
 
 exports.getAllOrders = async (req, res) => {
@@ -126,7 +127,7 @@ exports.getUserOrderDetails=async(req, res) =>{
   try {
     const { authorization } = req.headers;
  
-    const decodedToken = jwt.verify(authorization, 'secret123');
+    const decodedToken = jwt.verify(authorization, secret);
     const userId = decodedToken.id;
 
     const orders = await Order.find({ user: userId }).exec();

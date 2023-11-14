@@ -10,7 +10,7 @@ const OTP = require('../model/Otp');
 const Razorpay = require('razorpay');
 require('dotenv').config();
 const Order= require('../model/Order')
-const createRazorpayOrder=require('../controllers/razorPayController')
+const secret=process.env.JWT_SECRET
 const mongoose=require('mongoose')
 const Restaurant=require('../model/Restaurant')
 const Item=require("../model/RestaurantItem")
@@ -65,7 +65,7 @@ module.exports = {
                         email: user1.email,
                         id: user1._id
                     },
-                        'secret123',
+                        secret,
                         {
                             expiresIn: "7d"
                         }
@@ -90,7 +90,7 @@ module.exports = {
     verifyToken: async (req, res) => {
         try {
 
-            const decodedToken = jwt.verify(req.body.Token, 'secret123')
+            const decodedToken = jwt.verify(req.body.Token, secret)
             const user = await User.findOne({ email: decodedToken.email });
 
             if (user.image) {
@@ -115,7 +115,7 @@ module.exports = {
             let Token = req.params.id;
             let token2 = JSON.parse(Token)
             console.log(token2, "this is the Token")
-            const decodedToken = jwt.verify(token2, 'secret123');
+            const decodedToken = jwt.verify(token2, secret);
             console.log(decodedToken)
             const user = await User.findOne({ _id: decodedToken.id });
             if (user) {
@@ -179,7 +179,7 @@ module.exports = {
           }
       
           // Verify the JWT token to get the user's ID
-          const decodedToken = jwt.verify(authorization, 'secret123');
+          const decodedToken = jwt.verify(authorization, secret);
           const userId = decodedToken.id;
       
           // Find the user by userId and update the 'userName' field
@@ -204,7 +204,7 @@ module.exports = {
           const { email } = req.body;
       
           // Get user ID from the JWT token
-          const decodedToken = jwt.verify(req.headers.authorization, 'secret123');
+          const decodedToken = jwt.verify(req.headers.authorization, secret);
           const userId = decodedToken.id;
       
           // Find the user by userId
@@ -293,7 +293,7 @@ verifyOTP1: async (req, res) => {
   try {
     const { otp } = req.body; // Get the OTP from the request body
 
-    const decodedToken = jwt.verify(req.headers.authorization, 'secret123');
+    const decodedToken = jwt.verify(req.headers.authorization, secret);
     const userId = decodedToken.id;
 
     // Find the user by userId
@@ -340,7 +340,7 @@ verifyOTP :async (req, res) => {
             id: user._id,
             phoneNumber: user.phoneNumber,
           },
-          'secret123',
+          secret,
           {
             expiresIn: '7d',
           }
@@ -375,7 +375,7 @@ placeOrder: async (req, res) => {
     }
 
     // Verify the token
-    const decodedToken = jwt.verify(token, 'secret123'); // Replace 'your-secret-key' with your actual secret key
+    const decodedToken = jwt.verify(token, secret); // Replace 'your-secret-key' with your actual secret key
     const userId = decodedToken.id;
 
     const restaurantId = mongoose.Types.ObjectId(req.body.restaurantId);

@@ -3,7 +3,7 @@ const User=require('../model/userMode')
 const jwt = require('jsonwebtoken');
 const user=require('../model/userMode')
 const Order=require('../model/Order')
-
+const secret=process.env.JWT_SECRET
 
 
 
@@ -16,7 +16,7 @@ exports.getAllCartItems = async (req, res) => {
       return res.status(401).json({ message: 'Unauthorized' });
     }
 
-    const decodedToken = jwt.verify(token, 'secret123');
+    const decodedToken = jwt.verify(token, secret);
     const userId = decodedToken.id;
 
     const user = await User.findById(userId).populate('cart.itemId');
@@ -68,7 +68,7 @@ exports.addToCart = async (req, res) => {
     }
 
     // Verify and decode the token to get the user's information
-    const decodedToken = jwt.verify(token, 'secret123');
+    const decodedToken = jwt.verify(token, secret);
     const userId = decodedToken.id;
 
     // Check if the item exists
@@ -133,7 +133,7 @@ exports.removeFromCart = async (req, res) => {
     }
 
     // Verify and decode the token to get the user's information
-    const decodedToken = jwt.verify(token, 'secret123');
+    const decodedToken = jwt.verify(token, secret);
     const userId = decodedToken.id;
 
     // Find the user by ID
@@ -183,7 +183,7 @@ exports.removeItem = async (req, res) => {
     }
 
     // Verify and decode the token to get the user's information
-    const decodedToken = jwt.verify(token, 'secret123');
+    const decodedToken = jwt.verify(token, secret);
     const userId = decodedToken.id;
 
     // Find the user by ID
@@ -224,7 +224,7 @@ exports.updateCartItemQuantity = async (req, res) => {
     }
 
     // Verify and decode the JWT token
-    const decodedToken = jwt.verify(token, 'secret123');
+    const decodedToken = jwt.verify(token, secret);
 
     // Find the user by ID
     const user = await User.findById(decodedToken.id);
@@ -307,7 +307,7 @@ exports.removeEntireItems = async (req, res) => {
     }
 
     // Verify and decode the token to get the user's information
-    const decodedToken = jwt.verify(token, 'secret123');
+    const decodedToken = jwt.verify(token, secret);
     const userId = decodedToken.id;
 
     // Use Mongoose to remove all cart items for the user

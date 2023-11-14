@@ -13,38 +13,10 @@ const cartRoutes=require('./routes/cartRoutes')
 const partnerRoutes=require('./routes/partnerRoutes')
 const forgotPassword=require('./routes/forgotPassword')
 const orderRoutes=require("./routes/orderRoutes")
-const couponRoutes=require('./routes/couponRoute')
-const chatRoutes=require('./routes/chatRoutes')
+
+
 var app = express();
 port=4000
-
-
-const userSockets = {};
-const deliverySockets = {};
-
-io.on('connection', (socket) => {
-  console.log('A user connected');
-
-  socket.on('user', (userId) => {
-    userSockets[userId] = socket;
-  });
-
-  socket.on('deliveryPartner', (deliveryPartnerId) => {
-    deliverySockets[deliveryPartnerId] = socket;
-  });
-
-  socket.on('message', (data) => {
-    if (data.sender === 'user' && deliverySockets[data.recipient]) {
-      deliverySockets[data.recipient].emit('message', data);
-    } else if (data.sender === 'deliveryPartner' && userSockets[data.recipient]) {
-      userSockets[data.recipient].emit('message', data);
-    }
-  });
-
-  socket.on('disconnect', () => {
-    console.log('A user disconnected');
-  });
-});
 
 
 app.use(cors());
@@ -65,8 +37,8 @@ app.use('/', userRouter);
 app.use('/api',partnerRoutes)
 app.use('/api',forgotPassword)
 app.use('/api',orderRoutes)
-app.use('/api',couponRoutes)
-app.use('/api',chatRoutes)
+
+
 
 async function startApp() {
     try {

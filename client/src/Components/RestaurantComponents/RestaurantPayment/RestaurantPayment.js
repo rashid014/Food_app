@@ -176,7 +176,7 @@ function RestaurantPayment() {
       <div>
       <p>Total amount received by the Restaurant: ${totalAmountReceivedByRestaurant.toFixed(2)}</p>
         <Paper elevation={3}>
-          <Table style={{ border: '2px solid black' ,marginBottom:350}}>
+          <Table style={{ border: '2px solid black' ,marginBottom:350,marginLeft:30}}>
             <TableHead>
               <TableRow style={{ border: '2px solid black'}}>
                 <TableCell>Order No.</TableCell>

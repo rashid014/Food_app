@@ -9,7 +9,7 @@ const {KYC}= require('../model/kyc')
 const Category=require('../model/RestaurantCategory')
 const Item=require('../model/RestaurantItem')
 const Order= require('../model/Order')
-const Razorpay = require('razorpay');
+const secret=process.env.JWT_SECRET
 
 
 // Define the controller method for restaurant signup
@@ -96,7 +96,7 @@ exports.login = async (req, res) => {
 };
 
 
-const secretKey = 'secret123'
+
 exports.verifyTokenRestuarant = (req, res) => {
   const { token } = req.body;
 
@@ -104,7 +104,7 @@ exports.verifyTokenRestuarant = (req, res) => {
     return res.status(400).json({ error: 'Token is missing.' });
   }
 
-  jwt.verify(token, secretKey, (err, decoded) => {
+  jwt.verify(token, secret, (err, decoded) => {
     if (err) {
       return res.status(401).json({ error: 'Token is invalid or expired.' });
     }

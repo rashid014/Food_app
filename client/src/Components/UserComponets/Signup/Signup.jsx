@@ -79,12 +79,8 @@ function Signup() {
   };
 
   return (
-    <div className='signInpage'>
-      <div className='background'>
-        <div className='shape'></div>
-        <div className='shape'></div>
-      </div>
-      <form className='loginForm' onSubmit={(e) => handleSubmit(e)}>
+    <div className='signInpage' style ={{height:1000}}>
+      <form className='loginForm mt-5'style ={{height:850}} onSubmit={(e) => handleSubmit(e)}>
         <h3 className='tag1'>Signup</h3>
         <label className='label1' htmlFor='username'>
           User Name

@@ -4,19 +4,20 @@ const jwt = require('jsonwebtoken')
 const {KYC} = require('../model/kyc');
 const Order=require('../model/Order')
 const Restaurant=require('../model/Restaurant')
-
+const jwtSecret=require('../config/token')
+require('dotenv').config();
 
 // const getKycSubmissions=require('../model/kyc')
 module.exports={
  adminLoginn : async (req, res) => {
     try {
       const adminData = req.body;
-      const adminEmail = 'admin@gmail.com';
-      const password = '12345';
-  
+      const adminEmail = process.env.ADMIN_MAIL;
+      const password = process.env.ADMIN_PASSWORD;
+      const secret=process.env.JWT_SECRET
       if (adminEmail === adminData.email && password === adminData.password) {
         // Generate a JWT token with user data
-        const token = jwt.sign({ email: adminData.email, isAdmin: true }, 'secret123');
+        const token = jwt.sign({ email: adminData.email, isAdmin: true }, secret);
   
         res.json({ status: 'ok', admin: true, token });
       } else {
