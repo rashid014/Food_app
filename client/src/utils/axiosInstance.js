@@ -1,7 +1,7 @@
 // axiosInstance.js
 
 import axios from 'axios';
-
+axios.defaults.withCredentials=true;
 // Create an instance of axios with a custom configuration
 const instance = axios.create({
   baseURL: 'https://lazyfoodie.online/',
