@@ -2,8 +2,6 @@
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
-const socketIo = require('socket.io');
-const io = socketIo(app);
 const cors=require('cors')
 const mongoose=require('mongoose');
 const jwt = require('jsonwebtoken')
@@ -19,7 +17,11 @@ var app = express();
 port=4000
 
 
-app.use(cors());
+app.use(cors({
+  origin: 'https://lazyfoodie.vercel.app',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials:true
+}));
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
