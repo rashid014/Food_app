@@ -4,7 +4,7 @@ import axios from 'axios';
 
 // Create an instance of axios with a custom configuration
 const instance = axios.create({
-  baseURL: 'http://localhost:4000/',
+  baseURL: 'https://lazyfoodie.online/',
 });
 
 // Request interceptor
