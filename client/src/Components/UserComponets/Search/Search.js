@@ -195,7 +195,7 @@ function SearchResults() {
       <div style={{ display: 'flex', flexWrap: 'wrap',marginBottom:520 }}>
         {itemResults.map((result) => (
           <Card key={result._id} style={{ width: 200, margin: 16 }}>
-            <CardMedia component="img" height="140" image={`http://localhost:4000/${result.image}`} alt={result.name} />
+            <CardMedia component="img" height="140" image={`https://lazyfoodie.online/${result.image}`} alt={result.name} />
             <CardContent>
               <Typography variant="h6">{result.name}</Typography>
             </CardContent>
