@@ -242,7 +242,7 @@ useEffect(() => {
                 component="img"
                 alt={restaurant.restaurantName}
                 style={{ maxWidth: '100%', maxHeight: '100%' }}
-                image={`http://localhost:4000/${restaurant.restaurantImageFile}`}
+                image={`https://lazyfoodie.online/${restaurant.restaurantImageFile}`}
               />
             </div>
             <CardContent>
@@ -414,7 +414,7 @@ useEffect(() => {
             component="img"
             alt={item.name}
             style={{ maxWidth: '100%', maxHeight: '100%' }}
-            image={`http://localhost:4000/${item.image}`}
+            image={`https://lazyfoodie.online/${item.image}`}
           />
         </div>
         <CardContent>
