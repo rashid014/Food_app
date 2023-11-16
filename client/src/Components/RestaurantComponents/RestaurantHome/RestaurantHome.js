@@ -226,7 +226,7 @@ const Unique1RestaurantOwnerHomePage = () => {
               {category.items &&
                 category.items.map((item) => (
                   <div key={item._id} className="unique1-item">
-                    <img src={`https://lazyfoodie.vercel.app/${item.image}`} alt={item.name} />
+                    <img src={`https://lazyfoodie.online/${item.image}`} alt={item.name} />
                     <div className="unique1-item-content">
                       <p>{item.name}</p>
                       <p>${item.price}</p>
