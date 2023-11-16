@@ -174,7 +174,7 @@ const Unique1RestaurantOwnerHomePage = () => {
               {category.items &&
                 category.items.map((item) => (
                   <div key={item._id} className="unique1-item"> {/* Updated class name */}
-                    <img src={`http://localhost:4000/${item.image}`} alt={item.name} />
+                    <img src={`https://lazyfoodie.online/${item.image}`} alt={item.name} />
                     <div className="unique1-item-content"> {/* Updated class name */}
                       <p>{item.name}</p>
                       <p>${item.price}</p>
