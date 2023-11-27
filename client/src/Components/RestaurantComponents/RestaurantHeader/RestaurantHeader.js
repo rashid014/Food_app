@@ -49,6 +49,7 @@ const Header = () => {
             Authorization: `Bearer ${token}`,
           },
         })
+        
         .then((res) => {
           if (res.data.isApproved) {
             setIsKycApproved(true);
