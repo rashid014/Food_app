@@ -144,7 +144,7 @@ const UniqueRestaurantMenu = () => {
   return (
     <>
      <RestaurantHeader />
-    <div className="unique-restaurant-menu-container">
+    <div className="unique-restaurant-menu-container"style={{marginLeft:10}}>
      
       <h1>Restaurant Menu Management</h1>
 
