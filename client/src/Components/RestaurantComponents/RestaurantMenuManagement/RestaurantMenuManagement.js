@@ -233,29 +233,7 @@ const UniqueRestaurantMenu = () => {
         </button>
       </div>
 
-      {/* Display Categories and Items */}
-      <div className="unique-category-container">
-        {categories.map((category) => (
-          <div key={category._id} className="unique-category">
-            <div className="unique-category-header">{category.name}</div>
-            <img src={`http://localhost:4000/${category.image}`} alt={category.name} />
-            <div className="unique-category-content">
-              {category.items &&
-                category.items.map((item) => (
-                  <div key={item._id} className="unique-item">
-                    <img src={`http://localhost:4000/${item.image}`} alt={item.name} />
-                    <div className="unique-item-content">
-                      <p>{item.name}</p>
-                      <p>${item.price}</p>
-                      <p>Type of Meal: {item.typeOfMeal}</p>
-                      <p>Time Available: {item.timeAvailable}</p>
-                    </div>
-                  </div>
-                ))}
-            </div>
-          </div>
-        ))}
-      </div>
+   
     </div>
     </>
   );
