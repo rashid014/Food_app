@@ -31,7 +31,9 @@ const Header = ({ partnerName }) => {
 
   return (
     <Navbar bg="dark" variant="dark">
-      <Navbar.Brand>Delivery Partner {partnerName}</Navbar.Brand>
+      <Link to="/partnerhome/:partnerId" className="navbar-brand">
+        <Navbar.Brand>Delivery Partner {partnerName}</Navbar.Brand>
+      </Link>
       <Navbar.Collapse className="justify-content-end">
       <Nav.Link className="logout-button" onClick={handleLogout}>
       Logout
